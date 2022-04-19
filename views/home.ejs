@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Εκπαιδευτική Πλατφόρμα</title>
+    <link rel="stylesheet" href="static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="static/stylesheets/home.css" />
+  </head>
+
+  <body class="d-flex text-center text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div>
+          <h3 class="float-md-start">Εκπαιδευτική Πλατφόρμα</h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end">
+            <a class="nav-link active" aria-current="page" href="#"
+              >Αρχική Σελίδα</a
+            >
+            <a class="nav-link" href="/campgrounds">Μαθήματα</a>
+            <a class="nav-link" href="/login">Σύνδεση</a>
+            <a class="nav-link" href="/register">Εγγραφή</a>
+            <a class="nav-link" href="/about">Πληροφορίες</a>
+            <a class="nav-link" href="/logout">Έξοδος</a>
+          </nav>
+        </div>
+      </header>
+      <main class="px-3">
+        <h1>Ανάπτυξη Εκπαιδευτικής Πλατφόρμας</h1>
+        <p class="lead">
+          Εκπόνηση Πτυχιακής Εργασίας ως μέρος του Προπτυχιακού Τίτλου<br />
+          Σπουδών στο Τμήμα Πληροφορικής Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης
+        </p>
+        <button class="glow-on-hover" type="button">
+          Δείτε όλα τα Μαθήματα
+        </button>
+      </main>
+
+      <footer class="mt-auto text-white-50">
+        <% const year = new Date().getFullYear(); %> <% const month = new
+        Date().toLocaleString('default', { month: 'long' }) %>
+        <small>&copy; Copyright <%= month %> <%= year %> , CSD AUTH</small>
+      </footer>
+    </div>
+
+    <script src="static/js/bootstrap.min.js"></script>
+  </body>
+</html>
