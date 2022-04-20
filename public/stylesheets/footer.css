@@ -1,0 +1,248 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+body {
+  line-height: 1.5;
+  font-family: "Poppins", sans-serif;
+}
+
+footer* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1170px;
+  margin: auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+ul {
+  list-style: none;
+}
+
+.footer {
+  background-color: #24262b;
+  padding-top: 25px;
+  padding-bottom: 10px;
+}
+
+.footer-col {
+  width: 25%;
+  padding: 0 15px;
+}
+
+.footer-col h4 {
+  font-size: 18px;
+  color: #ffffff;
+  text-transform: capitalize;
+  margin-bottom: 35px;
+  font-weight: 500;
+  position: relative;
+}
+
+.footer-col h4::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  background-color: #e91e63;
+  height: 2px;
+  box-sizing: border-box;
+  width: 50px;
+}
+
+.footer-col ul {
+  padding: 0px;
+}
+
+.footer-col ul li:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+  font-size: 16px;
+  text-transform: capitalize;
+  text-decoration: none;
+  font-weight: 300;
+  color: #bbbbbb;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+.footer-col .social-links a {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 0 10px 10px 0;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #ffffff;
+  transition: all 0.5s ease;
+}
+
+.footer-col .social-links a:hover {
+  color: #24262b;
+  background-color: #ffffff;
+}
+
+#TB911-SNS li {
+  cursor: pointer;
+  height: 48px;
+  position: relative;
+  list-style-type: none;
+}
+
+#TB911-SNS .icon {
+  background: #d91e76 url("/static/logos/SocialButton.png") 0 0 no-repeat;
+  background-color: rgba(217, 30, 118, 0.42);
+  border-radius: 30px;
+  display: block;
+  color: #141414;
+  float: none;
+  height: 48px;
+  line-height: 48px;
+  margin: 5px 0;
+  position: relative;
+  text-align: left;
+  text-indent: 90px;
+  text-shadow: #333 0 1px 0;
+  white-space: nowrap;
+  width: 48px;
+  z-index: 5;
+  -webkit-transition: width 0.25s ease-in-out,
+    background-color 0.25s ease-in-out;
+  -moz-transition: width 0.25s ease-in-out, background-color 0.25s ease-in-out;
+  -o-transition: width 0.25s ease-in-out, background-color 0.25s ease-in-out;
+  transition: width 0.25s ease-in-out, background-color 0.25s ease-in-out;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.28) 0 2px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.28) 0 2px 3px;
+  -o-box-shadow: rgba(0, 0, 0, 0.28) 0 2px 3px;
+  box-shadow: rgba(0, 0, 0, 0.28) 0 2px 3px;
+  text-decoration: none;
+}
+
+#TB911-SNS span:hover {
+  visibility: hidden;
+}
+
+#TB911-SNS span {
+  display: block;
+  top: 15px;
+  position: absolute;
+  left: 90px;
+}
+
+#TB911-SNS .icon {
+  color: #fafafa;
+  overflow: hidden;
+}
+
+#TB911-SNS .fb {
+  background-color: rgba(45, 118, 185, 0.42);
+  background-position: 0 -382px;
+}
+
+#TB911-SNS .twit {
+  background-color: rgba(0, 161, 223, 0.42);
+  background-position: 0 -430px;
+}
+
+#TB911-SNS .google {
+  background-color: rgba(167, 0, 0, 0.42);
+  background-position: 0 -478px;
+}
+
+#TB911-SNS .pint {
+  background-color: rgba(204, 0, 0, 0.42);
+  background-position: 0 -526px;
+}
+
+#TB911-SNS .linked {
+  background-color: rgba(0, 87, 114, 0.42);
+  background-position: 0 -574px;
+}
+
+#TB911-SNS .ytube {
+  background-color: rgba(170, 0, 0, 0.42);
+  background-position: 0 -670px;
+}
+
+#TB911-SNS .rss {
+  background-color: rgba(255, 109, 0, 0.42);
+  background-position: 0 -718px;
+}
+
+#TB911-SNS li:hover .icon {
+  width: 250px;
+}
+
+#TB911-SNS li:hover .icon {
+  background-color: #d91e76;
+}
+
+#TB911-SNS li:hover .fb {
+  background-color: #2d76b9;
+  background-position: 0 2px;
+}
+
+#TB911-SNS li:hover .twit {
+  background-color: #00a1df;
+  background-position: 0 -46px;
+}
+
+#TB911-SNS li:hover .google {
+  background-color: #a70000;
+  background-position: 0 -94px;
+}
+
+#TB911-SNS li:hover .pint {
+  background-color: #c00;
+  background-position: 0 -142px;
+}
+
+#TB911-SNS li:hover .linked {
+  background-color: #005772;
+  background-position: 0 -190px;
+}
+
+#TB911-SNS li:hover .ytube {
+  background-color: #a00;
+  background-position: 0 -286px;
+}
+
+#TB911-SNS li:hover .rss {
+  background-color: #ec5601;
+  background-position: 0 -334px;
+}
+
+#TB911-SNS .icon:active {
+  bottom: -2px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+}
+
+/*responsive*/
+@media (max-width: 767px) {
+  .footer-col {
+    width: 50%;
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 574px) {
+  .footer-col {
+    width: 100%;
+  }
+}

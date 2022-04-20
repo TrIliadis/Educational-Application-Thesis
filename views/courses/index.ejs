@@ -1,0 +1,6 @@
+<% layout('layouts/boilerplate') -%>
+<ul>
+  <% for(let course of courses){ %>
+  <li><a href="courses/<%= course.id %> "><%= course.name %></a></li>
+  <% } %>
+</ul>
