@@ -1,3 +1,4 @@
+// Add pause/play video button
 const video = document.getElementById("myVideo");
 
 var btn = document.getElementById("myBtn");

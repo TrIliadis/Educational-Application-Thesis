@@ -1,47 +1,33 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
+const { default: mongoose } = require("mongoose");
+const { Schema } = mongoose;
 
 const ImageSchema = new Schema({
-    url: String,
-    filename: String
+  url: String,
+  filename: String,
 });
 
-ImageSchema.virtual('thumbnail').get(function () {
-    return this.url.replace('/upload', '/upload/w_200');
+ImageSchema.virtual("thumbnail").get(function () {
+  return this.url.replace("/upload", "/upload/w_200");
 });
 
-const opts = { toJSON: { virtuals: true } };
-
-const CampgroundSchema = new Schema({
-    title: String,
-    images: [ImageSchema],
-    geometry: {
-        type: {
-            type: String,
-            enum: ['Point'],
-            required: true
-        },
-        coordinates: {
-            type: [Number],
-            required: true
-        }
+const courseSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  teachers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
-    price: Number,
-    description: String,
-    location: String,
-    author: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    reviews: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Review'
-        }
-    ]
-}, opts);
+  ],
+  description: {
+    type: String,
+    required: true,
+  },
+  files: [String],
+  images: [ImageSchema],
+  lastUpdated: String,
+});
 
-
-
-module.exports = mongoose.model('Course', CourseSchema);
+module.exports = mongoose.model("Course", courseSchema);
