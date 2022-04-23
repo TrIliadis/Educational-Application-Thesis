@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
-.dark {
+.bgDark {
   background: #110f16;
 }
 
@@ -8,7 +8,7 @@ a, a:hover {
   transition: color 0.3s ease-in-out;
 }
 
-#pageHeaderTitle {
+.h1Title {
   color: white;
   margin: 2rem 0;
   text-transform: uppercase;
@@ -176,7 +176,6 @@ a, a:hover {
     background: #18151f;
   }
 }
-/* COLORS */
 .card .card__tagbox .green.play:hover {
   background: #79dd09;
   color: black;

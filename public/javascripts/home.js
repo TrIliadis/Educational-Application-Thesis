@@ -6,9 +6,9 @@ var btn = document.getElementById("myBtn");
 function pauseVideo() {
   if (video.paused) {
     video.play();
-    btn.innerHTML = "Pause";
+    btn.innerHTML = "Παύση Βίντεο";
   } else {
     video.pause();
-    btn.innerHTML = "Play";
+    btn.innerHTML = "Έναρξη Βίντεο";
   }
 }

@@ -9,7 +9,7 @@ $main-blue: #0076bd !default;
 $main-blue-rgb-015: rgba(0, 118, 189, 0.1) !default;
 
 
-.dark {
+.bgDark {
 	background: #110f16;
 }
 
@@ -18,7 +18,7 @@ a, a:hover {
 	transition: color 0.3s ease-in-out;
 }
 
-#pageHeaderTitle {
+.h1Title{
   color: white;
 	margin: 2rem 0;
 	text-transform: uppercase;
@@ -217,7 +217,7 @@ a, a:hover {
   }
 }
 
-/* COLORS */
+
 .card .card__tagbox .green.play:hover {
 	background: $main-green;
 	color: black;
