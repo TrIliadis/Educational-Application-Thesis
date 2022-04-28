@@ -21,6 +21,9 @@ const engine = require("ejs-mate");
 //import Schemas
 const Course = require("./models/course");
 
+//import Helmet
+const helmet = require("helmet");
+
 //connect to DB
 const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/thesis";
 mongoose.connect(dbUrl, {
@@ -50,17 +53,17 @@ app.get("/", (req, res) => {
 
 app.get("/courses", async (req, res) => {
   const courses = await Course.find({});
-  res.render("courses/index", { courses, topic: "Μαθήματα" });
+  res.render("courses/index", { courses, topic: "Μαθήματα", calendar: false });
 });
 
 app.get("/about", (req, res) => {
-  res.render("courses/about", { topic: "Πληροφορίες" });
+  res.render("courses/about", { topic: "Πληροφορίες", calendar: false });
 });
 
 app.get("/courses/:id", async (req, res) => {
   const { id } = req.params;
   const course = await Course.findById(id);
-  res.render("courses/show", { course, topic: course.title });
+  res.render("courses/show", { course, topic: course.title, calendar: true });
 });
 
 app.listen(port, () => {

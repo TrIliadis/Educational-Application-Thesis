@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
 .bgDark {
   background: #110f16;
 }
 
-a, a:hover {
+a,
+a:hover {
   text-decoration: none;
   transition: color 0.3s ease-in-out;
 }
@@ -16,7 +16,6 @@ a, a:hover {
   font-size: 2.5rem;
 }
 
-/* Cards */
 .card {
   flex-wrap: wrap;
   display: flex;
@@ -36,7 +35,8 @@ a, a:hover {
 .card a {
   color: inherit;
 }
-.card h1, .card .h1 {
+.card h1,
+.card .h1 {
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
@@ -143,19 +143,19 @@ a, a:hover {
   .card:hover .card__img {
     transform: scale(1.1);
   }
-  .card:nth-child(2n+1) {
+  .card:nth-child(2n + 1) {
     flex-direction: row;
   }
-  .card:nth-child(2n+0) {
+  .card:nth-child(2n + 0) {
     flex-direction: row-reverse;
   }
-  .card:nth-child(2n+1) .card__text::before {
+  .card:nth-child(2n + 1) .card__text::before {
     left: -12px !important;
-    transform: rotate(4deg);
+    transform: rotate(3deg);
   }
-  .card:nth-child(2n+0) .card__text::before {
+  .card:nth-child(2n + 0) .card__text::before {
     right: -12px !important;
-    transform: rotate(-4deg);
+    transform: rotate(-3deg);
   }
 }
 @media screen and (min-width: 1024px) {
@@ -190,11 +190,19 @@ a, a:hover {
 }
 
 .green::before {
-  background-image: linear-gradient(-30deg, rgba(121, 221, 9, 0.1), transparent 50%);
+  background-image: linear-gradient(
+    -30deg,
+    rgba(121, 221, 9, 0.1),
+    transparent 50%
+  );
 }
 
 .green:nth-child(2n)::before {
-  background-image: linear-gradient(30deg, rgba(121, 221, 9, 0.1), transparent 50%);
+  background-image: linear-gradient(
+    30deg,
+    rgba(121, 221, 9, 0.1),
+    transparent 50%
+  );
 }
 
 .card .card__tagbox .blue.play:hover {
@@ -210,11 +218,19 @@ a, a:hover {
 }
 
 .blue::before {
-  background-image: linear-gradient(-30deg, rgba(0, 118, 189, 0.1), transparent 50%);
+  background-image: linear-gradient(
+    -30deg,
+    rgba(0, 118, 189, 0.1),
+    transparent 50%
+  );
 }
 
 .blue:nth-child(2n)::before {
-  background-image: linear-gradient(30deg, rgba(0, 118, 189, 0.1), transparent 50%);
+  background-image: linear-gradient(
+    30deg,
+    rgba(0, 118, 189, 0.1),
+    transparent 50%
+  );
 }
 
 .card .card__tagbox .red.play:hover {
@@ -230,11 +246,19 @@ a, a:hover {
 }
 
 .red::before {
-  background-image: linear-gradient(-30deg, rgba(189, 21, 11, 0.1), transparent 50%);
+  background-image: linear-gradient(
+    -30deg,
+    rgba(189, 21, 11, 0.1),
+    transparent 50%
+  );
 }
 
 .red:nth-child(2n)::before {
-  background-image: linear-gradient(30deg, rgba(189, 21, 11, 0.1), transparent 50%);
+  background-image: linear-gradient(
+    30deg,
+    rgba(189, 21, 11, 0.1),
+    transparent 50%
+  );
 }
 
 .card .card__tagbox .yellow.play:hover {
@@ -251,45 +275,83 @@ a, a:hover {
 }
 
 .yellow::before {
-  background-image: linear-gradient(-30deg, rgba(189, 187, 73, 0.1), transparent 50%);
+  background-image: linear-gradient(
+    -30deg,
+    rgba(189, 187, 73, 0.1),
+    transparent 50%
+  );
 }
 
 .yellow:nth-child(2n)::before {
-  background-image: linear-gradient(30deg, rgba(189, 187, 73, 0.1), transparent 50%);
+  background-image: linear-gradient(
+    30deg,
+    rgba(189, 187, 73, 0.1),
+    transparent 50%
+  );
 }
 
 @media screen and (min-width: 769px) {
   .green::before {
-    background-image: linear-gradient(-80deg, rgba(121, 221, 9, 0.1), transparent 50%);
+    background-image: linear-gradient(
+      -80deg,
+      rgba(121, 221, 9, 0.1),
+      transparent 50%
+    );
   }
 
   .green:nth-child(2n)::before {
-    background-image: linear-gradient(80deg, rgba(121, 221, 9, 0.1), transparent 50%);
+    background-image: linear-gradient(
+      80deg,
+      rgba(121, 221, 9, 0.1),
+      transparent 50%
+    );
   }
 
   .blue::before {
-    background-image: linear-gradient(-80deg, rgba(0, 118, 189, 0.1), transparent 50%);
+    background-image: linear-gradient(
+      -80deg,
+      rgba(0, 118, 189, 0.1),
+      transparent 50%
+    );
   }
 
   .blue:nth-child(2n)::before {
-    background-image: linear-gradient(80deg, rgba(0, 118, 189, 0.1), transparent 50%);
+    background-image: linear-gradient(
+      80deg,
+      rgba(0, 118, 189, 0.1),
+      transparent 50%
+    );
   }
 
   .red::before {
-    background-image: linear-gradient(-80deg, rgba(189, 21, 11, 0.1), transparent 50%);
+    background-image: linear-gradient(
+      -80deg,
+      rgba(189, 21, 11, 0.1),
+      transparent 50%
+    );
   }
 
   .red:nth-child(2n)::before {
-    background-image: linear-gradient(80deg, rgba(189, 21, 11, 0.1), transparent 50%);
+    background-image: linear-gradient(
+      80deg,
+      rgba(189, 21, 11, 0.1),
+      transparent 50%
+    );
   }
 
   .yellow::before {
-    background-image: linear-gradient(-80deg, rgba(189, 187, 73, 0.1), transparent 50%);
+    background-image: linear-gradient(
+      -80deg,
+      rgba(189, 187, 73, 0.1),
+      transparent 50%
+    );
   }
 
   .yellow:nth-child(2n)::before {
-    background-image: linear-gradient(80deg, rgba(189, 187, 73, 0.1), transparent 50%);
+    background-image: linear-gradient(
+      80deg,
+      rgba(189, 187, 73, 0.1),
+      transparent 50%
+    );
   }
 }
-
-/*# sourceMappingURL=coursesIndex.css.map */
