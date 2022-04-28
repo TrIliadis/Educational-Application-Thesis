@@ -116,6 +116,10 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   npm install npm@latest -g
   ```
+* MongoDB
+  ```sh
+  sudo apt-get install -y mongodb-org
+  ```
 
 
 ### Installation
@@ -223,6 +227,9 @@ Resources that i used in the project and were extremely helpful.
 * [Helmet](https://www.npmjs.com/package/helmet)
 * [Method-Override](https://www.npmjs.com/package/method-override)
 * [Font Awesome](https://fontawesome.com)
+* [Unsplash](https://unsplash.com/)
+* [Pexels](https://www.pexels.com/)
+* [Flaticon](https://www.flaticon.com/)
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>

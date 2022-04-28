@@ -16,7 +16,7 @@ a {
   background: #28404a;
   border-radius: 4px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-  height: 550px;
+  height: 610px;
   perspective: 1000;
   transition: 0.9s;
   transform-style: preserve-3d;
@@ -70,7 +70,8 @@ a {
   width: 100%;
 }
 
-.last-month {
+.last-month,
+.next-month {
   opacity: 0.3;
 }
 
