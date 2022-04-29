@@ -120,6 +120,15 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   sudo apt-get install -y mongodb-org
   ```
+* cd in seeds directory
+  ```sh
+  $ ls
+  courses.js  index.js
+  ```
+* Seed Database
+  ```sh
+  node index.js
+  ```
 
 
 ### Installation
