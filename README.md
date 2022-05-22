@@ -92,7 +92,6 @@ Thesis preparation as part of the Undergraduate Degree in Informatics. The aim o
 
 Major frameworks/libraries used to bootstrap this project:
 
-* [Bootstrap](https://getbootstrap.com)
 * [Node js](https://nodejs.org/en/)
 * [Express js](http://expressjs.com/)
 * [EJS](https://ejs.co/)
@@ -118,6 +117,15 @@ To get a local copy up and running follow these simple example steps.
 * MongoDB
   ```sh
   sudo apt-get install -y mongodb-org
+  ```
+* cd in seeds directory
+  ```sh
+  $ ls
+  courses.js  index.js
+  ```
+* Seed Database
+  ```sh
+  node index.js
   ```
 
 
@@ -220,6 +228,7 @@ Project Link: [https://github.com/TrIliadis/Educational-Application-Thesis](http
 Resources that i used in the project and were extremely helpful.
 
 * [Axios](https://www.npmjs.com/package/axios)
+* [Bootstrap](https://getbootstrap.com)
 * [Connect-Mongo](https://www.npmjs.com/package/connect-mongo)
 * [Dotenv](https://www.npmjs.com/package/dotenv)
 * [EJS-Mate](https://www.npmjs.com/package/ejs-mate)
