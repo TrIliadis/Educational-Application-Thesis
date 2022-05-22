@@ -1,0 +1,66 @@
+<%- layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="static/stylesheets/contact.css" />>
+
+<section class="contact">
+  <div class="contact-box">
+    <div class="contact-links">
+      <h2 class="contactTitle">Επικοινωνία</h2>
+      <div class="links">
+        <div class="link">
+          <a
+            href="https://www.linkedin.com/in/triantafyllos-iliadis-b4b9b7234/"
+          >
+            <img
+              class="contactImg"
+              src="static/logos/linkedin.png"
+              alt="linkedin"
+            />
+          </a>
+        </div>
+        <div class="link">
+          <a href="https://github.com/TrIliadis/Educational-Application-Thesis">
+            <img
+              class="contactImg"
+              src="static/logos/github.png"
+              alt="github"
+            />
+          </a>
+        </div>
+        <div class="link">
+          <a href="https://www.facebook.com/triantafillos.iliadis">
+            <img
+              class="contactImg"
+              src="static/logos/facebook.png"
+              alt="facebook"
+            />
+          </a>
+        </div>
+        <div class="link">
+          <a href="https://gmail.com">
+            <img class="contactImg" src="static/logos/gmail.png" alt="gmail" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="form-body contact-form-wrapper">
+      <form onSubmit="{handleSubmit}">
+        <div class="form-item my-4">
+          <input type="text" name="name" id="name" required />
+          <label class="label-item" for="name"> Όνομα: </label>
+        </div>
+        <div class="form-item my-4">
+          <input type="text" name="email" id="email" required />
+          <label class="label-item" for="email"> Email: </label>
+        </div>
+        <div class="form-item">
+          <textarea class="" name="message" id="message" required></textarea>
+          <label class="label-item" for="message"> Μήνυμα: </label>
+        </div>
+        <button onclick="send();" class="submit-btn mt-4" type="submit">
+          Αποστολή
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+<script src="static/javascripts/contact.js"></script>

@@ -56,21 +56,21 @@
             <span class="last-month">28</span>
             <span class="last-month">29</span>
             <span class="last-month">30</span>
-            <span class=<%= day === "01" ? 'active' : ''%>>01</span>
+            <span class=<%= day === "1" ? 'active' : ''%>>01</span>
           </div>
 
           <div class="second">
-            <span class=<%= day === "02" ? 'active' : ''%>>02</span>
-            <span class=<%= day === "03" ? 'active' : ''%>>03</span>
-            <span class=<%= day === "04" ? 'active' : ''%>>04</span>
-            <span class=<%= day === "05" ? 'active' : ''%>>05</span>
-            <span class=<%= day === "06" ? 'active' : ''%>>06</span>
-            <span class=<%= day === "07" ? 'active' : ''%>>07</span>
-            <span class=<%= day === "08" ? 'active' : ''%>>08</span>
+            <span class=<%= day === "2" ? 'active' : ''%>>02</span>
+            <span class=<%= day === "3" ? 'active' : ''%>>03</span>
+            <span class=<%= day === "4" ? 'active' : ''%>>04</span>
+            <span class=<%= day === "5" ? 'active' : ''%>>05</span>
+            <span class=<%= day === "6" ? 'active' : ''%>>06</span>
+            <span class=<%= day === "7" ? 'active' : ''%>>07</span>
+            <span class=<%= day === "8" ? 'active' : ''%>>08</span>
           </div>
 
           <div class="third">
-            <span class=<%= day === "09" ? 'active' : ''%>>09</span>
+            <span class=<%= day === "9" ? 'active' : ''%>>09</span>
             <span class=<%= day === "10" ? 'active' : ''%>>10</span>
             <span class=<%= day === "11" ? 'active' : ''%>>11</span>
             <span class=<%= day === "12" ? 'active' : ''%>>12</span>
@@ -116,34 +116,34 @@
     </div>
 
     <div class="back">
-      <input placeholder="What's the event?">
+      <input placeholder="Υπενθύμιση">
       <div class="info">
         <div class="date">
           <p class="info-date">
-          Date: <span>Jan 15th, 2016</span>
+          Ημερομηνία: <span><%= date.toLocaleDateString('el-GR', {  month: 'long', day: 'numeric' }) %> </span>
           </p>
           <p class="info-time">
-            Time: <span>6:35 PM</span>
+            Ώρα: <span><%= date.toLocaleTimeString('el-GR', {  hour: 'numeric', minute: 'numeric' }) %></span>
           </p>
         </div>
         <div class="address">
           <p>
-            Address: <span>129 W 81st St, New York, NY</span>
+            Μέρος: <span>zoom link</span>
           </p>
         </div>
         <div class="observations">
           <p>
-            Observations: <span>Be there 15 minutes earlier</span>
+            Παρατηρήσεις: <span>Προσέλευση 15 λεπτά νωρίτερα</span>
           </p>
         </div>
       </div>
 
       <div class="actions">
         <button class="save">
-          Save <i class="ion-checkmark"></i>
+          Αποθήκευση <i class="ion-checkmark"></i>
         </button>
         <button class="dismiss">
-          Dismiss <i class="ion-android-close"></i>
+          Ακύρωση <i class="ion-android-close"></i>
         </button>
       </div>
     </div>

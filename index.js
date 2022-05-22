@@ -56,14 +56,30 @@ app.get("/courses", async (req, res) => {
   res.render("courses/index", { courses, topic: "Μαθήματα", calendar: false });
 });
 
-app.get("/about", (req, res) => {
-  res.render("courses/about", { topic: "Πληροφορίες", calendar: false });
+app.get("/contact", (req, res) => {
+  res.render("contact", { topic: "Επικοινωνία", calendar: false });
+});
+
+app.get("/register", (req, res) => {
+  res.render("users/register", { topic: "Εγγραφή", calendar: false });
+});
+
+app.get("/login", (req, res) => {
+  res.render("users/login", { topic: "Σύνδεση", calendar: false });
+});
+
+app.get("/edit", (req, res) => {
+  res.render("users/edit", { topic: "Επεξεργασία Προφίλ", calendar: false });
 });
 
 app.get("/courses/:id", async (req, res) => {
   const { id } = req.params;
   const course = await Course.findById(id);
   res.render("courses/show", { course, topic: course.title, calendar: true });
+});
+
+app.get("*", (req, res) => {
+  res.render("error", { topic: "404", calendar: false });
 });
 
 app.listen(port, () => {

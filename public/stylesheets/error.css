@@ -1,74 +1,22 @@
-body {
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.8);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.9);
+.img-error {
+  width: 1080px;
+  height: 500px;
 }
 
-.cover-container {
-  position: relative;
-  max-width: 85vw;
-}
-
-.books {
-  margin-right: 0.5rem;
-}
-
-#myVideo {
-  filter: brightness(60%);
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-}
-
-.pause-btn {
-  width: 200px;
-  font-size: 18px;
-  padding: 10px;
-  border: none;
-  background: #000;
-  color: #fff;
-  cursor: pointer;
-}
-
-.pause-btn:hover {
-  position: relative;
-  background: #ddd;
-  color: black;
-}
-
-.content {
-  position: fixed;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  color: #f1f1f1;
+.center-error {
+  margin: auto;
   width: 100%;
-  padding: 15px;
-  z-index: 2;
+  padding: 10px;
 }
 
-.nav-link {
-  position: relative;
-  padding: 0.25rem 0;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  margin-left: 1rem;
-  border-bottom: 0.25rem solid transparent;
+.center-error-text {
+  margin: auto;
+  width: 50%;
 }
 
-.nav-link:hover {
-  position: relative;
-  color: rgba(255, 255, 255, 0.5);
-  border-bottom-color: rgba(255, 255, 255, 0.5);
-}
-
-.nav-link.active {
-  position: relative;
-  color: white;
-  border-bottom-color: white;
+.text {
+  color: whitesmoke;
+  text-align: center;
 }
 
 .btn-secondary,
@@ -136,7 +84,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #111;
+  background: rgb(111, 62, 62);
   left: 0;
   top: 0;
   border-radius: 10px;

@@ -24,10 +24,10 @@ function randomDate(start, end) {
 //Dummy seed DB
 const seedDB = async () => {
   await Course.deleteMany({});
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 16; i++) {
     //get random images
     const img = await axios.get(
-      "https://api.unsplash.com/photos/random/?client_id=5oyzn1pALQH16hRegJFZsFnTV8Ov9LqrYGnm5NYYPhI&collections=3449805"
+      "https://api.unsplash.com/photos/random/?client_id=5oyzn1pALQH16hRegJFZsFnTV8Ov9LqrYGnm5NYYPhI&collections=907185"
     );
     const img2 = await axios.get(
       "https://api.unsplash.com/photos/random/?client_id=5oyzn1pALQH16hRegJFZsFnTV8Ov9LqrYGnm5NYYPhI&collections=4377190"
