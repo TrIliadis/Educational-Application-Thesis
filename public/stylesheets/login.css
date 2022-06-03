@@ -1,0 +1,130 @@
+/* login modal container */
+.loginModal {
+  position: absolute;
+  width: 450px;
+  padding: 35px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+}
+
+/* modal title */
+.loginModal h2 {
+  padding: 8%;
+  color: white;
+  text-align: center;
+}
+
+.loginModal .userModal {
+  position: relative;
+}
+
+/* modal inputs */
+.loginModal .userModal input {
+  padding: 10px 0;
+  font-size: 16px;
+  color: white;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid white;
+  background: transparent;
+}
+
+/* modal labels */
+.loginModal .userModal label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  color: white;
+  transition: 0.4s;
+}
+
+.loginModal .userModal input:focus ~ label,
+.loginModal .userModal input:valid ~ label {
+  top: -25px;
+  color: #61840d;
+  font-size: 13px;
+}
+
+/* change chrome default autocomplete input */
+input.login:-webkit-autofill,
+input.login:-webkit-autofill:hover,
+input.login:-webkit-autofill:focus,
+input.login:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: white !important;
+}
+
+/* login button */
+.btnGlow {
+  width: 220px;
+  height: 50px;
+  border: none;
+  color: white;
+  background: black;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+}
+
+.btnGlow:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    Chartreuse,
+    DarkMagenta,
+    DarkOrange,
+    Gold,
+    FireBrick,
+    Navy,
+    Chartreuse
+  );
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  background-size: 500%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 3px);
+  height: calc(100% + 3px);
+  animation: glowing 15s infinite;
+}
+
+.btnGlow:hover:before {
+  opacity: 1;
+}
+
+.btnGlow:active {
+  font-weight: bold;
+}
+
+.btnGlow:active:after {
+  background: transparent;
+}
+
+.btnGlow:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgb(26, 25, 25);
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

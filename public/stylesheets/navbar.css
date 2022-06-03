@@ -7,23 +7,25 @@
   background: #110f16;
 }
 
-.nav-link {
-  position: relative;
+.navLink {
   padding: 0.25rem 0;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  margin-left: 1rem;
+  margin-left: 0.7rem;
   border-bottom: 0.25rem solid transparent;
-}
-
-.nav-link:hover {
-  position: relative;
   color: rgba(255, 255, 255, 0.5);
-  border-bottom-color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
 }
 
-.nav-link.active {
+.navLink:hover {
   position: relative;
   color: white;
+}
+
+.navLink.active {
   border-bottom-color: white;
+  color: white;
+}
+
+.pointer {
+  cursor: pointer;
 }

@@ -1,42 +1,34 @@
 body {
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.8);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.9);
+  height: 110vh;
 }
 
-.cover-container {
+.coverContainer {
   position: relative;
   max-width: 85vw;
 }
 
+/* book logo */
 .books {
-  margin-right: 0.5rem;
+  margin-right: 1vw;
 }
 
+/* home video */
 #myVideo {
   filter: brightness(60%);
   position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
 }
 
-.pause-btn {
-  width: 200px;
+/* pause/resume video button */
+.pauseBtn {
+  width: 180px;
   font-size: 18px;
   padding: 10px;
-  border: none;
-  background: #000;
-  color: #fff;
-  cursor: pointer;
+  background: black;
+  color: white;
 }
 
-.pause-btn:hover {
-  position: relative;
-  background: #ddd;
+.pauseBtn:hover {
+  background: white;
   color: black;
 }
 
@@ -44,99 +36,85 @@ body {
   position: fixed;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  color: #f1f1f1;
   width: 100%;
   padding: 15px;
   z-index: 2;
 }
 
-.nav-link {
-  position: relative;
-  padding: 0.25rem 0;
+/* navbar */
+.navbarLink {
+  padding: 0.4vh;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.5);
-  margin-left: 1rem;
+  margin-left: 1vw;
   border-bottom: 0.25rem solid transparent;
+  text-decoration: none;
 }
 
-.nav-link:hover {
-  position: relative;
+.navbarLink:hover {
   color: rgba(255, 255, 255, 0.5);
   border-bottom-color: rgba(255, 255, 255, 0.5);
 }
 
-.nav-link.active {
-  position: relative;
+.navbarLink.active {
   color: white;
   border-bottom-color: white;
 }
 
-.btn-secondary,
-.btn-secondary:hover {
-  color: #333;
-  text-shadow: none;
-}
-
-.btn-glow {
+/* view all courses button */
+.btnGlow {
   width: 220px;
   height: 50px;
   border: none;
-  outline: none;
-  color: #fff;
-  background: #111;
-  cursor: pointer;
+  color: white;
+  background: black;
   position: relative;
   z-index: 0;
   border-radius: 10px;
 }
 
-.btn-glow:before {
+.btnGlow:before {
   content: "";
   background: linear-gradient(
     45deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #002bff,
-    #7a00ff,
-    #ff00c8,
-    #ff0000
+    Chartreuse,
+    DarkMagenta,
+    DarkOrange,
+    Gold,
+    FireBrick,
+    Navy,
+    Chartreuse
   );
   position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
+  top: -3px;
+  left: -3px;
+  background-size: 500%;
   z-index: -1;
   filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing 20s linear infinite;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 10px;
+  width: calc(100% + 3px);
+  height: calc(100% + 3px);
+  animation: glowing 15s infinite;
 }
 
-.btn-glow:active {
-  font-weight: bold;
-}
-
-.btn-glow:active:after {
-  background: transparent;
-}
-
-.btn-glow:hover:before {
+.btnGlow:hover:before {
   opacity: 1;
 }
 
-.btn-glow:after {
+.btnGlow:active {
+  font-weight: bold;
+}
+
+.btnGlow:active:after {
+  background: transparent;
+}
+
+.btnGlow:after {
   z-index: -1;
   content: "";
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #111;
+  background: rgb(26, 25, 25);
   left: 0;
   top: 0;
   border-radius: 10px;

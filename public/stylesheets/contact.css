@@ -16,11 +16,19 @@
 .contact-links,
 .contact-form-wrapper {
   width: 50%;
-  padding: 8% 5% 10% 5%;
+  padding: 6.8% 5% 10% 5%;
+}
+
+.h1Title {
+  color: white;
+  margin: 1.5rem 0;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2.5rem;
 }
 
 .contact-links {
-  background: url(https://i.imgur.com/lYFnOcG.png);
+  background: url(https://res.cloudinary.com/dgzlym20q/image/upload/v1654100207/makeItGreen/lYFnOcG_lcht9c.png);
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 10px 0 0 10px;
@@ -60,7 +68,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-top: 250px;
+  padding-top: 240px;
 }
 
 .link {
@@ -73,7 +81,7 @@
   height: 60px;
   transition: 0.3s;
   display: inline-block;
-  border-radius: 32px;
+  border-radius: 3px;
 }
 
 .contactImg:hover {
@@ -157,4 +165,183 @@ textarea:valid + label {
     width: 38px;
     height: 38px;
   }
+}
+
+input.contact:-webkit-autofill,
+input.contact:-webkit-autofill:hover,
+input.contact:-webkit-autofill:focus,
+input.contact:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: black !important;
+}
+
+/* team cards */
+.teamCards {
+  display: flex;
+  justify-content: space-around;
+}
+
+.teamCard {
+  height: 379px;
+  width: 300px;
+  background: #808080;
+  border-radius: 10px;
+  transition: background 0.8s;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 70px 63px -60px #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.teamCard1 {
+  background: url("https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")
+    center center no-repeat;
+  background-size: 300px;
+}
+
+.teamCard1:hover {
+  background: url("https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")
+    left center no-repeat;
+  background-size: 600px;
+}
+
+.teamCard1:hover h2 {
+  opacity: 1;
+}
+
+.teamCard1:hover .fa {
+  opacity: 1;
+}
+
+.teamCard2 {
+  background: url("https://images.unsplash.com/photo-1517530094915-500495b15ade?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")
+    center center no-repeat;
+  background-size: 300px;
+}
+
+.teamCard2:hover {
+  background: url("https://images.unsplash.com/photo-1517530094915-500495b15ade?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")
+    left center no-repeat;
+  background-size: 600px;
+}
+
+.teamCard2:hover h2 {
+  opacity: 1;
+}
+
+.teamCard2:hover .fa {
+  opacity: 1;
+}
+
+.teamCard3 {
+  background: url("https://images.unsplash.com/photo-1601412436016-2cde285e3aad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80")
+    center center no-repeat;
+  background-size: 300px;
+}
+
+.teamCard3:hover {
+  background: url("https://images.unsplash.com/photo-1601412436016-2cde285e3aad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80")
+    left center no-repeat;
+  background-size: 600px;
+}
+
+.teamCard3:hover h2 {
+  opacity: 1;
+}
+
+.teamCard3:hover .fa {
+  opacity: 1;
+}
+
+.teamCard4 {
+  background: url("https://images.unsplash.com/photo-1539614474468-f423a2d2270c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")
+    center center no-repeat;
+  background-size: 300px;
+}
+
+.teamCard4:hover {
+  background: url("https://images.unsplash.com/photo-1539614474468-f423a2d2270c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")
+    left center no-repeat;
+  background-size: 600px;
+}
+
+.teamCard4:hover h2 {
+  opacity: 1;
+}
+
+.teamCard4:hover .fa {
+  opacity: 1;
+}
+
+.teamCard5 {
+  background: url("https://images.unsplash.com/photo-1611310424006-42cf1e064288?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")
+    center center no-repeat;
+  background-size: 300px;
+}
+
+.teamCard5:hover {
+  background: url("https://images.unsplash.com/photo-1611310424006-42cf1e064288?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")
+    left center no-repeat;
+  background-size: 600px;
+}
+
+.teamCard5:hover h2 {
+  opacity: 1;
+}
+
+.teamCard5:hover .fa {
+  opacity: 1;
+}
+
+.teamCard6 {
+  background: url("https://images.unsplash.com/photo-1569210954449-4e8dc4e022a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTA1fHxmYWNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60")
+    center center no-repeat;
+  background-size: 300px;
+}
+
+.teamCard6:hover {
+  background: url("https://images.unsplash.com/photo-1569210954449-4e8dc4e022a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTA1fHxmYWNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60")
+    left center no-repeat;
+  background-size: 600px;
+}
+
+.teamCard6:hover h2 {
+  opacity: 1;
+}
+
+.teamCard6:hover .fa {
+  opacity: 1;
+}
+
+h2 {
+  font-family: sans-serif;
+  color: white;
+  margin: 20px;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.fa {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.icons {
+  position: absolute;
+  fill: white;
+  color: white;
+  height: 130px;
+  top: 226px;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+a {
+  color: white;
 }

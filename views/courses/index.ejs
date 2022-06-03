@@ -5,7 +5,7 @@
 <% for(let i=0;i<courses.length;i+=4){%>
   <div class="container">
     <% if(i===courses.length) break %>
-    <article class="card bgDark blue">
+    <article class="card dark blue">
       <a class="card-img-link" href="/courses/<%= courses[i]._id %>">
         <img
           class="card-img"
@@ -32,8 +32,14 @@
           </time>
         </div>
         <ul class="card-tagbox">
-          <li class="tag-item play blue">
-            <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+          <li class="me-2 tag-item play green">
+            <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+          </li>
+          <li class="me-2 tag-item play yellow">
+            <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
+          </li>
+          <li class="me-2 tag-item play red">
+            <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
         </ul>
       </div>
@@ -66,8 +72,14 @@
           </time>
         </div>
         <ul class="card-tagbox">
-          <li class="tag-item play red">
-            <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+          <li class="me-2 tag-item play green">
+            <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+          </li>
+          <li class="me-2 tag-item play yellow">
+            <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
+          </li>
+          <li class="me-2 tag-item play red">
+            <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
         </ul>
       </div>
@@ -100,8 +112,14 @@
           </time>
         </div>
         <ul class="card-tagbox">
-          <li class="tag-item play green">
-            <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+          <li class="me-2 tag-item play green">
+            <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+          </li>
+          <li class="me-2 tag-item play yellow">
+            <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
+          </li>
+          <li class="me-2 tag-item play red">
+            <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
         </ul>
       </div>
@@ -134,8 +152,14 @@
           </time>
         </div>
         <ul class="card-tagbox">
-          <li class="tag-item play yellow">
-            <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+          <li class="me-2 tag-item play green">
+            <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+          </li>
+          <li class="me-2 tag-item play yellow">
+            <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
+          </li>
+          <li class="me-2 tag-item play red">
+            <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
         </ul>
       </div>
