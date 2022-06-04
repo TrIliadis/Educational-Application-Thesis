@@ -26,9 +26,9 @@ const courseSchema = new Schema({
     required: true,
   },
   files: [String],
-  images: [ImageSchema],
+  images: ImageSchema,
   created: Date,
-  lastActive: Date
+  lastActive: Date,
 });
 
 module.exports = mongoose.model("Course", courseSchema);

@@ -5,160 +5,160 @@
 <% for(let i=0;i<courses.length;i+=4){%>
   <div class="container">
     <% if(i===courses.length) break %>
-    <article class="card dark blue">
-      <a class="card-img-link" href="/courses/<%= courses[i]._id %>">
+    <article class="card bg redCard">
+      <a class="cardImgLink" href="/courses/<%= courses[i]._id %>">
         <img
-          class="card-img"
-          src="<%=courses[i].images[0].url %>"
+          class="cardImg"
+          src="<%=courses[i].images.url %>"
           alt="Image Title"
         />
       </a>
-      <div class="card-text">
-        <h1 class="card-title blue">
-          <a href="/courses/<%= courses[i]._id %>"><%= courses[i].title %> </a>
+      <div class="cardContent">
+        <h1 class="cardTitle redCard">
+          <a href="/courses/<%= courses[i]._id %>"><%= courses[i].title %></a>
         </h1>
-        <div class="card-subtitle small">
-          <time >
+        <div class="card-subtitle">
+          <time>
             <i class="fas fa-person-digging mr-2"></i>  Δημιουργήθηκε <%= courses[i].created.toLocaleDateString('el-GR', {  weekday: 'long',year: 'numeric', month: 'long', day: 'numeric' }) %> 
           </time>
         </div>
-        <div class="card-bar"></div>
-        <div class="card-preview-txt mb-5">
+        <div class="cardUnderline"></div>
+        <div class="cardDescription mb-5">
           <%= courses[i].description %> 
         </div>
-        <div class="card-subtitle small">
+        <div class="card-subtitle">
           <time>
             <i class="fas fa-calendar-check mr-2"></i>  Τελευταία ενημέρωση <%= courses[i].lastActive.toLocaleDateString('el-GR', {  weekday: 'long',year: 'numeric', month: 'long', day: 'numeric' }) %> 
           </time>
         </div>
-        <ul class="card-tagbox">
-          <li class="me-2 tag-item play green">
+        <ul class="cardCrud">
+          <li class="me-2 cardCrudIcon play greenCard">
             <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
           </li>
-          <li class="me-2 tag-item play yellow">
+          <li class="me-2 cardCrudIcon play yellowCard">
             <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
           </li>
-          <li class="me-2 tag-item play red">
+          <li class="me-2 cardCrudIcon play redCard">
             <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
         </ul>
       </div>
     </article>
     <% if(i+1===courses.length) break %>
-    <article class="card dark red">
-      <a class="card-img-link" href="/courses/<%= courses[i+1]._id %>">
+    <article class="card bg blueCard">
+      <a class="cardImgLink" href="/courses/<%= courses[i+1]._id %>">
         <img
-          class="card-img"
-          src="<%=courses[i+1].images[0].url %>"
+          class="cardImg"
+          src="<%=courses[i+1].images.url %>"
           alt="Image Title"
         />
       </a>
-      <div class="card-text">
-        <h1 class="card-title red">
-          <a href="/courses/<%= courses[i+1]._id %>"><%= courses[i+1].title %></a>
+      <div class="cardContent">
+        <h1 class="cardTitle blueCard">
+          <a href="/courses/<%= courses[i+1]._id %>"><%= courses[i+1].title %> </a>
         </h1>
-        <div class="card-subtitle small">
-          <time>
+        <div class="card-subtitle">
+          <time >
             <i class="fas fa-person-digging mr-2"></i>  Δημιουργήθηκε <%= courses[i+1].created.toLocaleDateString('el-GR', {  weekday: 'long',year: 'numeric', month: 'long', day: 'numeric' }) %> 
           </time>
         </div>
-        <div class="card-bar"></div>
-        <div class="card-preview-txt mb-5">
+        <div class="cardUnderline"></div>
+        <div class="cardDescription mb-5">
           <%= courses[i+1].description %> 
         </div>
-        <div class="card-subtitle small">
+        <div class="card-subtitle">
           <time>
             <i class="fas fa-calendar-check mr-2"></i>  Τελευταία ενημέρωση <%= courses[i+1].lastActive.toLocaleDateString('el-GR', {  weekday: 'long',year: 'numeric', month: 'long', day: 'numeric' }) %> 
           </time>
         </div>
-        <ul class="card-tagbox">
-          <li class="me-2 tag-item play green">
+        <ul class="cardCrud">
+          <li class="me-2 cardCrudIcon play greenCard">
             <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
           </li>
-          <li class="me-2 tag-item play yellow">
+          <li class="me-2 cardCrudIcon play yellowCard">
             <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
           </li>
-          <li class="me-2 tag-item play red">
+          <li class="me-2 cardCrudIcon play redCard">
             <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
         </ul>
       </div>
     </article>
     <% if(i+2===courses.length) break %>
-    <article class="card dark green">
-      <a class="card-img-link" href="/courses/<%= courses[i+2]._id %>">
+    <article class="card bg greenCard">
+      <a class="cardImgLink" href="/courses/<%= courses[i+2]._id %>">
         <img
-          class="card-img"
-          src="<%=courses[i+2].images[0].url %>"
+          class="cardImg"
+          src="<%=courses[i+2].images.url %>"
           alt="Image Title"
         />
       </a>
-      <div class="card-text">
-        <h1 class="card-title green">
+      <div class="cardContent">
+        <h1 class="cardTitle greenCard">
           <a href="/courses/<%= courses[i+2]._id %>"><%= courses[i+2].title %></a>
         </h1>
-        <div class="card-subtitle small">
+        <div class="card-subtitle">
           <time>
             <i class="fas fa-person-digging mr-2"></i>  Δημιουργήθηκε <%= courses[i+2].created.toLocaleDateString('el-GR', {  weekday: 'long',year: 'numeric', month: 'long', day: 'numeric' }) %> 
           </time>
         </div>
-        <div class="card-bar"></div>
-        <div class="card-preview-txt mb-5">
+        <div class="cardUnderline"></div>
+        <div class="cardDescription mb-5">
           <%= courses[i+2].description %> 
         </div>
-        <div class="card-subtitle small">
+        <div class="card-subtitle">
           <time>
             <i class="fas fa-calendar-check mr-2"></i>  Τελευταία ενημέρωση <%= courses[i+2].lastActive.toLocaleDateString('el-GR', {  weekday: 'long',year: 'numeric', month: 'long', day: 'numeric' }) %> 
           </time>
         </div>
-        <ul class="card-tagbox">
-          <li class="me-2 tag-item play green">
+        <ul class="cardCrud">
+          <li class="me-2 cardCrudIcon play greenCard">
             <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
           </li>
-          <li class="me-2 tag-item play yellow">
+          <li class="me-2 cardCrudIcon play yellowCard">
             <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
           </li>
-          <li class="me-2 tag-item play red">
+          <li class="me-2 cardCrudIcon play redCard">
             <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
         </ul>
       </div>
     </article>
     <% if(i+3===courses.length) break %>
-    <article class="card dark yellow">
-      <a class="card-img-link" href="/courses/<%= courses[i+3]._id %>">
+    <article class="card bg yellowCard">
+      <a class="cardImgLink" href="/courses/<%= courses[i+3]._id %>">
         <img
-          class="card-img"
-          src="<%=courses[i+3].images[0].url %>"
+          class="cardImg"
+          src="<%=courses[i+3].images.url %>"
           alt="Image Title"
         />
       </a>
-      <div class="card-text">
-        <h1 class="card-title yellow">
+      <div class="cardContent">
+        <h1 class="cardTitle yellowCard">
           <a href="/courses/<%= courses[i+3]._id %>"><%= courses[i+3].title %></a>
         </h1>
-        <div class="card-subtitle small">
+        <div class="card-subtitle">
           <time>
             <i class="fas fa-person-digging mr-2"></i>  Δημιουργήθηκε <%= courses[i+3].created.toLocaleDateString('el-GR', {  weekday: 'long',year: 'numeric', month: 'long', day: 'numeric' }) %> 
           </time>
         </div>
-        <div class="card-bar"></div>
-        <div class="card-preview-txt mb-5">
+        <div class="cardUnderline"></div>
+        <div class="cardDescription mb-5">
           <%= courses[i+3].description %> 
         </div>
-        <div class="card-subtitle small">
+        <div class="card-subtitle">
           <time>
             <i class="fas fa-calendar-check mr-2"></i>  Τελευταία ενημέρωση <%= courses[i+3].lastActive.toLocaleDateString('el-GR', {  weekday: 'long',year: 'numeric', month: 'long', day: 'numeric' }) %> 
           </time>
         </div>
-        <ul class="card-tagbox">
-          <li class="me-2 tag-item play green">
+        <ul class="cardCrud">
+          <li class="me-2 cardCrudIcon play greenCard">
             <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
           </li>
-          <li class="me-2 tag-item play yellow">
+          <li class="me-2 cardCrudIcon play yellowCard">
             <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
           </li>
-          <li class="me-2 tag-item play red">
+          <li class="me-2 cardCrudIcon play redCard">
             <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
         </ul>

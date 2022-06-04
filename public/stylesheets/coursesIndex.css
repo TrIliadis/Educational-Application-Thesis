@@ -1,3 +1,4 @@
+/* page background */
 .bgDark {
   background: #110f16;
 }
@@ -7,6 +8,7 @@ a {
   transition: color 0.3s ease-in-out;
 }
 
+/* all courses title */
 .h1Title {
   color: white;
   margin: 2rem 0;
@@ -14,357 +16,220 @@ a {
   font-size: 50px;
 }
 
+/* course card */
 .card {
   border-radius: 10px;
   margin: 0 0 2vw 0;
   overflow: hidden;
-  position: relative;
   color: white;
 }
 
-.card.dark {
-  background-color: #18151f;
+.card.bg {
+  background-color: #17141e;
 }
 
 .card a {
   color: inherit;
 }
 
-.card h1 {
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-.card .small {
-  font-size: 80%;
-}
-
-.card .card-title {
-  font-size: 1.75rem;
-}
-
-.card .card-img {
-  max-height: 180px;
-  width: 100%;
+/* course card image */
+.card .cardImg {
   object-fit: cover;
-  position: relative;
 }
 
-.card .card-img-link {
+.card .cardImgLink {
   display: contents;
 }
 
-.card .card-bar {
-  width: 50px;
+/* course card coloured line */
+.card .cardUnderline {
+  width: 60px;
   height: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  background-color: #424242;
-  transition: width 0.2s ease;
+  margin: 13px 0;
+  border-radius: 10px;
+  transition: 0.3s ease;
 }
 
-.card .card-text {
+.card:hover .cardUnderline {
+  width: 150px;
+}
+
+/* course card text content */
+.card .cardContent {
   position: relative;
   display: flex;
   flex-direction: column;
 }
 
-.card .card-preview-txt {
-  overflow: hidden;
-  text-overflow: ellipsis;
+.card .cardDescription {
   text-align: justify;
   height: 100%;
 }
 
-.card .card-tagbox {
-  display: flex;
+/* course crud */
+.card .cardCrud {
   flex-flow: row wrap;
-  font-size: 14px;
-  margin: 20px 0 0 0;
+  font-size: 13px;
+  margin-top: 20px;
   padding: 0;
-  justify-content: center;
 }
 
-.card .card-tagbox .tag-item {
+/* crud icons */
+.card .cardCrud .cardCrudIcon {
   display: inline-block;
-  background: rgba(83, 83, 83, 0.4);
-  border-radius: 3px;
+  background: rgba(76, 76, 76, 0.4);
+  border-radius: 5px;
   padding: 2.5px 10px;
-  margin: 0 5px 5px 0;
-  cursor: default;
-  user-select: none;
-  transition: background-color 0.3s;
+  transition: background-color 0.5s;
 }
 
-.card .card-tagbox .tag-item:hover {
-  background: rgba(83, 83, 83, 0.8);
-}
-
+/* course card background color */
 .card:before {
   content: "";
   position: absolute;
-  top: 0;
   right: 0;
-  bottom: 0;
   left: 0;
-  background-image: linear-gradient(-70deg, #424242, transparent 50%);
-  opacity: 1;
-  border-radius: 10px;
+  top: 0;
+  bottom: 0;
 }
 
-.card:hover .card-bar {
-  width: 100px;
+/* green course card */
+.card .cardCrud .greenCard.play:hover {
+  background: SeaGreen;
 }
 
-@media screen and (min-width: 769px) {
-  .card {
-    flex-wrap: inherit;
-  }
+.greenCard .cardTitle:hover {
+  color: SeaGreen;
+}
 
-  .card .card-title {
+.greenCard .cardUnderline {
+  background-color: SeaGreen;
+}
+
+/* blue course card */
+.card .cardCrud .blueCard.play:hover {
+  background: RoyalBlue;
+}
+
+.blueCard .cardTitle:hover {
+  color: RoyalBlue;
+}
+
+.blueCard .cardUnderline {
+  background-color: RoyalBlue;
+}
+
+/* red course card */
+.card .cardCrud .redCard.play:hover {
+  background: Red;
+}
+
+.redCard .cardTitle:hover {
+  color: Red;
+}
+
+.redCard .cardUnderline {
+  background-color: Red;
+}
+
+/* yellow course card */
+.card .cardCrud .yellowCard.play:hover {
+  background: rgb(150, 150, 26);
+}
+
+.yellowCard .cardTitle:hover {
+  color: rgb(150, 150, 26);
+}
+
+.yellowCard .cardUnderline {
+  background-color: rgb(150, 150, 26);
+}
+
+@media screen and (min-width: 836px) {
+  .card .cardTitle {
     font-size: 2rem;
   }
 
-  .card .card-tagbox {
-    justify-content: start;
+  .card .cardContent {
+    padding: 2rem;
   }
 
-  .card .card-img {
+  .card .cardImg {
     max-width: 300px;
-    max-height: 100%;
     transition: transform 0.3s ease;
   }
 
-  .card .card-text {
+  .card .cardContent {
     padding: 3rem;
-    width: 100%;
   }
 
-  .card .media.card-text:before {
-    content: "";
-    position: absolute;
-    display: block;
-    background: #18151f;
-    top: -20%;
-    height: 130%;
-    width: 55px;
-  }
-
-  .card:hover .card-img {
+  .card:hover .cardImg {
     transform: scale(1.1);
-  }
-
-  .card:nth-child(2n + 1) {
-    flex-direction: row;
   }
 
   .card:nth-child(2n + 0) {
     flex-direction: row-reverse;
   }
 
-  .card:nth-child(2n + 1) .card-text::before {
-    left: -12px !important;
-    transform: rotate(3deg);
+  .card:nth-child(2n + 1) {
+    flex-direction: row;
   }
 
-  .card:nth-child(2n + 0) .card-text::before {
-    right: -12px !important;
-    transform: rotate(-3deg);
+  .card:nth-child(2n + 0) .cardContent::before {
+    right: -11px;
+    transform: rotate(-4deg);
+  }
+
+  .card:nth-child(2n + 1) .cardContent::before {
+    left: -11px;
+    transform: rotate(4deg);
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .card-text:before {
+  .cardContent:before {
     content: "";
     position: absolute;
-    display: block;
-    top: -20%;
-    height: 130%;
-    width: 55px;
+    top: -28%;
+    height: 129%;
+    width: 50px;
   }
 
-  .card.dark .card-text:before {
-    background: #18151f;
+  .card.bg .cardContent:before {
+    background: #17141e;
   }
 }
 
-.card .card-tagbox .green.play:hover {
-  background: #79dd09;
-  color: black;
-}
-
-.green .card-title:hover {
-  color: #79dd09;
-}
-
-.green .card-bar {
-  background-color: #79dd09;
-}
-
-.green::before {
-  background-image: linear-gradient(
-    -30deg,
-    rgba(121, 221, 9, 0.1),
-    transparent 50%
-  );
-}
-
-.green:nth-child(2n)::before {
-  background-image: linear-gradient(
-    30deg,
-    rgba(121, 221, 9, 0.1),
-    transparent 50%
-  );
-}
-
-.card .card-tagbox .blue.play:hover {
-  background: #0076bd;
-}
-
-.blue .card-title:hover {
-  color: #0076bd;
-}
-
-.blue .card-bar {
-  background-color: #0076bd;
-}
-
-.blue::before {
-  background-image: linear-gradient(
-    -30deg,
-    rgba(0, 118, 189, 0.1),
-    transparent 50%
-  );
-}
-
-.blue:nth-child(2n)::before {
-  background-image: linear-gradient(
-    30deg,
-    rgba(0, 118, 189, 0.1),
-    transparent 50%
-  );
-}
-
-.card .card-tagbox .red.play:hover {
-  background: #bd150b;
-}
-
-.red .card-title:hover {
-  color: #bd150b;
-}
-
-.red .card-bar {
-  background-color: #bd150b;
-}
-
-.red::before {
-  background-image: linear-gradient(
-    -30deg,
-    rgba(189, 21, 11, 0.1),
-    transparent 50%
-  );
-}
-
-.red:nth-child(2n)::before {
-  background-image: linear-gradient(
-    30deg,
-    rgba(189, 21, 11, 0.1),
-    transparent 50%
-  );
-}
-
-.card .card-tagbox .yellow.play:hover {
-  background: #bdbb49;
-  color: black;
-}
-
-.yellow .card-title:hover {
-  color: #bdbb49;
-}
-
-.yellow .card-bar {
-  background-color: #bdbb49;
-}
-
-.yellow::before {
-  background-image: linear-gradient(
-    -30deg,
-    rgba(189, 187, 73, 0.1),
-    transparent 50%
-  );
-}
-
-.yellow:nth-child(2n)::before {
-  background-image: linear-gradient(
-    30deg,
-    rgba(189, 187, 73, 0.1),
-    transparent 50%
-  );
-}
-
-@media screen and (min-width: 769px) {
-  .green::before {
+@media screen and (min-width: 414px) {
+  .redCard::before {
     background-image: linear-gradient(
-      -80deg,
-      rgba(121, 221, 9, 0.1),
-      transparent 50%
+      -110deg,
+      rgba(185, 22, 13, 0.2),
+      transparent 60%
     );
   }
 
-  .green:nth-child(2n)::before {
+  .blueCard:nth-child(2n)::before {
     background-image: linear-gradient(
-      80deg,
-      rgba(121, 221, 9, 0.1),
-      transparent 50%
+      110deg,
+      rgba(4, 114, 183, 0.2),
+      transparent 60%
     );
   }
 
-  .blue::before {
+  .greenCard::before {
     background-image: linear-gradient(
-      -80deg,
-      rgba(0, 118, 189, 0.1),
-      transparent 50%
+      -110deg,
+      rgba(110, 195, 14, 0.2),
+      transparent 60%
     );
   }
 
-  .blue:nth-child(2n)::before {
+  .yellowCard:nth-child(2n)::before {
     background-image: linear-gradient(
-      80deg,
-      rgba(0, 118, 189, 0.1),
-      transparent 50%
-    );
-  }
-
-  .red::before {
-    background-image: linear-gradient(
-      -80deg,
-      rgba(189, 21, 11, 0.1),
-      transparent 50%
-    );
-  }
-
-  .red:nth-child(2n)::before {
-    background-image: linear-gradient(
-      80deg,
-      rgba(189, 21, 11, 0.1),
-      transparent 50%
-    );
-  }
-
-  .yellow::before {
-    background-image: linear-gradient(
-      -80deg,
-      rgba(189, 187, 73, 0.1),
-      transparent 50%
-    );
-  }
-
-  .yellow:nth-child(2n)::before {
-    background-image: linear-gradient(
-      80deg,
-      rgba(189, 187, 73, 0.1),
-      transparent 50%
+      110deg,
+      rgba(178, 176, 67, 0.2),
+      transparent 60%
     );
   }
 }
