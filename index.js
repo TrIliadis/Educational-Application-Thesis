@@ -80,7 +80,7 @@ app.post("/contact", async (req, res) => {
   let info = await transporter.sendMail({
     from: process.env.SENDER_USERNAME,
     to: process.env.RECIEVER_USERNAME,
-    subject: "Καινούργιο Μήνυμα από Φόρμα Επικοινωνίας",
+    subject: "Εκπαιδευτική Εφαρμογή",
     text: req.body.message,
     //https://imgur.com/a/pvO5GL3 images for email template
     html: `<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

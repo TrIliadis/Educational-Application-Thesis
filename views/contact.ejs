@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="static/stylesheets/contact.css" />
 <h1 class="h1 text-center h1Title">Επικοινωνια</h1>
 <section class="contact">
-  <div class="contact-box">
-    <div class="contact-links">
+  <div class="contactBox">
+    <div class="contactLinks">
       <div class="links">
         <div class="link">
           <a
@@ -45,14 +45,9 @@
         </div>
       </div>
     </div>
-    <div class="form-body contact-form-wrapper">
-      <form
-        action="/contact"
-        method="POST"
-        class="contact-form needs-validation"
-        novalidate
-      >
-        <div class="form-item my-4">
+    <div class="form-body contactForm">
+      <form id="contactForm" class="contact-form needs-validation" novalidate>
+        <div class="formLabel my-4">
           <input
             type="text"
             class="form-control"
@@ -60,12 +55,12 @@
             id="name"
             required
           />
-          <label for="name" class="label-item form-label"> Όνομα: </label>
+          <label for="name" class="labelPosition form-label"> Όνομα: </label>
           <div class="invalid-feedback">
             <b>Παρακαλώ συμπληρώστε το όνομά σας</b>
           </div>
         </div>
-        <div class="form-item my-4">
+        <div class="formLabel my-4">
           <input
             type="email"
             class="form-control contact"
@@ -73,12 +68,12 @@
             id="email"
             required
           />
-          <label for="email" class="label-item form-label"> Email: </label>
+          <label for="email" class="labelPosition form-label"> Email: </label>
           <div class="invalid-feedback">
             <b>Παρακαλώ συμπληρώστε το email σας</b>
           </div>
         </div>
-        <div class="form-item">
+        <div class="formLabel">
           <textarea
             rows="4"
             cols="50"
@@ -87,12 +82,16 @@
             id="message"
             required
           ></textarea>
-          <label class="label-item form-label" for="message"> Μήνυμα: </label>
+          <label class="labelPosition form-label" for="message">
+            Μήνυμα:
+          </label>
           <div class="invalid-feedback">
             <b>Παρακαλώ συμπληρώστε το μήνυμα που θέλετε να λάβουμε</b>
           </div>
         </div>
-        <button class="submit-btn mt-4" type="submit">Αποστολή</button>
+        <button id="contactButton" class="submitBtn mt-4" type="submit">
+          Αποστολή
+        </button>
       </form>
     </div>
   </div>
@@ -102,7 +101,7 @@
 
 <div class="teamCards my-5">
   <div class="teamCard teamCard1">
-    <h2>John Doe</h2>
+    <h2 class="teamCardTitle">John Doe</h2>
     <div class="icons">
       <a class="fa fa-instagram" href="https://www.instagram.com"></a>
       <a class="fa fa-github" href="https://www.github.com"></a>
@@ -111,7 +110,7 @@
     </div>
   </div>
   <div class="teamCard teamCard2">
-    <h2>John Doe</h2>
+    <h2 class="teamCardTitle">John Doe</h2>
     <div class="icons">
       <a class="fa fa-instagram" href="https://www.instagram.com"></a>
       <a class="fa fa-github" href="https://www.github.com"></a>
@@ -120,7 +119,7 @@
     </div>
   </div>
   <div class="teamCard teamCard3">
-    <h2>John Doe</h2>
+    <h2 class="teamCardTitle">John Doe</h2>
     <div class="icons">
       <a class="fa fa-instagram" href="https://www.instagram.com"></a>
       <a class="fa fa-github" href="https://www.github.com"></a>
@@ -131,7 +130,7 @@
 </div>
 <div class="teamCards my-5">
   <div class="teamCard teamCard4">
-    <h2>John Doe</h2>
+    <h2 class="teamCardTitle">John Doe</h2>
     <div class="icons">
       <a class="fa fa-instagram" href="https://www.instagram.com"></a>
       <a class="fa fa-github" href="https://www.github.com"></a>
@@ -140,7 +139,7 @@
     </div>
   </div>
   <div class="teamCard teamCard5">
-    <h2>John Doe</h2>
+    <h2 class="teamCardTitle">John Doe</h2>
     <div class="icons">
       <a class="fa fa-instagram" href="https://www.instagram.com"></a>
       <a class="fa fa-github" href="https://www.github.com"></a>
@@ -149,7 +148,7 @@
     </div>
   </div>
   <div class="teamCard teamCard6">
-    <h2>John Doe</h2>
+    <h2 class="teamCardTitle">John Doe</h2>
     <div class="icons">
       <a class="fa fa-instagram" href="https://www.instagram.com"></a>
       <a class="fa fa-github" href="https://www.github.com"></a>
@@ -158,3 +157,4 @@
     </div>
   </div>
 </div>
+<script src="static/javascripts/contact.js"></script>
