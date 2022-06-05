@@ -1,2 +1,87 @@
 <%- layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="static/stylesheets/register.css" />
+<h1 class="h1 text-center h1Title">Εγγραφη</h1>
+<section class="contact">
+  <div class="contactBox">
+    <div class="contactLinks"></div>
+    <div class="form-body contactForm">
+      <form id="registerForm" class="contact-form needs-validation" novalidate>
+        <div class="formLabel my-4">
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            id="name"
+            required
+          />
+          <label for="name" class="labelPosition form-label"> Όνομα: </label>
+          <div class="invalid-feedback">
+            <b>Παρακαλώ συμπληρώστε το όνομά σας</b>
+          </div>
+        </div>
+        <div class="formLabel my-4">
+          <input
+            type="text"
+            class="form-control"
+            name="surname"
+            id="surname"
+            required
+          />
+          <label for="surname" class="labelPosition form-label">
+            Επώνυμο:
+          </label>
+          <div class="invalid-feedback">
+            <b>Παρακαλώ συμπληρώστε το επώνυμό σας</b>
+          </div>
+        </div>
+        <div class="formLabel my-4">
+          <input
+            type="email"
+            class="form-control contact"
+            name="email"
+            id="email"
+            required
+          />
+          <label for="email" class="labelPosition form-label"> Email: </label>
+          <div class="invalid-feedback">
+            <b>Παρακαλώ συμπληρώστε το email σας</b>
+          </div>
+        </div>
+        <div class="formLabel my-4">
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            id="password"
+            required
+          />
+          <label for="password" class="labelPosition form-label">
+            Κωδικός:
+          </label>
+          <div class="invalid-feedback">
+            <b>Παρακαλώ συμπληρώστε έναν κωδικό</b>
+          </div>
+        </div>
+        <div class="formLabel my-4">
+          <input
+            type="password"
+            class="form-control"
+            name="validatePassword"
+            id="validatePassword"
+            required
+          />
+          <label for="validatePassword" class="labelPosition form-label">
+            Επανάληψη Κωδικού:
+          </label>
+          <div class="invalid-feedback">
+            <b>Παρακαλώ συμπληρώστε ξανά τον κωδικό σας</b>
+          </div>
+        </div>
+        <button id="registerButton" class="submitBtn mt-4" type="button">
+          Αποστολή
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+<script src="static/javascripts/register.js"></script>

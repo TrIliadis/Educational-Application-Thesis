@@ -1,0 +1,93 @@
+.contact {
+  display: flex;
+  justify-content: center;
+}
+
+.contactBox {
+  width: clamp(100px, 90%, 1035px);
+  margin: 35px 35px;
+  display: flex;
+  border-radius: 10px;
+  background-color: #dfbd81;
+}
+
+.contactLinks,
+.contactForm {
+  width: 50%;
+  padding: 6.8% 6% 10%;
+}
+
+.h1Title {
+  color: white;
+  margin: 1.5rem 0;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+/* contact us background */
+.contactLinks {
+  background: url(https://res.cloudinary.com/dgzlym20q/image/upload/v1654451451/makeItGreen/photo-1543599538-a6c4f6cc5c05_ueds8o.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  border-radius: 10px 0 0 10px;
+}
+
+/* contact form labels*/
+.formLabel {
+  position: relative;
+}
+
+.labelPosition {
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  font-size: 17px;
+}
+
+/* label transition */
+input:focus + label,
+input:valid + label {
+  font-weight: bold;
+  top: -26px;
+  transition: 0.3s ease;
+}
+
+textarea:focus + label,
+textarea:valid + label {
+  font-weight: bold;
+  top: -26px;
+  transition: 0.3s ease;
+}
+
+/* send button */
+.submitBtn {
+  background-color: #61840d;
+  filter: drop-shadow(3px 3px 4px rgba(8, 8, 8, 0.2));
+  color: white;
+  font-size: 18px;
+  display: block;
+  padding: 13px 18px;
+  margin: 2px auto;
+  border: none;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.submitBtn:hover {
+  transform: scale(1.2);
+}
+
+.submitBtn:active {
+  transform: scale(1.3);
+}
+
+/* change browser default autofill change on input */
+input.contact:-webkit-autofill,
+input.contact:-webkit-autofill:hover,
+input.contact:-webkit-autofill:focus,
+input.contact:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: black !important;
+}
