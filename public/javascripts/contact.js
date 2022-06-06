@@ -8,7 +8,7 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (
     username.value.length > 0 &&
-    email.value.length > 0 &&
+    ValidateEmail(email.value) > 0 &&
     message.value.length > 0
   ) {
     button.textContent = "Αποστολή ...";
@@ -41,3 +41,10 @@ form.addEventListener("submit", async (e) => {
     }
   }
 });
+
+function ValidateEmail(input) {
+  const validRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  if (input.match(validRegex)) return true;
+  else return false;
+}
