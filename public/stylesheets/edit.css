@@ -1,0 +1,58 @@
+.footerBg {
+  background-color: #1f2124;
+}
+
+.h1Title {
+  color: white;
+  margin: 1.5rem 0;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.imgProfile {
+  height: 160px;
+  background-color: white;
+}
+
+.container {
+  border-radius: 15px;
+}
+
+.container .containerTitle {
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+}
+
+label {
+  color: white;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.containerTitle {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+/* upload image button */
+.file-input__input {
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.fileInputLabel {
+  cursor: pointer;
+  line-height: 1.5;
+  border-radius: 5px;
+  font-weight: 400;
+  color: white;
+  padding: 10px 12px;
+  background-color: #0d6efd;
+}

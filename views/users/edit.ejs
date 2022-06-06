@@ -1,1 +1,118 @@
 <%- layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="static/stylesheets/edit.css" />
+<h1 class="h1 text-center h1Title">Επεξεργασια Προφιλ</h1>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col-xl-4">
+      <div class="footerBg container mb-4 mb-xl-0">
+        <div class="containerTitle">Εικόνα Προφίλ</div>
+        <div class="card-body text-center">
+          <img
+            id="profileImg"
+            class="imgProfile circle mb-3"
+            src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654529943/makeItGreen/avatar7_zzez7a.png"
+          />
+          <div class="small font-italic text-muted mb-4">
+            Μέγιστο μέγεθος 2MB
+          </div>
+          <input
+            type="file"
+            name="file-input"
+            id="imgInput"
+            class="file-input__input"
+          />
+          <label class="fileInputLabel" for="imgInput"
+            ><span>Ανεβάστε νέα εικόνα</span></label
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8">
+      <div class="footerBg container mb-4">
+        <div class="containerTitle">Στοιχεία Προφίλ</div>
+        <div class="card-body">
+          <form id="editForm" class="needs-validation" novalidate>
+            <div class="row gx-3 mb-3">
+              <div class="col-md-6">
+                <label class="small mb-1 form-label" for="name">Όνομα</label>
+                <input
+                  class="form-control"
+                  id="name"
+                  type="text"
+                  placeholder="Όνομα..."
+                  required
+                />
+                <div class="invalid-feedback">
+                  <b>Το όνομα δεν μπορεί να είναι κενό</b>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="small mb-1 form-label" for="surname"
+                  >Επώνυμο</label
+                >
+                <input
+                  class="form-control"
+                  id="surname"
+                  type="text"
+                  placeholder="Επώνυμο..."
+                  required
+                />
+                <div class="invalid-feedback">
+                  <b>Το επώνυμο δεν μπορεί να είναι κενό</b>
+                </div>
+              </div>
+            </div>
+            <div class="row gx-3 mb-3">
+              <div class="col-md-6">
+                <label class="small mb-1 form-label" for="email">Email</label>
+                <input
+                  class="form-control"
+                  id="email"
+                  type="email"
+                  placeholder="Email..."
+                  required
+                />
+                <div class="invalid-feedback">
+                  <b>Παρακαλώ συμπληρώστε ένα έγκυρο email</b>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="small mb-1 form-label" for="town">Πόλη</label>
+                <input
+                  class="form-control"
+                  id="town"
+                  type="text"
+                  placeholder="Πόλη..."
+                  required
+                />
+                <div class="invalid-feedback">
+                  <b>Η πόλη δεν μπορεί να είναι κενή</b>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="small mb-1 form-label" for="address"
+                >Διεύθυνση</label
+              >
+              <input
+                class="form-control"
+                id="address"
+                type="text"
+                placeholder="Διεύθυνση..."
+                required
+              />
+              <div class="invalid-feedback">
+                <b>Η διεύθυνση δεν μπορεί να είναι κενή</b>
+              </div>
+            </div>
+            <button id="editBtn" class="mt-3 btn btn-primary" type="submit">
+              Αποθήκευση
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="static/javascripts/edit.js"></script>

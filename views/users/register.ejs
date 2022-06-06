@@ -5,7 +5,7 @@
   <div class="contactBox">
     <div class="contactLinks"></div>
     <div class="form-body contactForm">
-      <form id="registerForm" class="contact-form needs-validation" novalidate>
+      <form id="registerForm" class="needs-validation" novalidate>
         <div class="formLabel my-4">
           <input
             type="text"
@@ -16,7 +16,7 @@
           />
           <label for="name" class="labelPosition form-label"> Όνομα: </label>
           <div class="invalid-feedback">
-            <b>Παρακαλώ συμπληρώστε το όνομά σας</b>
+            <b>Το όνομα δεν μπορεί να είναι κενό</b>
           </div>
         </div>
         <div class="formLabel my-4">
@@ -31,7 +31,35 @@
             Επώνυμο:
           </label>
           <div class="invalid-feedback">
-            <b>Παρακαλώ συμπληρώστε το επώνυμό σας</b>
+            <b>Το επώνυμο δεν μπορεί να είναι κενό</b>
+          </div>
+        </div>
+        <div class="formLabel my-4">
+          <input
+            type="text"
+            class="form-control"
+            name="surname"
+            id="town"
+            required
+          />
+          <label for="town" class="labelPosition form-label"> Πόλη: </label>
+          <div class="invalid-feedback">
+            <b>Η πόλη δεν μπορεί να είναι κενή</b>
+          </div>
+        </div>
+        <div class="formLabel my-4">
+          <input
+            type="text"
+            class="form-control"
+            name="surname"
+            id="address"
+            required
+          />
+          <label for="address" class="labelPosition form-label">
+            Διεύθυνση:
+          </label>
+          <div class="invalid-feedback">
+            <b>Η διεύθυνση δεν μπορεί να είναι κενή</b>
           </div>
         </div>
         <div class="formLabel my-4">
@@ -44,7 +72,7 @@
           />
           <label for="email" class="labelPosition form-label"> Email: </label>
           <div class="invalid-feedback">
-            <b>Παρακαλώ συμπληρώστε το email σας</b>
+            <b>Παρακαλώ συμπληρώστε ένα έγκυρο email</b>
           </div>
         </div>
         <div class="formLabel my-4">
@@ -59,7 +87,10 @@
             Κωδικός:
           </label>
           <div class="invalid-feedback">
-            <b>Παρακαλώ συμπληρώστε έναν κωδικό</b>
+            <b
+              >Ο κωδικός πρέπει έχει τουλάχιστον 8 χαρακτήρες συμπεριλαμβάνοντας
+              1 αριθμό</b
+            >
           </div>
         </div>
         <div class="formLabel my-4">
@@ -74,10 +105,10 @@
             Επανάληψη Κωδικού:
           </label>
           <div class="invalid-feedback">
-            <b>Παρακαλώ συμπληρώστε ξανά τον κωδικό σας</b>
+            <b>Οι κωδικοί δεν ταιριάζουν</b>
           </div>
         </div>
-        <button id="registerButton" class="submitBtn mt-4" type="button">
+        <button id="registerButton" class="submitBtn mt-4" type="submit">
           Αποστολή
         </button>
       </form>

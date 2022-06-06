@@ -8,7 +8,7 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (
     username.value.length > 0 &&
-    ValidateEmail(email.value) > 0 &&
+    ValidateEmail(email.value) &&
     message.value.length > 0
   ) {
     button.textContent = "Αποστολή ...";

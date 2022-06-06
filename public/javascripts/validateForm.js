@@ -1,4 +1,4 @@
-//taken from bootstrap form validation
+//bootstrap form validation
 (function () {
   "use strict";
 
