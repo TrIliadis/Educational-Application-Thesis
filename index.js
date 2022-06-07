@@ -29,6 +29,12 @@ const nodemailer = require("nodemailer");
 //import multer for file upload
 const multer = require("multer");
 
+//import imageHosting config
+const { storage, cloudinary } = require("./imageHosting");
+
+// setup multer
+const upload = multer({ storage, limits: { fieldSize: 2 * 1024 * 1024 } }); //2MB limit
+
 //import uuid to give unique names to uploaded files
 const uuid = require("uuid").v4;
 
@@ -116,9 +122,7 @@ app.use(flash());
 
 //helmet middleware
 // app.use(
-//   helmet({
-//     contentSecurityPolicy: false,
-//   })
+//   helmet()
 // );
 
 //passport middlewares
@@ -324,11 +328,25 @@ app.get("/register", (req, res) => {
 });
 
 //register new user route
-app.post("/register", async (req, res, next) => {
+app.post("/register", upload.single("image"), async (req, res, next) => {
   try {
-    console.log(req.body);
-    // const {name, surname, email, password, town ,address, image} = req.body;
-  } catch {}
+    console.log(req.body, req.file);
+    const { name, surname, username, password} = req.body;
+    const user = new User({
+      username,
+      name,
+      surname,
+    });
+    if (req.file) {
+      user.image = { url: req.file.path, filename: req.file.filename };
+    }
+    await User.register(user, password);
+    await user.save();
+    console.log("User Created!");
+    console.log(user);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 //login user route

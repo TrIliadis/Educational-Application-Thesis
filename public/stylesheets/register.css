@@ -10,14 +10,14 @@
   width: clamp(100px, 90%, 1035px);
   margin: 35px 35px;
   display: flex;
-  border-radius: 10px;
+  border-radius: 12px;
   background-color: #dfbd81;
 }
 
 .contactLinks,
 .contactForm {
   width: 50%;
-  padding: 6.8% 6% 10%;
+  padding: 3%;
 }
 
 .h1Title {

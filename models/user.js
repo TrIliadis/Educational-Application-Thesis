@@ -8,21 +8,19 @@ const ImageSchema = new Schema({
 });
 
 const UserSchema = new Schema({
-  firstName: {
+  name: {
     type: String,
     required: true,
   },
-  lastName: {
+  surname: {
     type: String,
     required: true,
   },
   town: {
     type: String,
-    required: true,
   },
   address: {
     type: String,
-    required: true,
   },
   role: {
     type: String,

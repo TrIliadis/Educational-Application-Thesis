@@ -6,7 +6,7 @@
     <div class="contactLinks"></div>
     <div class="form-body contactForm">
       <form id="registerForm" class="needs-validation" novalidate>
-        <div class="formLabel my-4">
+        <div class="formLabel mb-4">
           <input
             type="text"
             class="form-control"
@@ -36,36 +36,8 @@
         </div>
         <div class="formLabel my-4">
           <input
-            type="text"
-            class="form-control"
-            name="surname"
-            id="town"
-            required
-          />
-          <label for="town" class="labelPosition form-label"> Πόλη: </label>
-          <div class="invalid-feedback">
-            <b>Η πόλη δεν μπορεί να είναι κενή</b>
-          </div>
-        </div>
-        <div class="formLabel my-4">
-          <input
-            type="text"
-            class="form-control"
-            name="surname"
-            id="address"
-            required
-          />
-          <label for="address" class="labelPosition form-label">
-            Διεύθυνση:
-          </label>
-          <div class="invalid-feedback">
-            <b>Η διεύθυνση δεν μπορεί να είναι κενή</b>
-          </div>
-        </div>
-        <div class="formLabel my-4">
-          <input
             type="email"
-            class="form-control contact"
+            class="form-control"
             name="email"
             id="email"
             required
@@ -88,7 +60,7 @@
           </label>
           <div class="invalid-feedback">
             <b
-              >Ο κωδικός πρέπει έχει τουλάχιστον 8 χαρακτήρες συμπεριλαμβάνοντας
+              >Ο κωδικός πρέπει έχει τουλάχιστον 5 χαρακτήρες συμπεριλαμβάνοντας
               1 αριθμό</b
             >
           </div>
@@ -135,4 +107,5 @@
     </div>
   </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="static/javascripts/register.js"></script>

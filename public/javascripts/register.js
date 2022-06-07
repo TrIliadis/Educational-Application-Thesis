@@ -1,12 +1,10 @@
 const form = document.getElementById("registerForm");
-const button = document.getElementById("registerButton");
 const username = document.getElementById("name");
 const email = document.getElementById("email");
 const surname = document.getElementById("surname");
-const town = document.getElementById("town");
-const address = document.getElementById("address");
 const imgInput = document.getElementById("imgInput");
 const profileImg = document.getElementById("profileImg");
+let image = "";
 
 imgInput.onchange = (e) => {
   const [file] = imgInput.files;
@@ -22,25 +20,18 @@ form.addEventListener("submit", async (e) => {
     surname.value.length > 0 &&
     ValidateEmail(email.value) &&
     ValidatePassword() &&
-    ValidatePassword2() &&
-    town.value.length > 0 &&
-    address.value.length > 0
+    ValidatePassword2()
   ) {
-    let details = {
-      name: username.value,
-      surname: surname.value,
-      email: email.value,
-      password: password.value,
-      town: town.value,
-      address: address.value,
-      image: profileImg.src,
-    };
+    const data = new FormData();
+    data.append("username", email.value);
+    data.append("name", username.value);
+    data.append("surname", surname.value);
+    data.append("password", password.value);
+    data.append("image", imgInput.files[0]);
+
     await fetch("/register", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(details),
+      body: data,
     });
   }
 });
@@ -54,7 +45,7 @@ function ValidateEmail(input) {
 
 function ValidatePassword() {
   const password = document.getElementById("password");
-  const validRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  const validRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/;
   if (password.value.match(validRegex)) return true;
   else {
     password.value = "";
