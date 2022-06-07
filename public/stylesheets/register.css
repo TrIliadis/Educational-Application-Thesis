@@ -66,7 +66,7 @@ textarea:valid + label {
 
 /* send button */
 .submitBtn {
-  background-color: #61840d;
+  background-color: #fa8a00;
   filter: drop-shadow(3px 3px 4px rgba(8, 8, 8, 0.2));
   color: white;
   font-size: 18px;
@@ -93,4 +93,28 @@ input.contact:-webkit-autofill:focus,
 input.contact:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   -webkit-text-fill-color: black !important;
+}
+
+/* upload image button */
+.fileInput {
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.fileInputLabel {
+  cursor: pointer;
+  line-height: 1.5;
+  border-radius: 5px;
+  font-weight: 400;
+  color: white;
+  padding: 10px 12px;
+  background-color: #fa8a00;
+}
+
+.imgProfile {
+  height: 160px;
+  background-color: white;
+  border-radius: 50%;
 }

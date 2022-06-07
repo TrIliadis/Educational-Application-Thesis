@@ -5,6 +5,15 @@ const email = document.getElementById("email");
 const surname = document.getElementById("surname");
 const town = document.getElementById("town");
 const address = document.getElementById("address");
+const imgInput = document.getElementById("imgInput");
+const profileImg = document.getElementById("profileImg");
+
+imgInput.onchange = (e) => {
+  const [file] = imgInput.files;
+  if (file) {
+    profileImg.src = URL.createObjectURL(file);
+  }
+};
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -22,6 +31,9 @@ form.addEventListener("submit", async (e) => {
       surname: surname.value,
       email: email.value,
       password: password.value,
+      town: town.value,
+      address: address.value,
+      image: profileImg.src,
     };
     await fetch("/register", {
       method: "POST",

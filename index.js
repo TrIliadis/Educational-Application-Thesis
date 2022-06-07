@@ -20,21 +20,44 @@ const mongoose = require("mongoose");
 //ejs-mate import
 const engine = require("ejs-mate");
 
-//import Schemas
-const Course = require("./models/course");
-
 //import Helmet
 const helmet = require("helmet");
 
 //import nodemailer & email template
 const nodemailer = require("nodemailer");
 
+//import multer for file upload
+const multer = require("multer");
+
+//import uuid to give unique names to uploaded files
+const uuid = require("uuid").v4;
+
+//import session for user credential storage
+const session = require("express-session");
+
+//import passport for user credentials
+const passport = require("passport");
+
+//use local strategy in passport module
+const LocalStrategy = require("passport-local");
+
+//import DB user and course schemas
+const User = require("./models/user");
+const Course = require("./models/course");
+
+//import connect-flash to flash success/failure messages
+const flash = require("connect-flash");
+
+//import MongoDBStore to save session on DB
+const MongoDBStore = require("connect-mongo");
+
 //connect to DB
-const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/thesis";
-mongoose.connect(dbUrl, {
+const dBUrl = process.env.DB_URL || "mongodb://localhost:27017/thesis";
+mongoose.connect(dBUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -53,15 +76,80 @@ app.use("/static", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//allow custom delete, put, patch requests
+app.use(methodOverride("_method"));
+
+//session secret
+const secret = process.env.SECRET;
+
+//store session in DB
+const store = MongoDBStore.create({
+  mongoUrl: dBUrl,
+  secret,
+  touchAfter: 60 * 60 * 24,
+});
+
+//error if it fails to save session to DB
+store.on("error", (e) => {
+  console.log("SESSION DB STORING ERROR", e);
+});
+
+//configure session
+const sessionConfig = {
+  store,
+  name: "session",
+  secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60,
+    maxAge: 1000 * 60 * 60 * 24,
+  },
+};
+
+//session middleware
+app.use(session(sessionConfig));
+
+//flash-connect middleware
+app.use(flash());
+
+//helmet middleware
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: false,
+//   })
+// );
+
+//passport middlewares
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//flash success/failure message middleware
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
+
+// home route
 app.get("/", (req, res) => {
   res.render("home");
 });
 
+//course index route
 app.get("/courses", async (req, res) => {
   const courses = await Course.find({});
   res.render("courses/index", { courses, topic: "Μαθήματα", calendar: false });
 });
 
+//contact route
 app.get("/contact", (req, res) => {
   res.render("contact", { topic: "Επικοινωνία", calendar: false });
 });
@@ -226,33 +314,41 @@ app.post("/contact", async (req, res) => {
     </html>
      `,
   });
-
   console.log("Message sent: %s", info.messageId);
   res.render("contact", { topic: "Επικοινωνία", calendar: false });
 });
 
+//register route
 app.get("/register", (req, res) => {
   res.render("users/register", { topic: "Εγγραφή", calendar: false });
 });
 
-app.get("/login", (req, res) => {
-  res.render("users/login", { topic: "Σύνδεση", calendar: false });
+//register new user route
+app.post("/register", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    // const {name, surname, email, password, town ,address, image} = req.body;
+  } catch {}
 });
 
+//login user route
 app.post("/login", (req, res) => {
   res.send("logged in");
 });
 
+//edit profile route
 app.get("/edit", (req, res) => {
   res.render("users/edit", { topic: "Επεξεργασία Προφίλ", calendar: false });
 });
 
+//show course route
 app.get("/courses/:id", async (req, res) => {
   const { id } = req.params;
   const course = await Course.findById(id);
   res.render("courses/show", { course, topic: course.title, calendar: true });
 });
 
+//404 route
 app.get("*", (req, res) => {
   res.render("error", { topic: "404", calendar: false });
 });

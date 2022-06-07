@@ -155,7 +155,7 @@ input.contact:-webkit-autofill:active {
 
 .teamCard2 {
   background: url("https://res.cloudinary.com/dgzlym20q/image/upload/v1654417749/makeItGreen/photo-1601412436016-2cde285e3aad_tft0sm.jpg");
-  background-size: 300px;
+  background-size: 320px;
 }
 
 .teamCard2:hover {
@@ -269,6 +269,7 @@ input.contact:-webkit-autofill:active {
 a,
 a:hover {
   color: white;
+  text-decoration: none;
 }
 
 /* change background color on contact send button */

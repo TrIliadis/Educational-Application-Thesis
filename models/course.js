@@ -6,8 +6,9 @@ const ImageSchema = new Schema({
   filename: String,
 });
 
-ImageSchema.virtual("thumbnail").get(function () {
-  return this.url.replace("/upload", "/upload/w_200");
+const FileSchema = new Schema({
+  url: String,
+  filename: String,
 });
 
 const courseSchema = new Schema({
@@ -15,20 +16,20 @@ const courseSchema = new Schema({
     type: String,
     required: true,
   },
-  teachers: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
   description: {
     type: String,
     required: true,
   },
-  files: [String],
+  files: [FileSchema],
   images: ImageSchema,
-  created: Date,
-  lastActive: Date,
+  created: {
+    type: Date,
+    default: Date.now,
+  },
+  lastActive: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("Course", courseSchema);

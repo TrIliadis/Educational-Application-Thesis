@@ -40,7 +40,7 @@ label {
 }
 
 /* upload image button */
-.file-input__input {
+.fileInput {
   opacity: 0;
   overflow: hidden;
   position: absolute;
