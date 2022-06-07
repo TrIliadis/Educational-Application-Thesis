@@ -90,7 +90,7 @@ app.post("/contact", async (req, res) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <style type="text/css">
           body {
-            background-color: #110f16;
+            background-color: var(--white);
             font-family: sans-serif;
           }
     
@@ -104,7 +104,7 @@ app.post("/contact", async (req, res) => {
             width: 600px;
             border-radius: 10px;
             padding: 50px;
-            background-color: #347274;
+            background-color: #dfbd81;
           }
     
           .content {

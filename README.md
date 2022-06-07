@@ -175,9 +175,9 @@ To get a local copy up and running follow these simple example steps.
 - [x] Course MongoDB Model
 - [ ] User MongoDB Model
 - [ ] File MongoDB Model
-- [ ] About Page
-- [ ] Login Page
-- [ ] Register Page
+- [x] About Page
+- [x] Login Page
+- [x] Register Page
 - [ ] Logout
 - [ ] Middleware
 - [ ] Router
