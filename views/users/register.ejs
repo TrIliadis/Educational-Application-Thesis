@@ -1,11 +1,20 @@
 <%- layout('layouts/boilerplate') %>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <link rel="stylesheet" href="static/stylesheets/register.css" />
 <h1 class="h1 text-center h1Title">Εγγραφη</h1>
 <section class="contact">
   <div class="contactBox">
     <div class="contactLinks"></div>
     <div class="form-body contactForm">
-      <form id="registerForm" class="needs-validation" novalidate>
+      <form
+        id="registerForm"
+        class="needs-validation"
+        novalidate
+        method="POST"
+        enctype="multipart/form-data"
+      >
         <div class="formLabel mb-4">
           <input
             type="text"
@@ -43,7 +52,7 @@
             required
           />
           <label for="email" class="labelPosition form-label"> Email: </label>
-          <div class="invalid-feedback">
+          <div id="invalidEmail" class="invalid-feedback">
             <b>Παρακαλώ συμπληρώστε ένα έγκυρο email</b>
           </div>
         </div>
@@ -58,10 +67,10 @@
           <label for="password" class="labelPosition form-label">
             Κωδικός:
           </label>
-          <div class="invalid-feedback">
+          <div id="invalidPass" class="invalid-feedback">
             <b
               >Ο κωδικός πρέπει έχει τουλάχιστον 5 χαρακτήρες συμπεριλαμβάνοντας
-              1 αριθμό</b
+              1 αριθμό και 1 χαρακτήρα</b
             >
           </div>
         </div>
@@ -76,7 +85,7 @@
           <label for="validatePassword" class="labelPosition form-label">
             Επανάληψη Κωδικού:
           </label>
-          <div class="invalid-feedback">
+          <div id="invalidPass2" class="invalid-feedback">
             <b>Οι κωδικοί δεν ταιριάζουν</b>
           </div>
         </div>
@@ -107,5 +116,5 @@
     </div>
   </div>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="static/javascripts/register.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

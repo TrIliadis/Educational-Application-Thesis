@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 const Course = require("../models/course");
+const User = require("../models/user");
 const courses = require("./courses");
+const users = require("./users");
 const axios = require("axios");
+const user = require("../models/user");
 
 mongoose.connect("mongodb://localhost:27017/thesis", {
   useNewUrlParser: true,
@@ -23,7 +26,11 @@ function randomDate(start, end) {
 
 //Dummy seed DB
 const seedDB = async () => {
+  //delete course and user collection data
   await Course.deleteMany({});
+  await User.deleteMany({});
+
+  //get random images for courses from unsplash api
   for (let i = 0; i < 9; i++) {
     //get random images
     const img = await axios.get(
@@ -40,6 +47,18 @@ const seedDB = async () => {
     });
     await course.save();
     console.log(course);
+  }
+
+  for (let i = 0; i < users.length; i++) {
+    const { name, surname, username, password, role } = users[i];
+    const user = new User({
+      name,
+      surname,
+      username,
+      role,
+    });
+    const newUser = await User.register(user, password);
+    console.log(newUser);
   }
 };
 

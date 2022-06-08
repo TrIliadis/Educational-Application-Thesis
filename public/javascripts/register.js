@@ -1,10 +1,11 @@
-const form = document.getElementById("registerForm");
-const username = document.getElementById("name");
 const email = document.getElementById("email");
-const surname = document.getElementById("surname");
 const imgInput = document.getElementById("imgInput");
 const profileImg = document.getElementById("profileImg");
-let image = "";
+const invalidEmail = document.getElementById("invalidEmail");
+const pass = document.getElementById("password");
+const invalidPass = document.getElementById("invalidPass");
+const pass2 = document.getElementById("validatePassword");
+const invalidPass2 = document.getElementById("invalidPass2");
 
 imgInput.onchange = (e) => {
   const [file] = imgInput.files;
@@ -13,28 +14,23 @@ imgInput.onchange = (e) => {
   }
 };
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  if (
-    username.value.length > 0 &&
-    surname.value.length > 0 &&
-    ValidateEmail(email.value) &&
-    ValidatePassword() &&
-    ValidatePassword2()
-  ) {
-    const data = new FormData();
-    data.append("username", email.value);
-    data.append("name", username.value);
-    data.append("surname", surname.value);
-    data.append("password", password.value);
-    data.append("image", imgInput.files[0]);
+email.onchange = (e) => {
+  if (!ValidateEmail(email.value)) {
+    invalidEmail.classList.add("d-block");
+  } else invalidEmail.classList.remove("d-block");
+};
 
-    await fetch("/register", {
-      method: "POST",
-      body: data,
-    });
-  }
-});
+pass.onchange = (e) => {
+  if (!ValidatePassword(pass.value)) {
+    invalidPass.classList.add("d-block");
+  } else invalidPass.classList.remove("d-block");
+};
+
+pass2.onchange = (e) => {
+  if (!ValidatePassword2(pass2.value)) {
+    invalidPass2.classList.add("d-block");
+  } else invalidPass2.classList.remove("d-block");
+};
 
 function ValidateEmail(input) {
   const validRegex =
@@ -44,21 +40,12 @@ function ValidateEmail(input) {
 }
 
 function ValidatePassword() {
-  const password = document.getElementById("password");
   const validRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/;
-  if (password.value.match(validRegex)) return true;
-  else {
-    password.value = "";
-    return false;
-  }
+  if (pass.value.match(validRegex)) return true;
+  else return false;
 }
 
 function ValidatePassword2() {
-  const password = document.getElementById("password");
-  const password2 = document.getElementById("validatePassword");
-  if (password.value === password2.value) return true;
-  else {
-    password2.value = "";
-    return false;
-  }
+  if (pass.value === pass2.value) return true;
+  else return false;
 }

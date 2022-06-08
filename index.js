@@ -330,20 +330,32 @@ app.get("/register", (req, res) => {
 //register new user route
 app.post("/register", upload.single("image"), async (req, res, next) => {
   try {
-    console.log(req.body, req.file);
-    const { name, surname, username, password} = req.body;
+    console.log(req.body);
+    const { name, surname, email, password } = req.body;
     const user = new User({
-      username,
+      username: email,
       name,
       surname,
     });
     if (req.file) {
       user.image = { url: req.file.path, filename: req.file.filename };
     }
-    await User.register(user, password);
-    await user.save();
-    console.log("User Created!");
-    console.log(user);
+    const newUser = await User.register(user, password);
+    req.login(newUser, (err) => {
+      if (err) return next(err);
+      let welcomeName = name;
+      if (welcomeName.charAt(welcomeName.length - 1) == "ς") {
+        welcomeName = welcomeName.substr(0, welcomeName.length - 1);
+      }
+      if (welcomeName.charAt(welcomeName.length - 1) == "ο") {
+        welcomeName = welcomeName.replace(/.$/, "ε");
+      }
+      req.flash(
+        "success",
+        `Καλώς ήρθες ${welcomeName} στην Εκπαιδευτική Εφαρμογή!`
+      );
+      res.redirect("/courses");
+    });
   } catch (e) {
     console.log(e);
   }
@@ -367,8 +379,14 @@ app.get("/courses/:id", async (req, res) => {
 });
 
 //404 route
-app.get("*", (req, res) => {
+app.all("*", (req, res) => {
   res.render("error", { topic: "404", calendar: false });
+});
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "Oh No, Something Went Wrong!";
+  res.status(statusCode).render("error", { err });
 });
 
 app.listen(port, () => {
