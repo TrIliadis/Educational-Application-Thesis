@@ -28,16 +28,19 @@ form.addEventListener("submit", async (e) => {
       });
       if (response.status === 200) {
         button.classList.remove("sendingBtn");
-        button.textContent = `Το μήνυμα στάλθηκε επιτυχώς`;
+        document.getElementById("hiddenSuccess").classList.remove("hidden");
+        button.textContent = "Αποστολή";
       } else {
         button.classList.remove("sendingBtn");
+        document.getElementById("hiddenError").classList.remove("hidden");
         button.classList.add("errorSend");
-        button.textContent = `Υπήρξε κάποιο πρόβλημα, παρακαλώ προσπαθήστε αργότερα`;
+        button.textContent = "Αποστολή";
       }
     } catch {
       button.classList.remove("sendingBtn");
+      document.getElementById("hiddenError").classList.remove("hidden");
       button.classList.add("errorSend");
-      button.textContent = `Υπήρξε κάποιο πρόβλημα, παρακαλώ προσπαθήστε αργότερα`;
+      button.textContent = "Αποστολή";
     }
   }
 });

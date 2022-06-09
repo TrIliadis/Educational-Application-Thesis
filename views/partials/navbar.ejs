@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/static/stylesheets/navbar.css" />
-<link rel="stylesheet" href="static/stylesheets/login.css" />
+<link rel="stylesheet" href="/static/stylesheets/login.css" />
 
 <nav class="navbar navbar-expand-lg navbar-dark dark">
   <div class="container-fluid">
@@ -34,11 +34,12 @@
           <a class="navLink" aria-current="page" href="/">Αρχική Σελίδα</a>
         </li>
         <li class="nav-item">
-          <a class="navLink <%= topic === "Μαθήματα" ? 'active' : ''%> " href="/courses">Μαθήματα</a>
+          <a class="navLink <%= topic === "Μαθήματα" ? 'active' : ''%>" href="/courses">Μαθήματα</a>
         </li>
         <li class="nav-item">
           <a class="navLink <%= topic == "Επικοινωνία" ? 'active' : ''%>" href="/contact">Επικοινωνία</a>
         </li>
+        <% if(!loggedUser){ %> 
         <li class="nav-item">
           <!-- Modal trigger-->
           <a
@@ -72,7 +73,7 @@
                         class="form-control"
                         id="modalEmail"
                         type="text"
-                        name="email"
+                        name="username"
                         required
                         autofocus
                       />
@@ -95,18 +96,22 @@
                   </form>
                 </div>
               </div>
-
+              
               <li class="nav-item">
                 <a class="navLink <%= topic === "Εγγραφή" ? 'active' : ''%>" href="/register">Εγγραφή</a>
               </li>
+              <% } %> 
+              <% if(loggedUser){ %> 
               <li class="nav-item">
                 <a class="navLink <%= topic === "Επεξεργασία Προφίλ" ? 'active' : ''%>" href="/edit">Επεξεργασία Προφίλ</a>
               </li>
               <li class="nav-item">
                 <a class="navLink" href="/logout">Έξοδος</a>
               </li>
+              <% } %> 
             </div>
           </div>
+          <% if(!loggedUser){ %> 
           <script>
             const loginModal = document.getElementById("loginModal");
             const emailInput = document.getElementById("modalEmail");
@@ -116,6 +121,7 @@
               emailInput.classList.add("login");
             });
           </script>
+          <% } %>
         </li>
       </ul>
     </div>

@@ -4,8 +4,8 @@
 
 <div class="container my-5">
   <div class="row">
-    <div class="col-xl-4">
-      <div class="footerBg container mb-4 mb-xl-0">
+    <div class="col-4">
+      <div class="footerBg container">
         <div class="containerTitle">Εικόνα Προφίλ</div>
         <div class="card-body text-center">
           <img
@@ -16,26 +16,31 @@
           <div class="small font-italic text-muted mb-4">
             Μέγιστο μέγεθος 2MB
           </div>
-          <input
-            accept="image/*"
-            type="file"
-            name="image"
-            id="imgInput"
-            class="fileInput"
-          />
-          <label class="fileInputLabel" for="imgInput"
-            ><span>Ανεβάστε νέα εικόνα</span></label
-          >
+          <form action="/dicks" method="">
+            <input
+              accept="image/*"
+              type="file"
+              name="image"
+              id="imgInput"
+              class="fileInput"
+            />
+            <label class="fileInputLabel" for="imgInput"
+              ><span>Ανεβάστε νέα εικόνα</span></label
+            >
+            <button class="mt-3 btn btn-success" type="submit">
+              Αποθήκευση Εικόνας
+            </button>
+          </form>
         </div>
       </div>
     </div>
-    <div class="col-xl-8">
+    <div class="col-8">
       <div class="footerBg container mb-4">
         <div class="containerTitle">Στοιχεία Προφίλ</div>
         <div class="card-body">
           <form id="editForm" class="needs-validation" novalidate>
             <div class="row gx-3 mb-3">
-              <div class="col-md-6">
+              <div class="col-6">
                 <label class="small mb-1 form-label" for="name">Όνομα</label>
                 <input
                   class="form-control"
@@ -48,7 +53,7 @@
                   <b>Το όνομα δεν μπορεί να είναι κενό</b>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-6">
                 <label class="small mb-1 form-label" for="surname"
                   >Επώνυμο</label
                 >
@@ -65,7 +70,7 @@
               </div>
             </div>
             <div class="row gx-3 mb-3">
-              <div class="col-md-6">
+              <div class="col-6">
                 <label class="small mb-1 form-label" for="email">Email</label>
                 <input
                   class="form-control"
@@ -78,7 +83,7 @@
                   <b>Παρακαλώ συμπληρώστε ένα έγκυρο email</b>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-6">
                 <label class="small mb-1 form-label" for="town">Πόλη</label>
                 <input
                   class="form-control"
@@ -107,7 +112,7 @@
                 <b>Η διεύθυνση δεν μπορεί να είναι κενή</b>
               </div>
             </div>
-            <button id="editBtn" class="mt-3 btn btn-primary" type="submit">
+            <button id="editBtn" class="mt-3 btn btn-success" type="submit">
               Αποθήκευση
             </button>
           </form>

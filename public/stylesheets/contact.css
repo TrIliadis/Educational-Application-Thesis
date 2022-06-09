@@ -17,6 +17,11 @@
   padding: 6.8% 6% 10%;
 }
 
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
 .h1Title {
   color: white;
   margin: 1.5rem 0;

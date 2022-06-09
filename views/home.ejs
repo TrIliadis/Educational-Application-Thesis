@@ -36,9 +36,13 @@
             >
             <a class="navbarLink" href="/courses">Μαθήματα</a>
             <a class="navbarLink" href="/contact">Επικοινωνία</a>
+            <% if(!loggedUser){ %>
+            <a class="navbarLink" href="/login">Είσοδος</a>
             <a class="navbarLink" href="/register">Εγγραφή</a>
+            <% } %> <% if(loggedUser){ %>
             <a class="navbarLink" href="/edit">Επεξεργασία Προφίλ</a>
             <a class="navbarLink" href="/logout">Έξοδος</a>
+            <% } %>
           </nav>
         </div>
       </header>

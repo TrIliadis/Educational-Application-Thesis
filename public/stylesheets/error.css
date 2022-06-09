@@ -6,6 +6,14 @@
   height: 500px;
 }
 
+.h1Title {
+  color: white;
+  margin: 1.5rem 0;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
 .center {
   margin: auto;
   width: 100%;

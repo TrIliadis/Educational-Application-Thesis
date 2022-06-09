@@ -1,0 +1,57 @@
+<%- layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="static/stylesheets/loginPage.css" />
+<h1 class="h1Title">Συνδεση</h1>
+
+<section class="contact">
+  <div class="contactBox">
+    <div class="contactLinks"></div>
+    <div class="form-body contactForm">
+      <form
+        method="POST"
+        action="/login"
+        id="contactForm"
+        class="needs-validation"
+        novalidate
+      >
+        <div class="formLabel my-4">
+          <input
+            type="text"
+            class="form-control contact"
+            name="username"
+            id="username"
+            required
+          />
+          <label for="username" class="labelPosition form-label">
+            Email:
+          </label>
+          <div class="invalid-feedback">
+            <b>Παρακαλώ συμπληρώστε ένα έγκυρο email</b>
+          </div>
+        </div>
+        <div class="formLabel">
+          <input
+            type="password"
+            class="form-control contact"
+            name="password"
+            id="password"
+            required
+          />
+          <label for="password" class="labelPosition form-label">
+            Κωδικός:
+          </label>
+        </div>
+        <button id="contactButton" class="submitBtn mt-4" type="submit">
+          Αποστολή
+        </button>
+      </form>
+      <div class="my-5">
+        <strong class="text-decoration-underline registerText"
+          >Δεν έχετε λογαριασμό?</strong
+        >
+        <form action="/register" method="get">
+          <button class="mt-3 submitBtn">Εγγραφή</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

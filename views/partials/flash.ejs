@@ -1,6 +1,6 @@
 <!-- this file is for flashing success/error messages after actions like register user, edit user etc -->
 <% if(success && success.length) {%>
-<div class="container mt-5" style="max-width: 800px">
+<div class="container mt-5" style="max-width: 500px">
   <!-- bootstrap success alert -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -22,7 +22,7 @@
     >
       <use xlink:href="#check-circle-fill" />
     </svg>
-    <div><%= success %></div>
+    <div style="margin: auto;"><%= success %></div>
     <button
       type="button"
       class="btn-close"
@@ -33,7 +33,7 @@
 </div>
 <% } %> <% if(error && error.length) {%>
 <!-- bootstrap danger alert -->
-<div class="container mt-5 style="max-width: 800px"">
+<div class="container mt-5" style="max-width: 800px">
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
     <symbol
       id="exclamation-triangle-fill"

@@ -47,6 +47,9 @@ const passport = require("passport");
 //use local strategy in passport module
 const LocalStrategy = require("passport-local");
 
+//import translate to translate english to greek messsages from passport
+const translate = require("translate");
+
 //import DB user and course schemas
 const User = require("./models/user");
 const Course = require("./models/course");
@@ -56,6 +59,12 @@ const flash = require("connect-flash");
 
 //import MongoDBStore to save session on DB
 const MongoDBStore = require("connect-mongo");
+
+//import ExpressError class
+const ExpressError = require("./erorrHandling/ExpressError");
+
+// import asyncWrapper
+const asyncWrapper = require("./erorrHandling/asyncWrapper");
 
 //connect to DB
 const dBUrl = process.env.DB_URL || "mongodb://localhost:27017/thesis";
@@ -69,6 +78,9 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
   console.log("Database connected");
 });
+
+//use google to translate
+translate.engine = "google";
 
 //Use ejs View engine
 app.engine("ejs", engine);
@@ -134,261 +146,480 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-//flash success/failure message middleware
+//flash success/failure message middleware & bind logged user to locals for rendering
 app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
+  res.locals.loggedUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
 });
 
-// home route
+// render home page
 app.get("/", (req, res) => {
   res.render("home");
 });
 
-//course index route
-app.get("/courses", async (req, res) => {
-  const courses = await Course.find({});
-  res.render("courses/index", { courses, topic: "Μαθήματα", calendar: false });
+//render login page
+app.get("/login", (req, res) => {
+  res.render("users/loginPage", { topic: "Σύνδεση" });
 });
 
-//contact route
+//render all courses page
+app.get(
+  "/courses",
+  asyncWrapper(async (req, res) => {
+    const courses = await Course.find({});
+    res.render("courses/index", {
+      courses,
+      topic: "Μαθήματα",
+    });
+  })
+);
+
+//render contact page
 app.get("/contact", (req, res) => {
-  res.render("contact", { topic: "Επικοινωνία", calendar: false });
+  res.render("contact", { topic: "Επικοινωνία" });
 });
 
 //route for sending contact email
-app.post("/contact", async (req, res) => {
-  let transporter = nodemailer.createTransport({
-    host: "smtp.mail.yahoo.com",
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.SENDER_USERNAME,
-      pass: process.env.SENDER_PASSWORD,
-    },
-  });
-  let info = await transporter.sendMail({
-    from: process.env.SENDER_USERNAME,
-    to: process.env.RECIEVER_USERNAME,
-    subject: "Εκπαιδευτική Εφαρμογή",
-    text: req.body.message,
-    html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml">
-      <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style type="text/css">
-          body {
-            background-color: var(--white);
-            font-family: sans-serif;
-          }
-    
-          .container {
-            width: 100%;
-            padding-bottom: 20px;
-          }
-    
-          .main {
-            background-color: white;
-            width: 600px;
-            border-radius: 10px;
-            padding: 50px;
-            background-color: #dfbd81;
-          }
-    
-          .content {
-            line-height: 25px;
-            text-align: left;
-            padding-left: 45px;
-          }
-    
-          .logo {
-            width: 150px;
-            padding-left: 60px;
-            padding-bot: 50px;
-          }
-    
-          .footer {
-            width: 600px;
-            margin-top: 50px;
-          }
-    
-          .circle {
-            border-radius: 50%;
-          }
-    
-          a {
-            text-decoration: none;
-            padding: 5px;
-          }
-        </style>
-      </head>
-      <body>
-        <center>
-          <div class="container main">
-            <div class="container">
-              <!-- change link after deploy -->
-              <a href="http://localhost:3000/"
-                ><img
-                  src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654068549/makeItGreen/book_c2vkdg.png"
-                  width="130"
-              /></a>
-            </div>
-            <h1>Μήνυμα από φόρμα επικοινωνίας</h1>
-            <img
-              class="logo"
-              src="https://cdn-icons-png.flaticon.com/512/4457/4457168.png"
-            />
-            <p class="content">
-              <strong>Αποστολέας</strong>:
-              <a rel="noopener" href="mailto:${req.body.email}" target="_blank"
-                >${req.body.email}</a
-              >
-            </p>
-    
-            <p class="content">
-              <strong>Όνομα Αποστολέα</strong>: ${req.body.name}
-            </p>
-            <p class="content"><strong>Μήνυμα</strong>: ${req.body.message}</p>
-    
-            <div class="footer">
-              <p>
-                <small class="text-muted"
-                  >&copy; Copyright June 2022 , CSD AUTH</small
+app.post(
+  "/contact",
+  asyncWrapper(async (req, res) => {
+    let transporter = nodemailer.createTransport({
+      host: "smtp.mail.yahoo.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.SENDER_USERNAME,
+        pass: process.env.SENDER_PASSWORD,
+      },
+    });
+    let info = await transporter.sendMail({
+      from: process.env.SENDER_USERNAME,
+      to: process.env.RECIEVER_USERNAME,
+      subject: "Εκπαιδευτική Εφαρμογή",
+      text: req.body.message,
+      html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <style type="text/css">
+            body {
+              background-color: var(--white);
+              font-family: sans-serif;
+            }
+      
+            .container {
+              width: 100%;
+              padding-bottom: 20px;
+            }
+      
+            .main {
+              background-color: white;
+              width: 600px;
+              border-radius: 10px;
+              padding: 50px;
+              background-color: #dfbd81;
+            }
+      
+            .content {
+              line-height: 25px;
+              text-align: left;
+              padding-left: 45px;
+            }
+      
+            .logo {
+              width: 150px;
+              padding-left: 60px;
+              padding-bottom: 50px;
+            }
+      
+            .footer {
+              width: 600px;
+              margin-top: 50px;
+            }
+      
+            .circle {
+              border-radius: 50%;
+            }
+      
+            a {
+              text-decoration: none;
+              padding: 5px;
+            }
+          </style>
+        </head>
+        <body>
+          <center>
+          <table style="background-color: #dfbd81; width:100%">
+            <div class="container main">
+              <div class="container">
+                <!-- change link after deploy -->
+                <a href="http://localhost:3000/"
+                  ><img
+                    src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654068549/makeItGreen/book_c2vkdg.png"
+                    width="130"
+                /></a>
+              </div>
+              <h1>Μήνυμα από φόρμα επικοινωνίας</h1>
+              <img
+                class="logo"
+                src="https://cdn-icons-png.flaticon.com/512/4457/4457168.png"
+              />
+              <p class="content">
+                <strong>Αποστολέας</strong>:
+                <a rel="noopener" href="mailto:${req.body.email}" target="_blank"
+                  >${req.body.email}</a
                 >
               </p>
-              <p>
-                <a
-                  href=" https://www.facebook.com/triantafillos.iliadis"
-                  title="Facebook"
-                  target="_blank"
-                >
-                  <img
-                    src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507514/makeItGreen/facebook_usmnyx.png"
-                    alt="Facebook"
+      
+              <p class="content">
+                <strong>Όνομα Αποστολέα</strong>: ${req.body.name}
+              </p>
+              <p class="content"><strong>Μήνυμα</strong>: ${req.body.message}</p>
+      
+              <div class="footer">
+                <p>
+                  <small class="text-muted"
+                    >&copy; Copyright June 2022 , CSD AUTH</small
+                  >
+                </p>
+                <p>
+                  <a
+                    href=" https://www.facebook.com/triantafillos.iliadis"
                     title="Facebook"
-                    width="35"
-                  />
-                </a>
-                <a
-                  href=" https://twitter.com/daxakaTI"
-                  title="Twitter"
-                  target="_blank"
-                >
-                  <img
-                    src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507523/makeItGreen/twitter_ebol7o.png"
-                    alt="Twitter"
+                    target="_blank"
+                  >
+                    <img
+                      src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507514/makeItGreen/facebook_usmnyx.png"
+                      alt="Facebook"
+                      title="Facebook"
+                      width="35"
+                    />
+                  </a>
+                  <a
+                    href=" https://twitter.com/daxakaTI"
                     title="Twitter"
-                    width="35"
-                  />
-                </a>
-                <a
-                  href=" https://www.linkedin.com/in/triantafyllos-iliadis-b4b9b7234/"
-                  title="LinkedIn"
-                  target="_blank"
-                >
-                  <img
-                    src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507521/makeItGreen/linkedin_qztcjf.png"
-                    alt="LinkedIn"
+                    target="_blank"
+                  >
+                    <img
+                      src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507523/makeItGreen/twitter_ebol7o.png"
+                      alt="Twitter"
+                      title="Twitter"
+                      width="35"
+                    />
+                  </a>
+                  <a
+                    href=" https://www.linkedin.com/in/triantafyllos-iliadis-b4b9b7234/"
                     title="LinkedIn"
-                    width="35"
-                  />
-                </a>
-                <a
-                  href="https://github.com/TrIliadis/Educational-Application-Thesishttps://github.com/TrIliadis/Educational-Application-Thesis"
-                  title="GitHub"
-                  target="_blank"
-                >
-                  <img
-                    src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507518/makeItGreen/github_rokw2r.png"
-                    alt="GitHub"
+                    target="_blank"
+                  >
+                    <img
+                      src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507521/makeItGreen/linkedin_qztcjf.png"
+                      alt="LinkedIn"
+                      title="LinkedIn"
+                      width="35"
+                    />
+                  </a>
+                  <a
+                    href="https://github.com/TrIliadis/Educational-Application-Thesishttps://github.com/TrIliadis/Educational-Application-Thesis"
                     title="GitHub"
-                    width="35"
-                    style="border-radius: 50%"
-                  />
-                </a>
-              </p>
+                    target="_blank"
+                  >
+                    <img
+                      src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507518/makeItGreen/github_rokw2r.png"
+                      alt="GitHub"
+                      title="GitHub"
+                      width="35"
+                      style="border-radius: 50%"
+                    />
+                  </a>
+                </p>
+              </div>
             </div>
-          </div>
-        </center>
-      </body>
-    </html>
-     `,
-  });
-  console.log("Message sent: %s", info.messageId);
-  res.render("contact", { topic: "Επικοινωνία", calendar: false });
-});
+            </table>
+          </center>
+        </body>
+      </html>`,
+    });
+    console.log("Message sent: %s", info.messageId);
+    res.render("contact", { topic: "Επικοινωνία" });
+  })
+);
 
-//register route
+//render register page
 app.get("/register", (req, res) => {
-  res.render("users/register", { topic: "Εγγραφή", calendar: false });
+  res.render("users/register", { topic: "Εγγραφή" });
 });
 
 //register new user route
-app.post("/register", upload.single("image"), async (req, res, next) => {
-  try {
-    console.log(req.body);
-    const { name, surname, email, password } = req.body;
-    const user = new User({
-      username: email,
-      name,
-      surname,
-    });
-    if (req.file) {
-      user.image = { url: req.file.path, filename: req.file.filename };
+app.post(
+  "/register",
+  upload.single("image"),
+  asyncWrapper(async (req, res, next) => {
+    try {
+      const { name, surname, email, password } = req.body;
+      const user = new User({
+        username: email,
+        name,
+        surname,
+      });
+      if (req.file) {
+        user.image = { url: req.file.path, filename: req.file.filename };
+      }
+      const newUser = await User.register(user, password);
+      await newUser.save();
+      req.login(newUser, (e) => {
+        if (e) return next(e);
+        let welcomeName = greekify(name);
+        req.flash(
+          "success",
+          `Καλώς ήρθες ${welcomeName} στην Εκπαιδευτική Εφαρμογή!`
+        );
+        let transporter = nodemailer.createTransport({
+          host: "smtp.mail.yahoo.com",
+          port: 587,
+          secure: false,
+          auth: {
+            user: process.env.SENDER_USERNAME,
+            pass: process.env.SENDER_PASSWORD,
+          },
+        });
+        let info = transporter.sendMail({
+          from: process.env.SENDER_USERNAME,
+          to: process.env.RECIEVER_USERNAME,
+          subject: "Εκπαιδευτική Εφαρμογή",
+          html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml">
+          <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <style type="text/css">
+              body {
+                background-color: var(--white);
+                font-family: sans-serif;
+              }
+        
+              .container {
+                width: 100%;
+                padding-bottom: 20px;
+              }
+        
+              .main {
+                background-color: white;
+                width: 600px;
+                border-radius: 10px;
+                padding: 50px;
+                background-color: #dfbd81;
+              }
+        
+              .content {
+                line-height: 25px;
+                text-align: left;
+                padding-left: 45px;
+              }
+        
+              .logo {
+                width: 150px;
+                padding-left: 60px;
+                padding-bottom: 50px;
+              }
+        
+              .footer {
+                width: 600px;
+                margin-top: 50px;
+              }
+        
+              .circle {
+                border-radius: 50%;
+              }
+        
+              a {
+                text-decoration: none;
+                padding: 5px;
+              }
+            </style>
+          </head>
+          <body>
+            <center>
+              <div class="container main">
+                <div class="container">
+                  <!-- change link after deploy -->
+                  <a href="http://localhost:3000/"
+                    ><img
+                      src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654068549/makeItGreen/book_c2vkdg.png"
+                      width="130"
+                  /></a>
+                </div>
+                <h1>Ο λογαριασμός σας δημιουργήθηκε!</h1>
+                <img
+                  class="logo"
+                  src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654756531/thesis/7713572_hrdpu6.png"
+                />
+        
+                <p style="font-size: 40px"><strong>Στοιχεία λογαριασμού</strong></p>
+        
+                <p class="content"><strong>Όνομα:</strong>: ${name}</p>
+                <p class="content"><strong>Επώνυμο:</strong>: ${surname}</p>
+                <p class="content">
+                  <strong>Email: </strong>:
+                  <a rel="noopener" href="mailto:${email}" target="_blank">${email}</a>
+                </p>
+        
+                <p class="content">
+                  <strong>Κωδικός</strong>: ${password}
+                </p>
+                <p class="content">Μπορείτε να αλλάξετε τα στοιχεία σας και να προσθέσετε πόλη και διεύθυνση στο Προφίλ σας<p>
+        
+                <div class="footer">
+                  <p>
+                    <small class="text-muted"
+                      >&copy; Copyright June 2022 , CSD AUTH</small
+                    >
+                  </p>
+                  <p>
+                    <a
+                      href=" https://www.facebook.com/triantafillos.iliadis"
+                      title="Facebook"
+                      target="_blank"
+                    >
+                      <img
+                        src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507514/makeItGreen/facebook_usmnyx.png"
+                        alt="Facebook"
+                        title="Facebook"
+                        width="35"
+                      />
+                    </a>
+                    <a
+                      href=" https://twitter.com/daxakaTI"
+                      title="Twitter"
+                      target="_blank"
+                    >
+                      <img
+                        src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507523/makeItGreen/twitter_ebol7o.png"
+                        alt="Twitter"
+                        title="Twitter"
+                        width="35"
+                      />
+                    </a>
+                    <a
+                      href=" https://www.linkedin.com/in/triantafyllos-iliadis-b4b9b7234/"
+                      title="LinkedIn"
+                      target="_blank"
+                    >
+                      <img
+                        src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507521/makeItGreen/linkedin_qztcjf.png"
+                        alt="LinkedIn"
+                        title="LinkedIn"
+                        width="35"
+                      />
+                    </a>
+                    <a
+                      href="https://github.com/TrIliadis/Educational-Application-Thesishttps://github.com/TrIliadis/Educational-Application-Thesis"
+                      title="GitHub"
+                      target="_blank"
+                    >
+                      <img
+                        src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654507518/makeItGreen/github_rokw2r.png"
+                        alt="GitHub"
+                        title="GitHub"
+                        width="35"
+                        style="border-radius: 50%"
+                      />
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </center>
+          </body>
+        </html>
+       `,
+        });
+        console.log("Message sent: %s", info.messageId);
+        res.redirect("/courses");
+      });
+    } catch (e) {
+      const translateError = await translate(e.message, "el");
+      req.flash("error", translateError);
+      res.redirect("/register");
     }
-    const newUser = await User.register(user, password);
-    req.login(newUser, (err) => {
-      if (err) return next(err);
-      let welcomeName = name;
-      if (welcomeName.charAt(welcomeName.length - 1) == "ς") {
-        welcomeName = welcomeName.substr(0, welcomeName.length - 1);
-      }
-      if (welcomeName.charAt(welcomeName.length - 1) == "ο") {
-        welcomeName = welcomeName.replace(/.$/, "ε");
-      }
-      req.flash(
-        "success",
-        `Καλώς ήρθες ${welcomeName} στην Εκπαιδευτική Εφαρμογή!`
-      );
-      res.redirect("/courses");
-    });
-  } catch (e) {
-    console.log(e);
-  }
-});
+  })
+);
 
 //login user route
-app.post("/login", (req, res) => {
-  res.send("logged in");
-});
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    failureFlash: "Λάθος στοιχεία! Παρακαλώ προσπαθήστε ξανά",
+    failureRedirect: "/login",
+  }),
+  asyncWrapper(async (req, res) => {
+    const name = greekify(req.user.name);
+    //if user tried to access something without authorization, return him there after login
+    const url = req.session.returnUrl || "/courses";
+    if (req.session.returnUrl) delete req.session.returnTo;
+    req.flash("success", `Καλώς όρισες και πάλι ${name}!`);
+    res.redirect(url);
+  })
+);
 
-//edit profile route
-app.get("/edit", (req, res) => {
-  res.render("users/edit", { topic: "Επεξεργασία Προφίλ", calendar: false });
-});
+//render edit profile page
+app.get(
+  "/edit",
+  asyncWrapper(async (req, res) => {
+    res.render("users/edit", { topic: "Επεξεργασία Προφίλ" });
+  })
+);
 
-//show course route
-app.get("/courses/:id", async (req, res) => {
-  const { id } = req.params;
-  const course = await Course.findById(id);
-  res.render("courses/show", { course, topic: course.title, calendar: true });
+//render course page
+app.get(
+  "/courses/:id",
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params;
+    const course = await Course.findById(id);
+    res.render("courses/show", { course, topic: course.title });
+  })
+);
+
+//logout user
+app.get("/logout", (req, res) => {
+  let name = greekify(req.user.name);
+  console.log(name);
+  req.logout((e) => {
+    console.log(name);
+    req.flash("success", `Αντίο ${name}!`);
+    if (e) return next(e);
+    res.redirect("/courses");
+  });
 });
 
 //404 route
 app.all("*", (req, res) => {
-  res.render("error", { topic: "404", calendar: false });
+  next(new ExpressError("Page Not Found", 404));
 });
 
 app.use((err, req, res, next) => {
-  const { statusCode = 500 } = err;
-  if (!err.message) err.message = "Oh No, Something Went Wrong!";
-  res.status(statusCode).render("error", { err });
+  const { code = 500 } = err;
+  if (!err.message) err.message = "Σφάλμα!";
+  res.status(code).render("error", { err, topic: "error" });
 });
 
 app.listen(port, () => {
   console.log("Listening on port ", port);
 });
+
+//try to use proper greek name syntax
+const greekify = (name) => {
+  //remove last letter if it is ς
+  if (name.charAt(name.length - 1) == "ς") {
+    name = name.substr(0, name.length - 1);
+  }
+  //replace last letter with ε if it is ο
+  if (name.charAt(name.length - 1) == "ο") {
+    name = name.replace(/.$/, "ε");
+  }
+  return name;
+};
