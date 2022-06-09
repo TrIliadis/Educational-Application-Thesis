@@ -12,6 +12,10 @@
           src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654621732/makeItGreen/photo-1452421822248-d4c2b47f0c81_s9leub.jpg"
         />
         <div class="centerText my-5 text">
+          <p><%=err.message%></p>
+          <% if (process.env.NODE_ENV !== "production") { %>
+          <p><%= err.stack %></p>
+          <% } %>
           <p>
             Λυπούμαστε, παρουσιάστηκε σφάλμα, η σελίδα που ζητήσατε δεν βρέθηκε!
           </p>

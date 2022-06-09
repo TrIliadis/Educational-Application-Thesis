@@ -39,7 +39,7 @@
             <% if(!loggedUser){ %>
             <a class="navbarLink" href="/login">Είσοδος</a>
             <a class="navbarLink" href="/register">Εγγραφή</a>
-            <% } %> <% if(loggedUser){ %>
+            <% }else{ %>
             <a class="navbarLink" href="/edit">Επεξεργασία Προφίλ</a>
             <a class="navbarLink" href="/logout">Έξοδος</a>
             <% } %>

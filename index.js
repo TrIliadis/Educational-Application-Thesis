@@ -457,7 +457,7 @@ app.post(
                 <h1>Ο λογαριασμός σας δημιουργήθηκε!</h1>
                 <img
                   class="logo"
-                  src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654756531/thesis/7713572_hrdpu6.png"
+                  src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654799063/makeItGreen/7713572_hrdpu6_fccrs3.png"
                 />
         
                 <p style="font-size: 40px"><strong>Στοιχεία λογαριασμού</strong></p>
@@ -472,7 +472,7 @@ app.post(
                 <p class="content">
                   <strong>Κωδικός</strong>: ${password}
                 </p>
-                <p class="content">Μπορείτε να αλλάξετε τα στοιχεία σας και να προσθέσετε πόλη και διεύθυνση στο Προφίλ σας<p>
+                <p class="content">Μπορείτε να αλλάξετε τα στοιχεία σας και να προσθέσετε έπιπλέον στο Προφίλ σας<p>
         
                 <div class="footer">
                   <p>
@@ -549,6 +549,47 @@ app.post(
   })
 );
 
+//edit user profile image
+app.post(
+  "/editImage",
+  upload.single("image"),
+  asyncWrapper(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    //delete old image file from cloudinary
+    await cloudinary.uploader.destroy(user.image.filename);
+    user.image = { url: req.file.path, filename: req.file.filename };
+    await user.save();
+    req.flash("success", "Η εικόνα άλλαξε επιτυχώς!");
+    res.redirect("/edit");
+  })
+);
+
+//edit user info
+app.post(
+  "/editUser",
+  asyncWrapper(async (req, res, next) => {
+    const { name, surname, email, town, address } = req.body;
+    const user = await User.findByIdAndUpdate(req.user._id, {
+      name,
+      surname,
+      town,
+      address,
+    });
+    const duplicateUser = await User.findOne({ username: email });
+    if (duplicateUser) {
+      req.flash("error", "Υπάρχει ήδη χρήστης με αυτό το όνομα");
+      res.redirect("/edit");
+    }
+    user.username = email;
+    await user.save();
+    req.login(user, (e) => {
+      if (e) return next(e);
+      req.flash("success", "Τα στοιχεία σας ενημερώθηκαν!");
+      res.redirect("/edit");
+    });
+  })
+);
+
 //login user route
 app.post(
   "/login",
@@ -567,12 +608,9 @@ app.post(
 );
 
 //render edit profile page
-app.get(
-  "/edit",
-  asyncWrapper(async (req, res) => {
-    res.render("users/edit", { topic: "Επεξεργασία Προφίλ" });
-  })
-);
+app.get("/edit", (req, res) => {
+  res.render("users/edit", { topic: "Επεξεργασία Προφίλ" });
+});
 
 //render course page
 app.get(
@@ -587,9 +625,7 @@ app.get(
 //logout user
 app.get("/logout", (req, res) => {
   let name = greekify(req.user.name);
-  console.log(name);
   req.logout((e) => {
-    console.log(name);
     req.flash("success", `Αντίο ${name}!`);
     if (e) return next(e);
     res.redirect("/courses");
@@ -597,12 +633,13 @@ app.get("/logout", (req, res) => {
 });
 
 //404 route
-app.all("*", (req, res) => {
+app.all("*", (req, res, next) => {
   next(new ExpressError("Page Not Found", 404));
 });
 
+//error
 app.use((err, req, res, next) => {
-  const { code = 500 } = err;
+  const code = err || 500;
   if (!err.message) err.message = "Σφάλμα!";
   res.status(code).render("error", { err, topic: "error" });
 });
