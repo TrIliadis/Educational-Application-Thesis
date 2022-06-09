@@ -590,6 +590,16 @@ app.post(
   })
 );
 
+//delete user
+app.post(
+  "/deleteUser",
+  asyncWrapper(async (req, res) => {
+    await User.findByIdAndDelete(req.user._id);
+    req.flash("success", "Ο λογαριασμός σας διαγράφηκε!");
+    res.redirect("/courses");
+  })
+);
+
 //login user route
 app.post(
   "/login",

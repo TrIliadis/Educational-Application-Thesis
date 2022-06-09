@@ -55,3 +55,11 @@ label {
   padding: 8px 5px;
   background-color: #0d6efd;
 }
+
+.right {
+  float: right;
+  position: absolute;
+  transition: 0.5s ease;
+  top: 51.3%;
+  left: 78.5%;
+}
