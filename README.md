@@ -171,21 +171,22 @@ To get a local copy up and running follow these simple example steps.
 - [x] Navbar
 - [x] Footer 
 - [x] Courses Index Page
-- [x] Show Course Page
+- [ ] Show Course Page
 - [x] Course MongoDB Model
-- [ ] User MongoDB Model
-- [ ] File MongoDB Model
+- [x] User MongoDB Model
+- [x] File MongoDB Model
 - [x] About Page
 - [x] Login Page
 - [x] Register Page
-- [ ] Logout
-- [ ] Middleware
-- [ ] Router
-- [ ] Authentication
+- [x] Logout
+- [x] Middlewares
+- [x] Authentication
 - [ ] Authorization
-- [ ] Cookies
-- [ ] Session
+- [x] Cookies
+- [x] Session
 - [ ] Security
+- [ ] Courses CRUD
+- [ ] Courses functions
 
 
 See the [open issues](https://github.com/TrIliadis/Educational-Application-Thesis/issues) for a full list of proposed features (and known issues).

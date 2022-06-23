@@ -549,6 +549,50 @@ app.post(
   })
 );
 
+//edit user bio
+app.post(
+  "/editBio",
+  asyncWrapper(async (req, res) => {
+    const user = await User.findByIdAndUpdate(req.user._id, {
+      ...req.body,
+    });
+    console.log(user);
+    req.flash("success", "Το βιογραφικό άλλαξε επιτυχώς!");
+    res.redirect("/edit");
+  })
+);
+
+//edit user socials
+app.post(
+  "/editSocials",
+  asyncWrapper(async (req, res) => {
+    const user = await User.findByIdAndUpdate(req.user._id, {
+      ...req.body,
+    });
+    console.log(user);
+    req.flash("success", "Τα social άλλαξαν επιτυχώς!");
+    res.redirect("/edit");
+  })
+);
+
+//edit user skills
+app.post(
+  "/editSkills",
+  asyncWrapper(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    const skills = req.body.skills;
+    for (let i = 0; i < skills.length; i++) {
+      user.skills[0].rating = req.body.skills[0];
+      user.skills[1].rating = req.body.skills[1];
+      user.skills[2].rating = req.body.skills[2];
+      user.skills[3].rating = req.body.skills[3];
+    }
+    await user.save();
+    req.flash("success", "Τα skills άλλαξαν επιτυχώς!");
+    res.redirect("/edit");
+  })
+);
+
 //edit user profile image
 app.post(
   "/editImage",
@@ -569,16 +613,17 @@ app.post(
   "/editUser",
   asyncWrapper(async (req, res, next) => {
     const { name, surname, email, town, address } = req.body;
-    const user = await User.findByIdAndUpdate(req.user._id, {
-      name,
-      surname,
-      town,
-      address,
-    });
-    const duplicateUser = await User.findOne({ username: email });
-    if (duplicateUser) {
-      req.flash("error", "Υπάρχει ήδη χρήστης με αυτό το όνομα");
-      res.redirect("/edit");
+    const user = await User.findById(req.user._id);
+    user.name = name;
+    user.surname = surname;
+    user.town = town;
+    user.address = address;
+    if (!(email === user.username)) {
+      const duplicateUser = await User.findOne({ username: email });
+      if (duplicateUser) {
+        req.flash("error", "Υπάρχει ήδη χρήστης με αυτό το όνομα");
+        res.redirect("/edit");
+      }
     }
     user.username = email;
     await user.save();
@@ -591,14 +636,14 @@ app.post(
 );
 
 //delete user
-app.post(
-  "/deleteUser",
-  asyncWrapper(async (req, res) => {
-    await User.findByIdAndDelete(req.user._id);
-    req.flash("success", "Ο λογαριασμός σας διαγράφηκε!");
-    res.redirect("/courses");
-  })
-);
+// app.post(
+//   "/deleteUser",
+//   asyncWrapper(async (req, res) => {
+//     await User.findByIdAndDelete(req.user._id);
+//     req.flash("success", "Ο λογαριασμός σας διαγράφηκε!");
+//     res.redirect("/courses");
+//   })
+// );
 
 //login user route
 app.post(
@@ -642,6 +687,27 @@ app.get("/logout", (req, res) => {
   });
 });
 
+//edit profile courses
+app.get(
+  "/edit/assignments",
+  asyncWrapper(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    console.log(user);
+    res.render("users/editAssignments", { topic: "Επεξεργασία Προφίλ", user });
+  })
+);
+
+//delete course
+app.get(
+  "/courses/:id/delete",
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params;
+    await Course.findByIdAndDelete(id);
+    req.flash("success", "Το μάθημα διαγράφηκε επιτυχώς!");
+    res.redirect("/courses");
+  })
+);
+
 //404 route
 app.all("*", (req, res, next) => {
   next(new ExpressError("Page Not Found", 404));
@@ -649,6 +715,9 @@ app.all("*", (req, res, next) => {
 
 //error
 app.use((err, req, res, next) => {
+  if (!err && res.code == 200) {
+    res.render("error", { err, topic: "error" });
+  }
   const code = err || 500;
   if (!err.message) err.message = "Σφάλμα!";
   res.status(code).render("error", { err, topic: "error" });

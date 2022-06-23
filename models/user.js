@@ -14,6 +14,15 @@ const ImageSchema = new Schema({
   },
 });
 
+const SkillSchema = new Schema({
+  skillName: {
+    type: String,
+  },
+  rating: {
+    type: Number,
+  },
+});
+
 const UserSchema = new Schema({
   name: {
     type: String,
@@ -42,6 +51,24 @@ const UserSchema = new Schema({
       filename: "avatar",
     },
   },
+  facebook: {
+    type: String,
+  },
+  instagram: {
+    type: String,
+  },
+  twitter: {
+    type: String,
+  },
+  bio: {
+    type: String,
+  },
+  courses: {
+    type: Schema.Types.ObjectId,
+    ref: "Course",
+  },
+  // assignments: [FileSchema],
+  skills: [SkillSchema],
 });
 
 UserSchema.plugin(passportLocalMongoose);

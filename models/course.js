@@ -9,6 +9,7 @@ const ImageSchema = new Schema({
 const FileSchema = new Schema({
   url: String,
   filename: String,
+  filetype: String,
 });
 
 const courseSchema = new Schema({

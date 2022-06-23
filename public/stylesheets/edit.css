@@ -21,7 +21,7 @@
 
 .container .containerTitle {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.5rem;
   color: white;
   text-align: center;
 }
@@ -62,4 +62,106 @@ label {
   transition: 0.5s ease;
   top: 51.3%;
   left: 78.5%;
+}
+
+.svgIcon {
+  height: 1.6rem;
+  fill: none;
+  stroke: currentColor;
+}
+
+.white {
+  color: white;
+}
+
+.center {
+  text-align: center;
+}
+
+.fileType {
+  font-size: 2em;
+}
+
+.centerSwitch {
+  position: relative;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+}
+
+.fitTextarea {
+  width: 100%;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box; /* Firefox, other Gecko */
+  box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+.inputSocial {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.socialTitle {
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: white;
+  text-align: center;
+}
+
+/* w3schools */
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 13px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04aa6d;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04aa6d;
+  cursor: pointer;
+}
+
+.sliderRange {
+  font-weight: bold;
+  color: red;
+  float: right;
 }

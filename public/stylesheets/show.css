@@ -1,8 +1,50 @@
-.h1Title {
-  color: white;
-  margin: 2rem 0;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 2.5rem;
+header {
+  padding-top: 70%;
+  font-family: "Sucrose Bold Two";
+  color: #cb7a1d;
 }
 
+header img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45.8%;
+}
+
+.imgTitle {
+  position: fixed;
+  top: 2rem;
+  font-size: 10vw;
+  line-height: 0.8;
+  margin-top: 0;
+  padding-left: 15vw;
+  padding-right: 15vw;
+  text-align: center;
+  -webkit-text-stroke: 1px white;
+}
+
+.imgTitle span {
+  text-align: center;
+  display: block;
+  font-size: 8.75vw;
+}
+
+.main {
+  background: #110f16;
+  position: relative;
+  width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  font-size: 1.4rem;
+  border: 1px solid #110f16;
+  color: white;
+  line-height: 1.6;
+}
+
+@media all and (max-width: 400px) {
+  main {
+    padding: 2rem;
+  }
+}

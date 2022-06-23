@@ -35,12 +35,14 @@
           <li class="me-2 cardCrudIcon play greenCard">
             <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
           </li>
+          <% if(loggedUser && (loggedUser.role === "teacher")){ %> 
           <li class="me-2 cardCrudIcon play yellowCard">
             <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
           </li>
           <li class="me-2 cardCrudIcon play redCard">
-            <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
+            <a href="/courses/<%= courses[i]._id %>/delete  "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
+          <% } %> 
         </ul>
       </div>
     </article>
@@ -75,12 +77,14 @@
           <li class="me-2 cardCrudIcon play greenCard">
             <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
           </li>
+          <% if(loggedUser && (loggedUser.role === "teacher")){ %> 
           <li class="me-2 cardCrudIcon play yellowCard">
             <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
           </li>
           <li class="me-2 cardCrudIcon play redCard">
-            <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
+            <a href="/courses/<%= courses[i+1]._id %>/delete "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
+          <% } %> 
         </ul>
       </div>
     </article>
@@ -115,12 +119,14 @@
           <li class="me-2 cardCrudIcon play greenCard">
             <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
           </li>
+          <% if(loggedUser && (loggedUser.role === "teacher")){ %> 
           <li class="me-2 cardCrudIcon play yellowCard">
             <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
           </li>
           <li class="me-2 cardCrudIcon play redCard">
-            <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
+            <a href="/courses/<%= courses[i+2]._id %>/delete  "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
+          <% } %> 
         </ul>
       </div>
     </article>
@@ -155,12 +161,14 @@
           <li class="me-2 cardCrudIcon play greenCard">
             <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
           </li>
+          <% if(loggedUser && (loggedUser.role === "teacher")){ %> 
           <li class="me-2 cardCrudIcon play yellowCard">
             <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
           </li>
           <li class="me-2 cardCrudIcon play redCard">
-            <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
+            <a href="/courses/<%= courses[i+3]._id %>/delete  "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
           </li>
+          <% } %> 
         </ul>
       </div>
     </article>

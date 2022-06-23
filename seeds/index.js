@@ -4,7 +4,6 @@ const User = require("../models/user");
 const courses = require("./courses");
 const users = require("./users");
 const axios = require("axios");
-const user = require("../models/user");
 
 mongoose.connect("mongodb://localhost:27017/thesis", {
   useNewUrlParser: true,
@@ -30,9 +29,8 @@ const seedDB = async () => {
   await Course.deleteMany({});
   await User.deleteMany({});
 
-  //get random images for courses from unsplash api
-  for (let i = 0; i < 9; i++) {
-    //get random images
+  for (let i = 0; i < 5; i++) {
+    //get random images from unsplash api
     const img = await axios.get(
       "https://api.unsplash.com/photos/random/?client_id=5oyzn1pALQH16hRegJFZsFnTV8Ov9LqrYGnm5NYYPhI&collections=907185"
     );
@@ -42,7 +40,7 @@ const seedDB = async () => {
       created: randomDate(new Date(1991, 22, 08), new Date()),
       lastActive: new Date().toLocaleDateString(),
       images: {
-        url: img.data.urls.raw + "&w=1500&dpr=2&h=500",
+        url: img.data.urls.raw + "&w=1500&dpr=2&h=758",
       },
     });
     await course.save();
@@ -50,13 +48,33 @@ const seedDB = async () => {
   }
 
   for (let i = 0; i < users.length; i++) {
-    const { name, surname, username, password, role } = users[i];
+    const {
+      name,
+      surname,
+      username,
+      password,
+      role,
+      facebook,
+      instagram,
+      twitter,
+      town,
+      address,
+      bio,
+    } = users[i];
+    console.log();
     const user = new User({
       name,
       surname,
       username,
       role,
+      facebook,
+      instagram,
+      twitter,
+      town,
+      address,
+      bio,
     });
+    user.skills = users[i].skills;
     const newUser = await User.register(user, password);
     console.log(newUser);
   }
