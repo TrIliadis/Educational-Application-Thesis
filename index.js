@@ -11,9 +11,6 @@ const path = require("path");
 //use port 3000 for development or PORT variable in production
 const port = process.env.PORT || 3000;
 
-//Use HTTP verbs such as PUT or DELETE in places where the client doesn't support it.
-const methodOverride = require("method-override");
-
 //mongoose import for DB connection and queries
 const mongoose = require("mongoose");
 
@@ -32,11 +29,8 @@ const multer = require("multer");
 //import imageHosting config
 const { storage, cloudinary } = require("./imageHosting");
 
-// setup multer
+// setup multer for images
 const upload = multer({ storage, limits: { fieldSize: 2 * 1024 * 1024 } }); //2MB limit
-
-//import uuid to give unique names to uploaded files
-const uuid = require("uuid").v4;
 
 //import session for user credential storage
 const session = require("express-session");
@@ -93,9 +87,6 @@ app.use("/static", express.static(path.join(__dirname, "public")));
 //Read params from request body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-//allow custom delete, put, patch requests
-app.use(methodOverride("_method"));
 
 //session secret
 const secret = process.env.SECRET;
@@ -354,6 +345,16 @@ app.get("/register", (req, res) => {
   res.render("users/register", { topic: "Εγγραφή" });
 });
 
+//upload new assignment
+app.post(
+  "/assignmentUpload",
+  upload.single("file"),
+  asyncWrapper(async (req, res) => {
+    console.log(req.file);
+    res.send("ok");
+  })
+);
+
 //register new user route
 app.post(
   "/register",
@@ -553,10 +554,9 @@ app.post(
 app.post(
   "/editBio",
   asyncWrapper(async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.user._id, {
+    await User.findByIdAndUpdate(req.user._id, {
       ...req.body,
     });
-    console.log(user);
     req.flash("success", "Το βιογραφικό άλλαξε επιτυχώς!");
     res.redirect("/edit");
   })
@@ -566,10 +566,9 @@ app.post(
 app.post(
   "/editSocials",
   asyncWrapper(async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.user._id, {
+    await User.findByIdAndUpdate(req.user._id, {
       ...req.body,
     });
-    console.log(user);
     req.flash("success", "Τα social άλλαξαν επιτυχώς!");
     res.redirect("/edit");
   })
@@ -580,13 +579,21 @@ app.post(
   "/editSkills",
   asyncWrapper(async (req, res) => {
     const user = await User.findById(req.user._id);
-    const skills = req.body.skills;
-    for (let i = 0; i < skills.length; i++) {
-      user.skills[0].rating = req.body.skills[0];
-      user.skills[1].rating = req.body.skills[1];
-      user.skills[2].rating = req.body.skills[2];
-      user.skills[3].rating = req.body.skills[3];
+    const data = req.body.skills;
+
+    //remove skill if skillName is empty
+    for (let i = 0; i < data.length; i++) {
+      if (data[i][0] === "") {
+        data.splice(i, 1);
+      }
     }
+
+    //convert array of arrays to array of objects
+    const formDataToObject = data.map(([skillName, rating]) => ({
+      skillName,
+      rating,
+    }));
+    user.skills = formDataToObject;
     await user.save();
     req.flash("success", "Τα skills άλλαξαν επιτυχώς!");
     res.redirect("/edit");
@@ -635,16 +642,6 @@ app.post(
   })
 );
 
-//delete user
-// app.post(
-//   "/deleteUser",
-//   asyncWrapper(async (req, res) => {
-//     await User.findByIdAndDelete(req.user._id);
-//     req.flash("success", "Ο λογαριασμός σας διαγράφηκε!");
-//     res.redirect("/courses");
-//   })
-// );
-
 //login user route
 app.post(
   "/login",
@@ -692,7 +689,6 @@ app.get(
   "/edit/assignments",
   asyncWrapper(async (req, res) => {
     const user = await User.findById(req.user._id);
-    console.log(user);
     res.render("users/editAssignments", { topic: "Επεξεργασία Προφίλ", user });
   })
 );
@@ -708,20 +704,17 @@ app.get(
   })
 );
 
-//404 route
-app.all("*", (req, res, next) => {
-  next(new ExpressError("Page Not Found", 404));
-});
+// // //404 route
+// app.all("*", (req, res, next) => {
+//   next(new ExpressError("Page Not Found", 404));
+// });
 
-//error
-app.use((err, req, res, next) => {
-  if (!err && res.code == 200) {
-    res.render("error", { err, topic: "error" });
-  }
-  const code = err || 500;
-  if (!err.message) err.message = "Σφάλμα!";
-  res.status(code).render("error", { err, topic: "error" });
-});
+// //error middleware
+// app.use((err, req, res, next) => {
+//   const { statusCode = 500 } = err;
+//   if (!err.message) err.message = "Σφάλμα";
+//   res.status(statusCode).render("error", { err });
+// });
 
 app.listen(port, () => {
   console.log("Listening on port ", port);
@@ -739,3 +732,23 @@ const greekify = (name) => {
   }
   return name;
 };
+
+function convertToArrayOfObjects(data) {
+  const keys = data.shift(),
+    i = 0,
+    k = 0,
+    obj = null,
+    output = [];
+
+  for (i = 0; i < data.length; i++) {
+    obj = {};
+
+    for (k = 0; k < keys.length; k++) {
+      obj[keys[k]] = data[i][k];
+    }
+
+    output.push(obj);
+  }
+
+  return output;
+}

@@ -242,34 +242,27 @@
   <div class="row mt-3">
     <div class="col-sm-12">
       <div class="card footerBg container">
-        <div class="card-body">
-          <form action="/editSkills" method="post">
-          <% for(let i=0;i<loggedUser.skills.length;i+=4){%>
+        <div class="card-body" >
+          <form action="/editSkills" method="post" >
           <div class="containerTitle">Skills</div>
-          <% if(i===loggedUser.skills.length) break %>
-          <p class="white"><%= loggedUser.skills[i].skillName%> <span id="demo" class="sliderRange"><%= loggedUser.skills[i].rating %></span></p>
-            <div class="slidecontainer">
-              <input name="skills[0]" type="range" min="1" max="100" value="<%= loggedUser.skills[i].rating %>" class="slider" id="myRange">
-            </div>
-          <% if(i+1===loggedUser.skills.length) break %>
-          <p class="white mt-3"><%= loggedUser.skills[i+1].skillName%> <span id="demo1" class="sliderRange"><%= loggedUser.skills[i+1].rating %></span></p>
+          <div id="inputContainer">
+          <% for(let i=0;i<loggedUser.skills.length;i++){%>
+          <p class="white"> 
+            <input class="mt-5 inputSkills" type="text" value="<%= loggedUser.skills[i].skillName%>" name="skills[<%=i %>]">  
+            <span id="demo<%=i %>" class="sliderRange"><%= loggedUser.skills[i].rating %></span></p>
           <div class="slidecontainer">
-            <input name="skills[1]" type="range" min="1" max="100" value="<%= loggedUser.skills[i+1].rating %>" class="slider" id="myRange1">
-          </div>
-          <% if(i+2===loggedUser.skills.length) break %>
-          <p class="white mt-3"><%= loggedUser.skills[i+2].skillName%> <span id="demo2" class="sliderRange"><%= loggedUser.skills[i+2].rating %></span></p>
-          <div class="slidecontainer">
-            <input name="skills[2]" type="range" min="1" max="100" value="<%= loggedUser.skills[i+2].rating %>" class="slider" id="myRange2">
-          </div>
-          <% if(i+3===loggedUser.skills.length) break %>
-          <p class="white mt-3"><%= loggedUser.skills[i+3].skillName%>           <span id="demo3" class="sliderRange"><%= loggedUser.skills[i+3].rating %></span></p>
-          <div class="slidecontainer">
-            <input name="skills[3]" type="range" min="1" max="100" value="<%= loggedUser.skills[i+3].rating %>" class="slider" id="myRange3">
+            <input name="skills[<%=i %>]" type="range" min="1" max="100" value="<%= loggedUser.skills[i].rating %>" class="slider" id="myRange<%=i %>">
           </div>
           <% } %> 
-          <button id="editBtn" class="mt-3 btn btn-success" type="submit">
+        </div>
+        <div id="btnContainer">
+          <button id="addBtn" class="mt-4 me-3 btn btn-warning" onclick="addSkill()" type="button">
+            Προσθήκη Νέου
+          </button>
+          <button id="editBtn" class="mt-4 btn btn-success" type="submit">
             Αποθήκευση
           </button>
+        </div>
         </form>
         </div>
       </div>

@@ -34,10 +34,10 @@
           <a class="navLink" aria-current="page" href="/">Αρχική Σελίδα</a>
         </li>
         <li class="nav-item">
-          <a class="navLink <%= topic === "Μαθήματα" ? 'active' : ''%>" href="/courses">Μαθήματα</a>
+          <a class="navLink <%= (typeof topic !== "undefined" && (topic === "Μαθήματα")) ? 'active' : ''%>" href="/courses">Μαθήματα</a>
         </li>
         <li class="nav-item">
-          <a class="navLink <%= topic == "Επικοινωνία" ? 'active' : ''%>" href="/contact">Επικοινωνία</a>
+          <a class="navLink <%= (typeof topic !== "undefined" && (topic == "Επικοινωνία")) ? 'active' : ''%>" href="/contact">Επικοινωνία</a>
         </li>
         <% if(!loggedUser){ %> 
         <li class="nav-item">
@@ -98,12 +98,12 @@
               </div>
               
               <li class="nav-item">
-                <a class="navLink <%= topic === "Εγγραφή" ? 'active' : ''%>" href="/register">Εγγραφή</a>
+                <a class="navLink <%= (typeof topic !== "undefined" && (topic === "Εγγραφή")) ? 'active' : ''%>" href="/register">Εγγραφή</a>
               </li>
               <% } %> 
               <% if(loggedUser){ %> 
               <li class="nav-item">
-                <a class="navLink <%= topic === "Επεξεργασία Προφίλ" ? 'active' : ''%>" href="/edit">Επεξεργασία Προφίλ</a>
+                <a class="navLink <%= (typeof topic !== "undefined" && (topic === "Επεξεργασία Προφίλ")) ? 'active' : ''%>" href="/edit">Επεξεργασία Προφίλ</a>
               </li>
               <li class="nav-item">
                 <a class="navLink" href="/logout">Έξοδος</a>

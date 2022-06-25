@@ -1,5 +1,12 @@
 module.exports = [
   {
+    name: "Κοσμάς",
+    surname: "Ηλιάδης",
+    username: "student@student",
+    password: "student",
+    role: "student",
+  },
+  {
     name: "Τριαντάφυλλος",
     surname: "Ηλιάδης",
     username: "admin@admin",
@@ -26,15 +33,8 @@ module.exports = [
       },
       {
         skillName: "Security",
-        rating: 30,
+        rating: 40,
       },
     ],
-  },
-  {
-    name: "Κοσμάς",
-    surname: "Ηλιάδης",
-    username: "student@student",
-    password: "student",
-    role: "student",
   },
 ];

@@ -14,6 +14,31 @@ const ImageSchema = new Schema({
   },
 });
 
+const FileSchema = new Schema({
+  url: {
+    type: String,
+  },
+  filename: {
+    type: String,
+  },
+  submitted: {
+    type: Date,
+    default: Date.now,
+  },
+  filetype: {
+    type: String,
+    default: "file",
+  },
+  visible: {
+    type: Boolean,
+    default: true,
+  },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+});
+
 const SkillSchema = new Schema({
   skillName: {
     type: String,
@@ -67,7 +92,7 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Course",
   },
-  // assignments: [FileSchema],
+  assignments: [FileSchema],
   skills: [SkillSchema],
 });
 
