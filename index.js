@@ -29,11 +29,28 @@ const multer = require("multer");
 //import imageHosting config
 const { storage, cloudinary } = require("./imageHosting");
 
-// setup multer for images
+//setup multer for images
 const upload = multer({ storage, limits: { fieldSize: 2 * 1024 * 1024 } }); //2MB limit
+
+//setup multer for files
+const fileStorage = multer.diskStorage({
+  destination: (req, file, func) => {
+    func(null, "./public/fileStorage");
+  },
+  filename: (req, file, func) => {
+    func(null, Date.now() + " - " + file.originalname);
+  },
+});
+
+const fileUpload = multer({
+  storage: fileStorage,
+  limits: { fieldSize: 10 * 1024 * 1024 },
+});
 
 //import session for user credential storage
 const session = require("express-session");
+
+var fs = require("fs");
 
 //import passport for user credentials
 const passport = require("passport");
@@ -345,16 +362,6 @@ app.get("/register", (req, res) => {
   res.render("users/register", { topic: "Εγγραφή" });
 });
 
-//upload new assignment
-app.post(
-  "/assignmentUpload",
-  upload.single("file"),
-  asyncWrapper(async (req, res) => {
-    console.log(req.file);
-    res.send("ok");
-  })
-);
-
 //register new user route
 app.post(
   "/register",
@@ -574,6 +581,61 @@ app.post(
   })
 );
 
+//upload new assignment
+app.post(
+  "/assignmentUpload",
+  fileUpload.single("file"),
+  asyncWrapper(async (req, res) => {
+    console.log(req.file);
+    if (!req.file) {
+      req.flash("error", "Υπήρχε κάποιο πρόβλημα με την αποθήκευση");
+      res.redirect("edit/assignments");
+    }
+    const user = await User.findById(req.user._id);
+    const assignment = {
+      path: req.file.path,
+      filename: req.file.filename,
+      filetype: req.file.filename.split(".").pop(),
+    };
+    user.assignments.push(assignment);
+    await user.save();
+    req.flash("success", "Το αρχείο αποθηκεύτηκε επιτυχώς!");
+    res.redirect("edit/assignments");
+  })
+);
+
+//toggle assignment visibility
+app.post(
+  "/toggleVisibility/:id",
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params;
+    const assignmentId = id.match(/\d+/)[0];
+    const visibilityValue = id.replace(/[0-9]/g, "");
+    const user = await User.findById(req.user._id);
+    user.assignments[parseInt(assignmentId)].visible = visibilityValue;
+    await user.save();
+    return true;
+  })
+);
+
+//delete assignment
+app.post(
+  "/deleteAssignment/:id",
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(req.user._id);
+    fs.unlinkSync(
+      `./public/fileStorage/${user.assignments[parseInt(id)].filename}`
+    );
+    user.assignments = user.assignments.filter(
+      (item) => item !== user.assignments[parseInt(id)]
+    );
+    await user.save();
+    req.flash("success", "Το αρχείο διαγράφηκε επιτυχώς!");
+    res.redirect("/edit/assignments");
+  })
+);
+
 //edit user skills
 app.post(
   "/editSkills",
@@ -689,7 +751,7 @@ app.get(
   "/edit/assignments",
   asyncWrapper(async (req, res) => {
     const user = await User.findById(req.user._id);
-    res.render("users/editAssignments", { topic: "Επεξεργασία Προφίλ", user });
+    res.render("users/editAssignments", { topic: "Επεξεργασία Προφίλ" });
   })
 );
 

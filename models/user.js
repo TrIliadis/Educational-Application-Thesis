@@ -15,7 +15,7 @@ const ImageSchema = new Schema({
 });
 
 const FileSchema = new Schema({
-  url: {
+  path: {
     type: String,
   },
   filename: {
@@ -32,10 +32,6 @@ const FileSchema = new Schema({
   visible: {
     type: Boolean,
     default: true,
-  },
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
   },
 });
 

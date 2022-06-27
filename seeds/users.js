@@ -36,5 +36,41 @@ module.exports = [
         rating: 40,
       },
     ],
+    assignments: [
+      {
+        path: "fileStorage/1656268383797 - 3145765.png",
+        filename: "1656268383797 - 3145765.png",
+        filetype: "png",
+        submitted: Date.now(),
+      },
+      {
+        path: "fileStorage/1656227934359 - testAssignment.docx",
+        filename: "1656227934359 - testAssignment.docx",
+        filetype: "docx",
+        submitted: Date.now(),
+      },
+      {
+        path: "fileStorage/1656227939378 - testAssignment.pptx",
+        filename: "1656227939378 - testAssignment.pptx",
+        filetype: "pptx",
+        visible: false,
+        submitted: Date.now(),
+      },
+      {
+        path: "fileStorage/1656181046812 - user submissions moodle.txt",
+        filename: "1656181046812 - user submissions moodle.txt",
+        filetype: "txt",
+        visible: false,
+        submitted: Date.now(),
+      },
+      {
+        path: "fileStorage/1656268287169 - kanonismos_eponisis_ptyhiakis_ergasias_tmimatos_k.e._8-4-2016.pdf",
+        filename:
+          "1656268287169 - kanonismos_eponisis_ptyhiakis_ergasias_tmimatos_k.e._8-4-2016.pdf",
+        filetype: "pdf",
+        visible: true,
+        submitted: Date.now(),
+      },
+    ],
   },
 ];

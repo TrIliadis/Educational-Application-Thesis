@@ -13,227 +13,128 @@
           <div class="col mb-3">
             <div class="card-body footerBg container">
               <div class="table-responsive table-lg mt-3">
-                <table class="table table-bordered">
+                <table class="table table-bordered white">
                   <thead>
                     <tr>
                       <th class="center white">Τύπος Αρχείου</th>
                       <th class="center white">Όνομα</th>
                       <th class="center white">Ημερομηνία</th>
-                      <th class="center white">Ορατότητα</th>
+                      <th class="center white">Ορατό σε όλους</th>
                       <th class="center white">Ενέργεις</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <% for(let i=0;i<loggedUser.assignments.length;i++){%>
                     <tr>
                       <td class="center">
                         <div
                           class="bg-light d-inline-flex justify-content-center align-items-center align-top"
                           style="width: 40px; height: 40px; border-radius: 3px"
                         >
-                          <i class="fileType fa-regular fa-file"></i>
+                          <% if(loggedUser.assignments[i].filetype === "pdf"){%>
+                          <i class="dark fileType fa-regular fa-file-pdf"></i>
+                          <% }else if(loggedUser.assignments[i].filetype ===
+                          "ppt" || loggedUser.assignments[i].filetype
+                          ==="pptx"){ %>
+                          <i
+                            class="dark fileType fa-regular fa-file-powerpoint"
+                          ></i>
+                          <% }else if(loggedUser.assignments[i].filetype ===
+                          "doc" || loggedUser.assignments[i].filetype ===
+                          "docx"){ %>
+                          <i class="dark fileType fa-regular fa-file-word"></i>
+                          <% }else if(loggedUser.assignments[i].filetype ===
+                          "txt"){ %>
+                          <i class="dark fileType fa-regular fa-file-lines"></i>
+                          <% }else if(loggedUser.assignments[i].filetype ===
+                          "jpeg" || loggedUser.assignments[i].filetype === "png"
+                          || loggedUser.assignments[i].filetype === "gif"){ %>
+                          <i class="dark fileType fa-regular fa-file-image"></i>
+                          <% }else{ %>
+                          <i class="dark fileType fa-regular fa-file"></i>
+                          <% } %>
                         </div>
                       </td>
-                      <td class="center white">Εργασία 1</td>
+                      <% loggedUser.assignments[i].filename.substring(0,
+                      loggedUser.assignments[i].filename.indexOf('-')); %>
+                      <td class="center white">
+                        <div id="modalContainer">
+                        <button type="button" id="modalBtn<%= i %>" class="button">
+                          <%=
+                          loggedUser.assignments[i].filename.substring(loggedUser.assignments[i].filename.indexOf('-')
+                          + 1); %>
+                        </button>
+
+                        <div id="myModal<%= i %>" class="fileModal">
+                          <div class="fileModalContent">
+                            <span class="close">&times;</span>
+                            <p>
+                              <% if(loggedUser.assignments[i].filetype === "pdf" || loggedUser.assignments[i].filetype ===
+                          "jpeg" || loggedUser.assignments[i].filetype === "png"
+                          || loggedUser.assignments[i].filetype === "gif" || loggedUser.assignments[i].filetype ===
+                          "txt"){ %>
+                              <embed
+                                width="100%"
+                                height="700px"
+                                frameborder='0'
+                                src="/static/fileStorage/<%= loggedUser.assignments[i].filename%>"
+                              ></embed>
+                              <% }else{ %>
+                                <h2 class="dark">Δεν γίνεται να προβληθεί αυτό το αρχείο κατευθείαν στο browser, ανοίξτε το αρχείο που κατέβηκε με το αντίστοιχο πρόγραμμα</h2>
+                                <embed src="/static/fileStorage/<%= loggedUser.assignments[i].filename%>"></embed>
+                              <% } %>
+                            </p>
+                          </div>
+                          </div>
+                        </div>
+                      </td>
+
                       <td class="center">
                         <span class="white"
-                          ><%= new Date().toLocaleDateString() %>
+                          ><%=
+                          loggedUser.assignments[i].submitted.toLocaleDateString('el-GR',
+                          { year: 'numeric', month: 'long', day:
+                          'numeric' }) %>
                         </span>
                       </td>
+
                       <td class="center">
                         <div
                           class="centerSwitch centerSwitch form-check form-switch"
                         >
                           <input
+                            id="switch<%= i %>"
                             class="form-check-input"
                             type="checkbox"
                             role="switch"
-                            checked
+                            <%= loggedUser.assignments[i].visible ? "checked" : ""%>
                           />
                         </div>
                       </td>
                       <td class="center">
                         <div class="btn-group">
-                          <button
+                          <a
                             class="btn btn-outline-secondary"
                             type="button"
+                            href="/static/fileStorage/<%= loggedUser.assignments[i].filename%>"
+                            download="<%=loggedUser.assignments[i].filename.substring(loggedUser.assignments[i].filename.indexOf('-')
+                          + 1)%>"
                           >
-                            <i class="fa-solid fa-download"></i>
-                          </button>
+                          <i class="fa-solid fa-download"></i>
+                          </a>
+                          <form action="/deleteAssignment/<%= i %>" method="post">
                           <button
+                            id="deleteBtn"
                             class="btn btn-outline-secondary"
-                            type="button"
-                          >
-                            <i class="fa-regular fa-trash-can"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="center">
-                        <div
-                          class="bg-light d-inline-flex justify-content-center align-items-center align-top"
-                          style="width: 40px; height: 40px; border-radius: 3px"
-                        >
-                          <i class="fileType fa-regular fa-file-pdf"></i>
-                        </div>
-                      </td>
-                      <td class="center">Εργασία 2</td>
-                      <td class="center">
-                        <span><%= new Date().toLocaleDateString() %></span>
-                      </td>
-                      <td class="center">
-                        <div
-                          class="centerSwitch centerSwitch form-check form-switch"
-                        >
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            role="switch"
-                            checked
-                          />
-                        </div>
-                      </td>
-                      <td class="center">
-                        <div class="btn-group">
-                          <button
-                            class="btn btn-outline-secondary"
-                            type="button"
-                          >
-                            <i class="fa-solid fa-download"></i>
-                          </button>
-                          <button
-                            class="btn btn-outline-secondary"
-                            type="button"
+                            type="submit"
                           >
                             <i class="fa-regular fa-trash-can"></i>
                           </button>
+                        </form>
                         </div>
                       </td>
                     </tr>
-                    <tr>
-                      <td class="center">
-                        <div
-                          class="bg-light d-inline-flex justify-content-center align-items-center align-top"
-                          style="width: 40px; height: 40px; border-radius: 3px"
-                        >
-                          <i class="fileType fa-regular fa-file-word"></i>
-                        </div>
-                      </td>
-                      <td class="center">Εργασία 3</td>
-                      <td class="center">
-                        <span><%= new Date().toLocaleDateString() %></span>
-                      </td>
-                      <td class="center">
-                        <div
-                          class="centerSwitch centerSwitch form-check form-switch"
-                        >
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            role="switch"
-                            checked
-                          />
-                        </div>
-                      </td>
-                      <td class="center">
-                        <div class="btn-group">
-                          <button
-                            class="btn btn-outline-secondary"
-                            type="button"
-                          >
-                            <i class="fa-solid fa-download"></i>
-                          </button>
-                          <button
-                            class="btn btn-outline-secondary"
-                            type="button"
-                          >
-                            <i class="fa-regular fa-trash-can"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="center">
-                        <div
-                          class="bg-light d-inline-flex justify-content-center align-items-center align-top"
-                          style="width: 40px; height: 40px; border-radius: 3px"
-                        >
-                          <i class="fileType fa-regular fa-file-powerpoint"></i>
-                        </div>
-                      </td>
-                      <td class="center">Εργασία 4</td>
-                      <td class="center">
-                        <span><%= new Date().toLocaleDateString() %></span>
-                      </td>
-                      <td class="center">
-                        <div
-                          class="centerSwitch centerSwitch form-check form-switch"
-                        >
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            role="switch"
-                          />
-                        </div>
-                      </td>
-                      <td class="center">
-                        <div class="btn-group">
-                          <button
-                            class="btn btn-outline-secondary"
-                            type="button"
-                          >
-                            <i class="fa-solid fa-download"></i>
-                          </button>
-                          <button
-                            class="btn btn-outline-secondary"
-                            type="button"
-                          >
-                            <i class="fa-regular fa-trash-can"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="center">
-                        <div
-                          class="bg-light d-inline-flex justify-content-center align-items-center align-top"
-                          style="width: 40px; height: 40px; border-radius: 3px"
-                        >
-                          <i class="fileType fa-regular fa-file-pdf"></i>
-                        </div>
-                      </td>
-                      <td class="center">Εργασία 5</td>
-                      <td class="center">
-                        <span><%= new Date().toLocaleDateString() %></span>
-                      </td>
-                      <td class="center">
-                        <div
-                          class="centerSwitch centerSwitch form-check form-switch"
-                        >
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            role="switch"
-                          />
-                        </div>
-                      </td>
-                      <td class="center">
-                        <div class="btn-group">
-                          <button
-                            class="btn btn-outline-secondary"
-                            type="button"
-                          >
-                            <i class="fa-solid fa-download"></i>
-                          </button>
-                          <button
-                            class="btn btn-outline-secondary"
-                            type="button"
-                          >
-                            <i class="fa-regular fa-trash-can"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
+                    <% } %>
                   </tbody>
                 </table>
               </div>
@@ -246,17 +147,20 @@
 </div>
 
 <div class="container mb-5">
-  <h2>Ανέβασμα εργασιών</h2>
+  <h2 class="h1Title">Ανεβασμα εργασιων</h2>
+  <div class="center upload-container">
   <form
     id="assignmentForm"
-    class="needs-validation"
     method="POST"
     enctype="multipart/form-data"
     action="/assignmentUpload"
   >
     <input type="file" name="file" id="file" />
-    <button id="assignmentButton" class="submitBtn mt-4" type="submit">
-      Αποστολή
+    <br>
+    <button id="assignmentButton" class="mt-4 btn btn-success submitBtn" type="submit" accept-charset="UTF-8">
+      Ανέβασμα Αρχείου
     </button>
+  </div>
   </form>
-</div>
+  </div>
+<script src="/static/javascripts/editAssignments.js"></script>
