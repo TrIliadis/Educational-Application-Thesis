@@ -71,6 +71,10 @@ const flash = require("connect-flash");
 //import MongoDBStore to save session on DB
 const MongoDBStore = require("connect-mongo");
 
+//geocoding for mapbox
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const geocodingClient = mbxGeocoding({ accessToken: process.env.MAPBOX_TOKEN });
+
 //import ExpressError class
 const ExpressError = require("./erorrHandling/ExpressError");
 
@@ -358,7 +362,7 @@ app.post(
 );
 
 //render register page
-app.get("/register", (req, res) => {
+app.get("/register", async (req, res) => {
   res.render("users/register", { topic: "Εγγραφή" });
 });
 
@@ -814,3 +818,11 @@ function convertToArrayOfObjects(data) {
 
   return output;
 }
+
+
+// const geo = await geocodingClient
+//     .reverseGeocode({
+//       query: [22.956242692417657, 40.633831513050794],
+//     })
+//     .send();
+//   console.log(geo.body.features[0]);

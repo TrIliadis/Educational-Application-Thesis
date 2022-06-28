@@ -90,6 +90,13 @@ const UserSchema = new Schema({
   },
   assignments: [FileSchema],
   skills: [SkillSchema],
+  location: {
+    type: String,
+    enum: ["Point"],
+  },
+  coordinates: {
+    type: [Number],
+  },
 });
 
 UserSchema.plugin(passportLocalMongoose);

@@ -1,5 +1,9 @@
 <%- layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/static/stylesheets/coursesIndex.css" />
+
+<h1 class="h1 text-center h1Title">ολοι οι χρηστες</h1>
+<div id='map' style='width: 100%; height:700px;'></div>
+
 <h1 class="h1 text-center h1Title">ολα τα μαθηματα</h1>
 
 <% for(let i=0;i<courses.length;i+=4){%>
@@ -176,3 +180,68 @@
 
   <% } %>
 
+
+
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGF4YWthIiwiYSI6ImNsMXhicW1odTAxYWgzZG1tODVtcjRnYmQifQ.p0DZDL3qMIzWsdHrRxgj4Q';
+  const map = new mapboxgl.Map({
+  style: 'mapbox://styles/daxaka/cl4xrx2rv004c14ogai4imudy',
+  center: [22.957511519708305, 40.6333009771503],
+  zoom: 17,
+  pitch: 45,
+  bearing: -10,
+  container: 'map',
+  antialias: true
+  });
+   
+  map.on('load', () => {
+  // Insert the layer beneath any symbol layer.
+  const layers = map.getStyle().layers;
+  const labelLayerId = layers.find(
+  (layer) => layer.type === 'symbol' && layer.layout['text-field']
+  ).id;
+   
+  // The 'building' layer in the Mapbox Streets
+  // vector tileset contains building height data
+  // from OpenStreetMap.
+  map.addLayer(
+  {
+  'id': 'add-3d-buildings',
+  'source': 'composite',
+  'source-layer': 'building',
+  'filter': ['==', 'extrude', 'true'],
+  'type': 'fill-extrusion',
+  'minzoom': 15,
+  'paint': {
+  'fill-extrusion-color': '#aaa',
+   
+  // Use an 'interpolate' expression to
+  // add a smooth transition effect to
+  // the buildings as the user zooms in.
+  'fill-extrusion-height': [
+  'interpolate',
+  ['linear'],
+  ['zoom'],
+  15,
+  0,
+  15.05,
+  ['get', 'height']
+  ],
+  'fill-extrusion-base': [
+  'interpolate',
+  ['linear'],
+  ['zoom'],
+  15,
+  0,
+  15.05,
+  ['get', 'min_height']
+  ],
+  'fill-extrusion-opacity': 0.6
+  }
+  },
+  labelLayerId
+  );
+  });
+
+  map.addControl(new mapboxgl.NavigationControl());
+  </script>

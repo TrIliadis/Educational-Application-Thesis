@@ -4,6 +4,10 @@ const profileImg = document.getElementById("profileImg");
 let counter = document.querySelectorAll(".slider").length;
 const container = document.getElementById("inputContainer");
 const btnContainer = document.getElementById("btnContainer");
+const town = document.getElementById("address");
+let markers = [];
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiZGF4YWthIiwiYSI6ImNsMXhicW1odTAxYWgzZG1tODVtcjRnYmQifQ.p0DZDL3qMIzWsdHrRxgj4Q";
 
 imgInput.onchange = () => {
   const [file] = imgInput.files;
@@ -80,3 +84,150 @@ function ValidateEmail(input) {
   if (input.match(validRegex)) return true;
   else return false;
 }
+
+const map = new mapboxgl.Map({
+  style: "mapbox://styles/daxaka/cl4xrx2rv004c14ogai4imudy",
+  center: [22.957511519708305, 40.6333009771503],
+  zoom: 17,
+  pitch: 45,
+  bearing: -10,
+  container: "map",
+  antialias: true,
+});
+
+const marker = new mapboxgl.Marker({
+  color: "orange",
+  draggable: true,
+}) // initialize a new marker
+  .setLngLat([22.957511519708305, 40.6333009771503]) // Marker [lng, lat] coordinates
+  .addTo(map); // Add the marker to the map
+
+markers.push(marker);
+
+marker.on("dragend", function (e) {
+  const lngLat = e.target.getLngLat();
+
+  let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat["lng"]}, ${lngLat["lat"]}.json?limit=1&proximity=ip&types=place%2Caddress%2Cpostcode%2Cregion&language=el&access_token=pk.eyJ1IjoianNjYXN0cm8iLCJhIjoiY2s2YzB6Z25kMDVhejNrbXNpcmtjNGtpbiJ9.28ynPf1Y5Q8EyB_moOHylw`;
+
+  fetch(url)
+    .then((data) => data.json())
+    .then((data) => (address.value = data.features[0].place_name));
+});
+
+map.on("load", () => {
+  // Insert the layer beneath any symbol layer.
+  const layers = map.getStyle().layers;
+  const labelLayerId = layers.find(
+    (layer) => layer.type === "symbol" && layer.layout["text-field"]
+  ).id;
+
+  // The 'building' layer in the Mapbox Streets
+  // vector tileset contains building height data
+  // from OpenStreetMap.
+  map.addLayer(
+    {
+      id: "add-3d-buildings",
+      source: "composite",
+      "source-layer": "building",
+      filter: ["==", "extrude", "true"],
+      type: "fill-extrusion",
+      minzoom: 15,
+      paint: {
+        "fill-extrusion-color": "#aaa",
+
+        // Use an 'interpolate' expression to
+        // add a smooth transition effect to
+        // the buildings as the user zooms in.
+        "fill-extrusion-height": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          0,
+          15.05,
+          ["get", "height"],
+        ],
+        "fill-extrusion-base": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          0,
+          15.05,
+          ["get", "min_height"],
+        ],
+        "fill-extrusion-opacity": 0.6,
+      },
+    },
+    labelLayerId
+  );
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+
+const geocoder = new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken,
+  marker: false,
+  limit: 6,
+  country: "gr, cy",
+  language: "el, en",
+  mapboxgl: mapboxgl,
+});
+
+geocoder.on("result", (e) => {
+  marker.remove();
+  address.value = e.result.place_name_el;
+  const marker1 = new mapboxgl.Marker({
+    color: "orange",
+    draggable: true,
+  })
+    .setLngLat(e.result.center)
+    .addTo(map);
+  markers.push(marker1);
+  marker1.on("dragend", function (e) {
+    const lngLat = e.target.getLngLat();
+
+    let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat["lng"]}, ${lngLat["lat"]}.json?limit=1&proximity=ip&types=place%2Caddress%2Cpostcode%2Cregion&language=el&access_token=pk.eyJ1IjoianNjYXN0cm8iLCJhIjoiY2s2YzB6Z25kMDVhejNrbXNpcmtjNGtpbiJ9.28ynPf1Y5Q8EyB_moOHylw`;
+
+    fetch(url)
+      .then((data) => data.json())
+      .then((data) => (address.value = data.features[0].place_name));
+  });
+});
+
+map.addControl(geocoder, "top-left");
+
+map.on("style.load", function () {
+  map.on("click", function (e) {
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].remove();
+    }
+
+    const coordinates = e.lngLat;
+
+    marker2 = new mapboxgl.Marker({
+      color: "orange",
+      draggable: true,
+    })
+      .setLngLat(coordinates)
+      .addTo(map);
+
+    markers.push(marker2);
+
+    let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates.lng}, ${coordinates.lat}.json?limit=1&proximity=ip&types=place%2Caddress%2Cpostcode%2Cregion&language=el&access_token=pk.eyJ1IjoianNjYXN0cm8iLCJhIjoiY2s2YzB6Z25kMDVhejNrbXNpcmtjNGtpbiJ9.28ynPf1Y5Q8EyB_moOHylw`;
+
+    fetch(url)
+      .then((data) => data.json())
+      .then((data) => (address.value = data.features[0].place_name));
+
+    marker2.on("dragend", function (e) {
+      const lngLat = e.target.getLngLat();
+
+      let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat["lng"]}, ${lngLat["lat"]}.json?limit=1&proximity=ip&types=place%2Caddress%2Cpostcode%2Cregion&language=el&access_token=pk.eyJ1IjoianNjYXN0cm8iLCJhIjoiY2s2YzB6Z25kMDVhejNrbXNpcmtjNGtpbiJ9.28ynPf1Y5Q8EyB_moOHylw`;
+
+      fetch(url)
+        .then((data) => data.json())
+        .then((data) => (address.value = data.features[0].place_name));
+    });
+  });
+});
