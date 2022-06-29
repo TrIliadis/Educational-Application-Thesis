@@ -32,20 +32,8 @@ const { storage, cloudinary } = require("./imageHosting");
 //setup multer for images
 const upload = multer({ storage, limits: { fieldSize: 2 * 1024 * 1024 } }); //2MB limit
 
-//setup multer for files
-const fileStorage = multer.diskStorage({
-  destination: (req, file, func) => {
-    func(null, "./public/fileStorage");
-  },
-  filename: (req, file, func) => {
-    func(null, Date.now() + " - " + file.originalname);
-  },
-});
-
-const fileUpload = multer({
-  storage: fileStorage,
-  limits: { fieldSize: 10 * 1024 * 1024 },
-});
+//import fileHosting config
+const uploadFile = require("./fileHosting");
 
 //import session for user credential storage
 const session = require("express-session");
@@ -182,7 +170,6 @@ app.get(
   asyncWrapper(async (req, res) => {
     const courses = await Course.find({});
     const users = await User.find({});
-    console.log(users);
     res.render("courses/index", {
       courses,
       users,
@@ -591,23 +578,29 @@ app.post(
 //upload new assignment
 app.post(
   "/assignmentUpload",
-  fileUpload.single("file"),
+  uploadFile.single("file"),
   asyncWrapper(async (req, res) => {
-    console.log(req.file);
-    if (!req.file) {
+    try {
+      const user = await User.findById(req.user._id);
+
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        resource_type: "raw",
+        public_id: Date.now() + "-" + req.file.originalname,
+      });
+      const assignment = {
+        path: result.url,
+        filename: result.public_id,
+        filetype: result.public_id.split(".").pop(),
+      };
+      user.assignments.push(assignment);
+      await user.save();
+      req.flash("success", "Το αρχείο αποθηκεύτηκε επιτυχώς!");
+      res.redirect("edit/assignments");
+    } catch (e) {
+      console.log(e);
       req.flash("error", "Υπήρχε κάποιο πρόβλημα με την αποθήκευση");
       res.redirect("edit/assignments");
     }
-    const user = await User.findById(req.user._id);
-    const assignment = {
-      path: req.file.path,
-      filename: req.file.filename,
-      filetype: req.file.filename.split(".").pop(),
-    };
-    user.assignments.push(assignment);
-    await user.save();
-    req.flash("success", "Το αρχείο αποθηκεύτηκε επιτυχώς!");
-    res.redirect("edit/assignments");
   })
 );
 
@@ -631,8 +624,9 @@ app.post(
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     const user = await User.findById(req.user._id);
-    fs.unlinkSync(
-      `./public/fileStorage/${user.assignments[parseInt(id)].filename}`
+    const result = await cloudinary.uploader.destroy(
+      user.assignments[parseInt(id)].filename,
+      { resource_type: "raw" }
     );
     user.assignments = user.assignments.filter(
       (item) => item !== user.assignments[parseInt(id)]

@@ -171,7 +171,7 @@ To get a local copy up and running follow these simple example steps.
 - [x] Navbar
 - [x] Footer 
 - [x] Courses Index Page
-- [ ] Show Course Page
+- [x] Show Course Page
 - [x] Course MongoDB Model
 - [x] User MongoDB Model
 - [x] File MongoDB Model
@@ -181,12 +181,10 @@ To get a local copy up and running follow these simple example steps.
 - [x] Logout
 - [x] Middlewares
 - [x] Authentication
-- [ ] Authorization
+- [x] Authorization
 - [x] Cookies
 - [x] Session
 - [ ] Security
-- [ ] Courses CRUD
-- [ ] Courses functions
 
 
 See the [open issues](https://github.com/TrIliadis/Educational-Application-Thesis/issues) for a full list of proposed features (and known issues).

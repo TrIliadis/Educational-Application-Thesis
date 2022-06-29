@@ -18,10 +18,10 @@
       <div class="card footerBg container">
           <div class="card-body">
               <div class="row align-items-center">
-                  <div class="col-6">
+                  <div class="ml-5 col-6">
                       <img class="imgProfileShow circle mb-3" src="<%= user.image.url %> " alt="profile image">
                   </div>
-                  <div class="bgInfo col-6">
+                  <div class="col-6">
                     <ul class="white list-unstyled">
                         <li class="mb-4"><span class="userInfo me-2">Όνομα:</span> <%= user.name %> </li>
                         <li class="mb-4"><span class="userInfo me-2">Επώνυμο:</span> <%= user.surname %> </li>
@@ -178,7 +178,9 @@
                     </tr>
                   </thead>
                   <tbody>
+                    
                     <% for(let i=0;i<user.assignments.length;i++){%>
+                      <% if(!user.assignments[i].visible) {continue}%> 
                     <tr>
                       <td class="center">
                         <div
@@ -231,11 +233,14 @@
                                 width="100%"
                                 height="700px"
                                 frameborder='0'
-                                src="/static/fileStorage/<%= user.assignments[i].filename%>"
-                              ></embed>
+                                src="<%= user.assignments[i].path %>"></embed>
+
                               <% }else{ %>
-                                <h2 class="dark">Δεν γίνεται να προβληθεί αυτό το αρχείο κατευθείαν στο browser, ανοίξτε το αρχείο που κατέβηκε με το αντίστοιχο πρόγραμμα</h2>
-                                <embed src="/static/fileStorage/<%= user.assignments[i].filename%>"></embed>
+                                <embed
+                                width="100%"
+                                height="700px"
+                                frameborder='0' 
+                                src="https://view.officeapps.live.com/op/embed.aspx?src=<%= user.assignments[i].path %>"></embed>
                               <% } %>
                             </p>
                           </div>
@@ -254,6 +259,7 @@
                       <td class="center">
                         <div class="btn-group">
                           <a
+                            target="_blank"
                             class="btn btn-outline-secondary"
                             type="button"
                             href="/static/fileStorage/<%= user.assignments[i].filename%>"

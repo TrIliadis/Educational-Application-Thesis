@@ -123,7 +123,7 @@ map.on("load", () => {
   });
 
   map.loadImage(
-    "https://cdn-icons-png.flaticon.com/512/3135/3135810.png",
+    "https://res.cloudinary.com/dgzlym20q/image/upload/v1656505267/makeItGreen/3135810_vqpxfo.png",
     (error, image) => {
       if (error) throw error;
 
@@ -160,8 +160,6 @@ map.on("load", () => {
       });
     }
   );
-
-
 
   // inspect a cluster on click
   map.on("click", "clusters", (e) => {

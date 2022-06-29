@@ -1,18 +1,21 @@
 let counter = document.querySelectorAll(".button").length;
 mapboxgl.accessToken = mapboxToken;
 
+
 for (let i = 0; i < counter; i++) {
   let modal = document.getElementById(`myModal${i}`);
   let btn = document.getElementById(`modalBtn${i}`);
   let span = document.getElementsByClassName("close");
 
-  btn.onclick = function () {
-    modal.style.display = "block";
-  };
+  if (btn !== null) {
+    btn.onclick = function () {
+      modal.style.display = "block";
+    };
 
-  span[i].onclick = function () {
-    modal.style.display = "none";
-  };
+    span[i].onclick = function () {
+      modal.style.display = "none";
+    };
+  }
 }
 
 const map = new mapboxgl.Map({

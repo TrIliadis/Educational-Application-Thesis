@@ -109,9 +109,21 @@ const UserSchema = new Schema(
 );
 
 UserSchema.virtual("properties.popUpMarkup").get(function () {
-  return `<img src="${
-    this.image.url
-  }" style="border-radius: 50%; height: 60px;"/> <a href="/user/${this._id}"> ${this.name + " " + this.surname}(${this.role === "teacher" ? "Καθηγητής" : "Φοιτητής"})</a>`;
+  return `<div class="row">
+  <div class="col-6">
+    <img
+      src="${this.image.url}"
+      style="border-radius: 50%; height: 60px"
+    />
+  </div>
+  <div class="col-6">
+    <a href="/user/${this._id}">
+      ${
+        this.name + " " + this.surname
+      } (${this.role === "teacher" ? "Καθηγητής" : "Φοιτητής"})</a
+    >
+  </div>
+</div>`;
 });
 
 UserSchema.plugin(passportLocalMongoose);

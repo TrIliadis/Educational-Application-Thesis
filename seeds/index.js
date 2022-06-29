@@ -67,44 +67,44 @@ const seedDB = async () => {
     const j = Math.floor(Math.random() * 200);
     if (j < 20) {
       user.image.url =
-        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496172/makeItGreen/photo-1619895862022-09114b41f16f_pz0oeg.jpg";
-      user.image.filename = "photo-1619895862022-09114b41f16f_pz0oeg.jpg";
+        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656530068/makeItGreen/photo-1607746882042-944635dfe10e_bpcduk.jpg";
+      user.image.filename = "photo-1607746882042-944635dfe10e_bpcduk.jpg";
     } else if (j < 40) {
       user.image.url =
-        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496187/makeItGreen/photo-1438761681033-6461ffad8d80_p4x06p.jpg";
-      user.image.filename = "photo-1438761681033-6461ffad8d80_p4x06p.jpg";
+        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656530050/makeItGreen/photo-1519456264917-42d0aa2e0625_bjy2iu.jpg";
+      user.image.filename = "photo-1519456264917-42d0aa2e0625_bjy2iu.jpg";
     } else if (j < 60) {
+      user.image.url =
+        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656530030/makeItGreen/photo-1472099645785-5658abf4ff4e_ppwzpp.jpg";
+      user.image.filename = "photo-1472099645785-5658abf4ff4e_ppwzpp.jpg";
+    } else if (j < 80) {
+      user.image.url =
+        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656529974/makeItGreen/photo-1558898479-33c0057a5d12_bcffeb.jpg";
+      user.image.filename = "photo-1558898479-33c0057a5d12_bcffeb.jpg";
+    } else if (j < 100) {
+      user.image.url =
+        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656529955/makeItGreen/photo-1508214751196-bcfd4ca60f91_qdat2w.jpg";
+      user.image.filename = "photo-1508214751196-bcfd4ca60f91_qdat2w.jpg";
+    } else if (j < 120) {
+      user.image.url =
+        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656529938/makeItGreen/photo-1628890923662-2cb23c2e0cfe_myg4sy.jpg";
+      user.image.filename = "photo-1628890923662-2cb23c2e0cfe_myg4sy.jpg";
+    } else if (j < 140) {
+      user.image.url =
+        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656529912/makeItGreen/photo-1603415526960-f7e0328c63b1_crdf3d.jpg";
+      user.image.filename = "photo-1603415526960-f7e0328c63b1_crdf3d.jpg";
+    } else if (j < 160) {
       user.image.url =
         "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496202/makeItGreen/photo-1463453091185-61582044d556_xj5dix.jpg";
       user.image.filename = "photo-1463453091185-61582044d556_xj5dix.jpg";
-    } else if (j < 80) {
-      user.image.url =
-        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496216/makeItGreen/photo-1518020382113-a7e8fc38eac9_ro5vyf.jpg";
-      user.image.filename = "photo-1518020382113-a7e8fc38eac9_ro5vyf.jpg";
-    } else if (j < 100) {
-      user.image.url =
-        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496231/makeItGreen/photo-1505628346881-b72b27e84530_xodwgw.jpg";
-      user.image.filename = "photo-1505628346881-b72b27e84530_xodwgw.jpg";
-    } else if (j < 120) {
-      user.image.url =
-        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496242/makeItGreen/photo-1624561172888-ac93c696e10c_fif9vd.jpg";
-      user.image.filename = "photo-1624561172888-ac93c696e10c_fif9vd.jpg";
-    } else if (j < 140) {
-      user.image.url =
-        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496252/makeItGreen/photo-1628157588553-5eeea00af15c_j9wyqo.jpg";
-      user.image.filename = "photo-1628157588553-5eeea00af15c_j9wyqo.jpg";
-    } else if (j < 160) {
-      user.image.url =
-        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496264/makeItGreen/photo-1584999734482-0361aecad844_t7pdgb.jpg";
-      user.image.filename = "photo-1584999734482-0361aecad844_t7pdgb.jpg";
     } else if (j < 180) {
       user.image.url =
-        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496292/makeItGreen/photo-1489424731084-a5d8b219a5bb_zab4eo.jpg";
-      user.image.filename = "photo-1489424731084-a5d8b219a5bb_zab4eo.jpg";
+        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496187/makeItGreen/photo-1438761681033-6461ffad8d80_p4x06p.jpg";
+      user.image.filename = "photo-1438761681033-6461ffad8d80_p4x06p.jpg";
     } else {
       user.image.url =
-        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496312/makeItGreen/photo-1528763380143-65b3ac89a3ff_uctfcv.jpg";
-      user.image.filename = "photo-1528763380143-65b3ac89a3ff_uctfcv.jpg";
+        "https://res.cloudinary.com/dgzlym20q/image/upload/v1656496172/makeItGreen/photo-1619895862022-09114b41f16f_pz0oeg.jpg";
+      user.image.filename = "photo-1619895862022-09114b41f16f_pz0oeg.jpg";
     }
 
     user.facebook = `${user.name + " " + user.surname}`;
@@ -131,36 +131,36 @@ const seedDB = async () => {
 
     user.assignments = [
       {
-        path: "fileStorage/1656319083763 - 3145765.png",
-        filename: "1656319083763 - 3145765.png",
+        path: "https://res.cloudinary.com/dgzlym20q/raw/upload/v1656519524/1656519528267-3145765.png",
+        filename: "1656519528267-3145765.png",
         filetype: "png",
         submitted: randomDate(new Date(1991, 22, 08), new Date()),
       },
       {
-        path: "fileStorage/1656227934359 - testAssignment.docx",
-        filename: "1656227934359 - testAssignment.docx",
-        filetype: "docx",
+        path: "https://res.cloudinary.com/dgzlym20q/raw/upload/v1656520742/1656520744539-kanonismos_eponisis_ptyhiakis_ergasias_tmimatos_k.e._8-4-2016.pdf",
+        filename:
+          "1656520744539-kanonismos_eponisis_ptyhiakis_ergasias_tmimatos_k.e._8-4-2016.pdf",
+        filetype: "pdf",
         submitted: randomDate(new Date(1991, 22, 08), new Date()),
       },
       {
-        path: "fileStorage/1656227939378 - testAssignment.pptx",
-        filename: "1656227939378 - testAssignment.pptx",
-        filetype: "pptx",
-        visible: false,
-        submitted: randomDate(new Date(1991, 22, 08), new Date()),
-      },
-      {
-        path: "fileStorage/1656181046812 - user submissions moodle.txt",
-        filename: "1656181046812 - user submissions moodle.txt",
+        path: "https://res.cloudinary.com/dgzlym20q/raw/upload/v1656519414/1656519417940-testAssignment.txt",
+        filename: "1656519417940-testAssignment.txt",
         filetype: "txt",
         visible: false,
         submitted: randomDate(new Date(1991, 22, 08), new Date()),
       },
       {
-        path: "fileStorage/1656268287169 - kanonismos_eponisis_ptyhiakis_ergasias_tmimatos_k.e._8-4-2016.pdf",
-        filename:
-          "1656268287169 - kanonismos_eponisis_ptyhiakis_ergasias_tmimatos_k.e._8-4-2016.pdf",
-        filetype: "pdf",
+        path: "https://res.cloudinary.com/dgzlym20q/raw/upload/v1656519353/1656519356948-testAssignment.docx",
+        filename: "1656519356948-testAssignment.docx",
+        filetype: "docx",
+        visible: false,
+        submitted: randomDate(new Date(1991, 22, 08), new Date()),
+      },
+      {
+        path: "https://res.cloudinary.com/dgzlym20q/raw/upload/v1656519300/1656519302803-sampleppt.ppt",
+        filename: "1656519302803-sampleppt.ppt",
+        filetype: "ppt",
         visible: true,
         submitted: randomDate(new Date(1991, 22, 08), new Date()),
       },

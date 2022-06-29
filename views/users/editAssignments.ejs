@@ -77,11 +77,14 @@
                                 width="100%"
                                 height="700px"
                                 frameborder='0'
-                                src="/static/fileStorage/<%= loggedUser.assignments[i].filename%>"
-                              ></embed>
+                                src="<%= loggedUser.assignments[i].path %>"></embed>
+
                               <% }else{ %>
-                                <h2 class="dark">Δεν γίνεται να προβληθεί αυτό το αρχείο κατευθείαν στο browser, ανοίξτε το αρχείο που κατέβηκε με το αντίστοιχο πρόγραμμα</h2>
-                                <embed src="/static/fileStorage/<%= loggedUser.assignments[i].filename%>"></embed>
+                                <embed
+                                width="100%"
+                                height="700px"
+                                frameborder='0' 
+                                src="https://view.officeapps.live.com/op/embed.aspx?src=<%= loggedUser.assignments[i].path %>"></embed>
                               <% } %>
                             </p>
                           </div>
@@ -114,15 +117,16 @@
                       <td class="center">
                         <div class="btn-group">
                           <a
+                            target="_blank"
                             class="btn btn-outline-secondary"
                             type="button"
-                            href="/static/fileStorage/<%= loggedUser.assignments[i].filename%>"
+                            href="<%= loggedUser.assignments[i].path%>"
                             download="<%=loggedUser.assignments[i].filename.substring(loggedUser.assignments[i].filename.indexOf('-')
                           + 1)%>"
                           >
                           <i class="fa-solid fa-download"></i>
                           </a>
-                          <form action="/deleteAssignment/<%= i %>" method="post">
+                        <form action="/deleteAssignment/<%= i %>" method="post">
                           <button
                             id="deleteBtn"
                             class="btn btn-outline-secondary"
