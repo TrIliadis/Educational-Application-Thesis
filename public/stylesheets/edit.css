@@ -266,3 +266,22 @@ label {
   font-weight: 900;
 }
 
+.userInfo {
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.userInfoTitle {
+  padding-top: 1rem;
+  margin-bottom: 1.9rem;
+}
+.bgInfo {
+  background: #15395a;
+  border-radius: 15px;
+  width: 30rem;
+}
+
+.imgProfileShow {
+  height: 300px;
+  width: 55%;
+}

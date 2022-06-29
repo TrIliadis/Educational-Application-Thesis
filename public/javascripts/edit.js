@@ -4,10 +4,9 @@ const profileImg = document.getElementById("profileImg");
 let counter = document.querySelectorAll(".slider").length;
 const container = document.getElementById("inputContainer");
 const btnContainer = document.getElementById("btnContainer");
-const town = document.getElementById("address");
+
 let markers = [];
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiZGF4YWthIiwiYSI6ImNsMXhicW1odTAxYWgzZG1tODVtcjRnYmQifQ.p0DZDL3qMIzWsdHrRxgj4Q";
+mapboxgl.accessToken = mapboxToken;
 
 imgInput.onchange = () => {
   const [file] = imgInput.files;
@@ -87,7 +86,10 @@ function ValidateEmail(input) {
 
 const map = new mapboxgl.Map({
   style: "mapbox://styles/daxaka/cl4xrx2rv004c14ogai4imudy",
-  center: [22.957511519708305, 40.6333009771503],
+  center:
+    geo.length === 2
+      ? [geo[0], geo[1]]
+      : [22.957511519708305, 40.6333009771503],
   zoom: 17,
   pitch: 45,
   bearing: -10,
@@ -99,7 +101,9 @@ const marker = new mapboxgl.Marker({
   color: "orange",
   draggable: true,
 }) // initialize a new marker
-  .setLngLat([22.957511519708305, 40.6333009771503]) // Marker [lng, lat] coordinates
+  .setLngLat(
+    geo.length === 2 ? [geo[0], geo[1]] : [22.957511519708305, 40.6333009771503]
+  ) // Marker [lng, lat] coordinates
   .addTo(map); // Add the marker to the map
 
 markers.push(marker);

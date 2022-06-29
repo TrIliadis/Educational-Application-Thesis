@@ -44,59 +44,74 @@ const SkillSchema = new Schema({
   },
 });
 
-const UserSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  surname: {
-    type: String,
-    required: true,
-  },
-  town: {
-    type: String,
-  },
-  address: {
-    type: String,
-  },
-  role: {
-    type: String,
-    enum: ["teacher", "student"],
-    default: "student",
-    required: true,
-  },
-  image: {
-    type: ImageSchema,
-    default: {
-      url: "https://res.cloudinary.com/dgzlym20q/image/upload/v1654529943/makeItGreen/avatar7_zzez7a.png",
-      filename: "avatar",
+const options = { toJSON: { virtuals: true } };
+
+const UserSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    surname: {
+      type: String,
+      required: true,
+    },
+    uni: {
+      type: String,
+    },
+    address: {
+      type: String,
+      default: "Αγίου Δημητρίου, 546 21 Θεσσαλονίκη, Ελλάδα",
+    },
+    role: {
+      type: String,
+      enum: ["teacher", "student"],
+      default: "student",
+      required: true,
+    },
+    image: {
+      type: ImageSchema,
+      default: {
+        url: "https://res.cloudinary.com/dgzlym20q/image/upload/v1654529943/makeItGreen/avatar7_zzez7a.png",
+        filename: "avatar",
+      },
+    },
+    facebook: {
+      type: String,
+    },
+    instagram: {
+      type: String,
+    },
+    twitter: {
+      type: String,
+    },
+    bio: {
+      type: String,
+    },
+    courses: {
+      type: Schema.Types.ObjectId,
+      ref: "Course",
+    },
+    assignments: [FileSchema],
+    skills: [SkillSchema],
+    geometry: {
+      type: {
+        type: String,
+        enum: ["Point"],
+        default: "Point",
+      },
+      coordinates: {
+        type: [Number],
+      },
     },
   },
-  facebook: {
-    type: String,
-  },
-  instagram: {
-    type: String,
-  },
-  twitter: {
-    type: String,
-  },
-  bio: {
-    type: String,
-  },
-  courses: {
-    type: Schema.Types.ObjectId,
-    ref: "Course",
-  },
-  assignments: [FileSchema],
-  skills: [SkillSchema],
-  location: {
-    type: String,
-    enum: ["Point"],
-  },
-  coordinates: {
-    type: [Number],
-  },
+  options
+);
+
+UserSchema.virtual("properties.popUpMarkup").get(function () {
+  return `<img src="${
+    this.image.url
+  }" style="border-radius: 50%; height: 60px;"/> <a href="/user/${this._id}"> ${this.name + " " + this.surname}(${this.role === "teacher" ? "Καθηγητής" : "Φοιτητής"})</a>`;
 });
 
 UserSchema.plugin(passportLocalMongoose);

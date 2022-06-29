@@ -181,8 +181,11 @@ app.get(
   "/courses",
   asyncWrapper(async (req, res) => {
     const courses = await Course.find({});
+    const users = await User.find({});
+    console.log(users);
     res.render("courses/index", {
       courses,
+      users,
       topic: "Μαθήματα",
     });
   })
@@ -685,12 +688,19 @@ app.post(
 app.post(
   "/editUser",
   asyncWrapper(async (req, res, next) => {
-    const { name, surname, email, town, address } = req.body;
+    const { name, surname, email, uni, address } = req.body;
     const user = await User.findById(req.user._id);
     user.name = name;
     user.surname = surname;
-    user.town = town;
+    user.uni = uni;
     user.address = address;
+    const geoData = await geocodingClient
+      .forwardGeocode({
+        query: address,
+        limit: 1,
+      })
+      .send();
+    user.geometry = geoData.body.features[0].geometry;
     if (!(email === user.username)) {
       const duplicateUser = await User.findOne({ username: email });
       if (duplicateUser) {
@@ -698,6 +708,7 @@ app.post(
         res.redirect("/edit");
       }
     }
+
     user.username = email;
     await user.save();
     req.login(user, (e) => {
@@ -749,6 +760,15 @@ app.get("/logout", (req, res) => {
     res.redirect("/courses");
   });
 });
+
+app.get(
+  "/user/:id",
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    res.render("users/show", { topic: "Προβολή Προφίλ", user });
+  })
+);
 
 //edit profile courses
 app.get(
@@ -818,11 +838,3 @@ function convertToArrayOfObjects(data) {
 
   return output;
 }
-
-
-// const geo = await geocodingClient
-//     .reverseGeocode({
-//       query: [22.956242692417657, 40.633831513050794],
-//     })
-//     .send();
-//   console.log(geo.body.features[0]);
