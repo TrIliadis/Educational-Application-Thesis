@@ -1,4 +1,16 @@
 <%- layout('layouts/boilerplate') %>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+
+<link
+  rel="stylesheet"
+  href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+  type="text/css"
+/>
+<link
+  href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css"
+  rel="stylesheet"
+/>
 <link rel="stylesheet" href="/static/stylesheets/show.css" />
 <div className="article-body ">
   <header
@@ -11,79 +23,13 @@
     <h1 class="mx-auto imgTitle my-5"><%= course.title %></h1>
   </header>
   <main class="main">
-    <div>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos quibusdam
-        corporis voluptate! Esse reprehenderit, facilis optio commodi tempore
-        explicabo voluptatem quia quasi ratione architecto error. Placeat cum
-        hic consequuntur temporibus! A ullam dolore nobis ex repellendus facere
-        minima non vel labore. Animi quod eaque repudiandae fugiat obcaecati,
-        veniam sunt fuga illo id. Nam itaque perspiciatis necessitatibus
-        deserunt atque excepturi eius! Deleniti, fugiat dolor exercitationem
-        obcaecati recusandae corrupti vitae quia rerum tempore, voluptatem ad
-        natus eveniet! Cupiditate ut rerum recusandae error nulla ad! Iste
-        debitis pariatur sed possimus inventore nobis minima.
-      </p>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos quibusdam
-        corporis voluptate! Esse reprehenderit, facilis optio commodi tempore
-        explicabo voluptatem quia quasi ratione architecto error. Placeat cum
-        hic consequuntur temporibus! A ullam dolore nobis ex repellendus facere
-        minima non vel labore. Animi quod eaque repudiandae fugiat obcaecati,
-        veniam sunt fuga illo id. Nam itaque perspiciatis necessitatibus
-        deserunt atque excepturi eius! Deleniti, fugiat dolor exercitationem
-        obcaecati recusandae corrupti vitae quia rerum tempore, voluptatem ad
-        natus eveniet! Cupiditate ut rerum recusandae error nulla ad! Iste
-        debitis pariatur sed possimus inventore nobis minima.
-      </p>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos quibusdam
-        corporis voluptate! Esse reprehenderit, facilis optio commodi tempore
-        explicabo voluptatem quia quasi ratione architecto error. Placeat cum
-        hic consequuntur temporibus! A ullam dolore nobis ex repellendus facere
-        minima non vel labore. Animi quod eaque repudiandae fugiat obcaecati,
-        veniam sunt fuga illo id. Nam itaque perspiciatis necessitatibus
-        deserunt atque excepturi eius! Deleniti, fugiat dolor exercitationem
-        obcaecati recusandae corrupti vitae quia rerum tempore, voluptatem ad
-        natus eveniet! Cupiditate ut rerum recusandae error nulla ad! Iste
-        debitis pariatur sed possimus inventore nobis minima.
-      </p>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos quibusdam
-        corporis voluptate! Esse reprehenderit, facilis optio commodi tempore
-        explicabo voluptatem quia quasi ratione architecto error. Placeat cum
-        hic consequuntur temporibus! A ullam dolore nobis ex repellendus facere
-        minima non vel labore. Animi quod eaque repudiandae fugiat obcaecati,
-        veniam sunt fuga illo id. Nam itaque perspiciatis necessitatibus
-        deserunt atque excepturi eius! Deleniti, fugiat dolor exercitationem
-        obcaecati recusandae corrupti vitae quia rerum tempore, voluptatem ad
-        natus eveniet! Cupiditate ut rerum recusandae error nulla ad! Iste
-        debitis pariatur sed possimus inventore nobis minima.
-      </p>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos quibusdam
-        corporis voluptate! Esse reprehenderit, facilis optio commodi tempore
-        explicabo voluptatem quia quasi ratione architecto error. Placeat cum
-        hic consequuntur temporibus! A ullam dolore nobis ex repellendus facere
-        minima non vel labore. Animi quod eaque repudiandae fugiat obcaecati,
-        veniam sunt fuga illo id. Nam itaque perspiciatis necessitatibus
-        deserunt atque excepturi eius! Deleniti, fugiat dolor exercitationem
-        obcaecati recusandae corrupti vitae quia rerum tempore, voluptatem ad
-        natus eveniet! Cupiditate ut rerum recusandae error nulla ad! Iste
-        debitis pariatur sed possimus inventore nobis minima.
-      </p>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos quibusdam
-        corporis voluptate! Esse reprehenderit, facilis optio commodi tempore
-        explicabo voluptatem quia quasi ratione architecto error. Placeat cum
-        hic consequuntur temporibus! A ullam dolore nobis ex repellendus facere
-        minima non vel labore. Animi quod eaque repudiandae fugiat obcaecati,
-        veniam sunt fuga illo id. Nam itaque perspiciatis necessitatibus
-        deserunt atque excepturi eius! Deleniti, fugiat dolor exercitationem
-        obcaecati recusandae corrupti vitae quia rerum tempore, voluptatem ad
-        natus eveniet! Cupiditate ut rerum recusandae error nulla ad! Iste
-        debitis pariatur sed possimus inventore nobis minima.
-      </p>
-    </div>
+    <h1 class="h1Title">χρηστες ομαδας</h1>
+    <div id="map" style="width: 100%; height: 700px"></div>
   </main>
 </div>
+
+<script>
+  const mapboxToken = "<%- process.env.MAPBOX_TOKEN %>"
+  const allUsers = {features:<%- JSON.stringify(course.members) %> }
+</script>
+<script src="/static/javascripts/show.js"></script>

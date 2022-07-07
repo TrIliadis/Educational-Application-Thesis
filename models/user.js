@@ -69,6 +69,16 @@ const UserSchema = new Schema(
       default: "student",
       required: true,
     },
+    geometry: {
+      type: {
+        type: String,
+        enum: ["Point"],
+        default: "Point",
+      },
+      coordinates: {
+        type: [Number],
+      },
+    },
     image: {
       type: ImageSchema,
       default: {
@@ -94,16 +104,12 @@ const UserSchema = new Schema(
     },
     assignments: [FileSchema],
     skills: [SkillSchema],
-    geometry: {
-      type: {
-        type: String,
-        enum: ["Point"],
-        default: "Point",
+    memberOf: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Course",
       },
-      coordinates: {
-        type: [Number],
-      },
-    },
+    ],
   },
   options
 );

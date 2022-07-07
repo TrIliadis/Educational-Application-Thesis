@@ -12,7 +12,14 @@
 <h1 class="h1 text-center h1Title">ολοι οι χρηστες</h1>
 <div id='map' style='width: 100%; height:700px;'></div>
 
-<h1 class="h1 text-center h1Title">ολα τα μαθηματα</h1>
+<h1 class="h1 text-center h1Title">ολες οι ομαδες</h1>
+
+<% function containsObject(id, list) {
+    for(let i=0;i<list.length;i++){
+      if(list[i].equals(id)) return true;
+    }
+      return false;
+  } %> 
 
 <% for(let i=0;i<courses.length;i+=4){%>
   <div class="container">
@@ -45,15 +52,17 @@
         </div>
         <ul class="cardCrud">
           <li class="me-2 cardCrudIcon play greenCard">
-            <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+            <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
           </li>
-          <% if(loggedUser && (loggedUser.role === "teacher")){ %> 
-          <li class="me-2 cardCrudIcon play yellowCard">
-            <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
-          </li>
-          <li class="me-2 cardCrudIcon play redCard">
-            <a href="/courses/<%= courses[i]._id %>/delete  "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
-          </li>
+          <% if(loggedUser && !containsObject(loggedUser._id,courses[i].members)){ %> 
+            <li class="me-2 cardCrudIcon play yellowCard">
+              <a href="/courses/join/<%= courses[i]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
+            </li>
+            <% } %> 
+          <% if(loggedUser && containsObject(loggedUser._id,courses[i].members)){ %> 
+            <li class="me-2 cardCrudIcon play yellowCard">
+              <a href="/courses/delete/<%= courses[i]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
+            </li>
           <% } %> 
         </ul>
       </div>
@@ -87,15 +96,17 @@
         </div>
         <ul class="cardCrud">
           <li class="me-2 cardCrudIcon play greenCard">
-            <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+            <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
           </li>
-          <% if(loggedUser && (loggedUser.role === "teacher")){ %> 
-          <li class="me-2 cardCrudIcon play yellowCard">
-            <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
-          </li>
-          <li class="me-2 cardCrudIcon play redCard">
-            <a href="/courses/<%= courses[i+1]._id %>/delete "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
-          </li>
+          <% if(loggedUser && !containsObject(loggedUser._id,courses[i+1].members)){ %> 
+            <li class="me-2 cardCrudIcon play yellowCard">
+              <a href="/courses/join/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
+            </li>
+            <% } %> 
+          <% if(loggedUser && containsObject(loggedUser._id,courses[i+1].members)){ %> 
+            <li class="me-2 cardCrudIcon play yellowCard">
+              <a href="/courses/delete/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
+            </li>
           <% } %> 
         </ul>
       </div>
@@ -129,15 +140,17 @@
         </div>
         <ul class="cardCrud">
           <li class="me-2 cardCrudIcon play greenCard">
-            <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+            <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
           </li>
-          <% if(loggedUser && (loggedUser.role === "teacher")){ %> 
-          <li class="me-2 cardCrudIcon play yellowCard">
-            <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
-          </li>
-          <li class="me-2 cardCrudIcon play redCard">
-            <a href="/courses/<%= courses[i+2]._id %>/delete  "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
-          </li>
+          <% if(loggedUser && !containsObject(loggedUser._id,courses[i+2].members)){ %> 
+            <li class="me-2 cardCrudIcon play yellowCard">
+              <a href="/courses/join/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
+            </li>
+            <% } %> 
+          <% if(loggedUser && containsObject(loggedUser._id,courses[i+2].members)){ %> 
+            <li class="me-2 cardCrudIcon play yellowCard">
+              <a href="/courses/delete/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
+            </li>
           <% } %> 
         </ul>
       </div>
@@ -171,15 +184,17 @@
         </div>
         <ul class="cardCrud">
           <li class="me-2 cardCrudIcon play greenCard">
-            <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Μάθημα</a>
+            <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
           </li>
-          <% if(loggedUser && (loggedUser.role === "teacher")){ %> 
-          <li class="me-2 cardCrudIcon play yellowCard">
-            <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-pencil mr-2"></i>  Επεξεργασία Μαθήματος</a>
-          </li>
-          <li class="me-2 cardCrudIcon play redCard">
-            <a href="/courses/<%= courses[i+3]._id %>/delete  "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή Μαθήματος</a>
-          </li>
+          <% if(loggedUser && !containsObject(loggedUser._id,courses[i+3].members)){ %> 
+            <li class="me-2 cardCrudIcon play yellowCard">
+              <a href="/courses/join/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
+            </li>
+            <% } %> 
+          <% if(loggedUser && containsObject(loggedUser._id,courses[i+3].members)){ %> 
+            <li class="me-2 cardCrudIcon play yellowCard">
+              <a href="/courses/delete/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
+            </li>
           <% } %> 
         </ul>
       </div>

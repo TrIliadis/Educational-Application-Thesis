@@ -173,7 +173,7 @@ app.get(
     res.render("courses/index", {
       courses,
       users,
-      topic: "Μαθήματα",
+      topic: "Ομάδες",
     });
   })
 );
@@ -740,7 +740,8 @@ app.get(
   "/courses/:id",
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
-    const course = await Course.findById(id);
+    //populate user schema to have coordinates available
+    const course = await Course.findById(id).populate("members");
     res.render("courses/show", { course, topic: course.title });
   })
 );
@@ -755,6 +756,47 @@ app.get("/logout", (req, res) => {
   });
 });
 
+//add user to course
+app.get(
+  "/courses/join/:id",
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params;
+    const course = await Course.findById(id);
+    course.members.push(req.user._id);
+    await course.save();
+    const user = await User.findById(req.user._id);
+    user.memberOf.push(course._id);
+    await user.save();
+    req.flash("success", "Εγγραφήκατε στην ομάδα επιτυχώς!");
+    res.redirect("/courses");
+  })
+);
+
+app.get(
+  "/courses/delete/:id",
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params;
+    const course = await Course.findById(id);
+    console.log(course);
+    const user = await User.findById(req.user._id);
+    for (let i = 0; i < course.members.length; i++) {
+      if (course.members[i].equals(user._id)) {
+        course.members.splice(i, 1); //remove user from course
+      }
+    }
+    await course.save();
+    for (let i = 0; i < user.memberOf.length; i++) {
+      if (user.memberOf[i].equals(id)) {
+        user.memberOf.splice(i, 1); //remove course from user
+      }
+    }
+    await user.save();
+    req.flash("success", "Διαγραφήκατε από την ομάδα επιτυχώς!");
+    res.redirect("/courses");
+  })
+);
+
+//render user profile
 app.get(
   "/user/:id",
   asyncWrapper(async (req, res) => {
@@ -779,7 +821,7 @@ app.get(
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     await Course.findByIdAndDelete(id);
-    req.flash("success", "Το μάθημα διαγράφηκε επιτυχώς!");
+    req.flash("success", "Η ομάδα διαγράφηκε επιτυχώς!");
     res.redirect("/courses");
   })
 );

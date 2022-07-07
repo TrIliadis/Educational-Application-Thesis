@@ -1,15 +1,10 @@
 const { default: mongoose } = require("mongoose");
 const { Schema } = mongoose;
+const User = require("./user");
 
 const ImageSchema = new Schema({
   url: String,
   filename: String,
-});
-
-const FileSchema = new Schema({
-  url: String,
-  filename: String,
-  filetype: String,
 });
 
 const courseSchema = new Schema({
@@ -21,7 +16,6 @@ const courseSchema = new Schema({
     type: String,
     required: true,
   },
-  files: [FileSchema],
   images: ImageSchema,
   created: {
     type: Date,
@@ -31,6 +25,12 @@ const courseSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  members: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Course", courseSchema);

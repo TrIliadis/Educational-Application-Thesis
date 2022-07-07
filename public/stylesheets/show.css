@@ -43,6 +43,14 @@ header img {
   line-height: 1.6;
 }
 
+.h1Title {
+  color: white;
+  margin: 1.5rem 0;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
 @media all and (max-width: 400px) {
   main {
     padding: 2rem;

@@ -35,25 +35,20 @@ const seedDB = async () => {
   await Course.deleteMany({});
   await User.deleteMany({});
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < courses.length; i++) {
     //get random images from unsplash api
-    const img = await axios.get(
-      "https://api.unsplash.com/photos/random/?client_id=5oyzn1pALQH16hRegJFZsFnTV8Ov9LqrYGnm5NYYPhI&collections=907185"
-    );
     const course = new Course({
       title: courses[i].title,
       description: courses[i].description,
       created: randomDate(new Date(1991, 22, 08), new Date()),
       lastActive: new Date().toLocaleDateString(),
-      images: {
-        url: img.data.urls.raw + "&w=1500&dpr=2&h=758",
-      },
+      images: courses[i].image,
     });
     await course.save();
     console.log(course);
   }
 
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 20; i++) {
     const user = new User({
       name: randomName({ first: true, random: Math.random }),
       surname: randomName({ last: true, random: Math.random }),
@@ -147,21 +142,18 @@ const seedDB = async () => {
         path: "https://res.cloudinary.com/dgzlym20q/raw/upload/v1656519414/1656519417940-testAssignment.txt",
         filename: "1656519417940-testAssignment.txt",
         filetype: "txt",
-        visible: false,
         submitted: randomDate(new Date(1991, 22, 08), new Date()),
       },
       {
         path: "https://res.cloudinary.com/dgzlym20q/raw/upload/v1656519353/1656519356948-testAssignment.docx",
         filename: "1656519356948-testAssignment.docx",
         filetype: "docx",
-        visible: false,
         submitted: randomDate(new Date(1991, 22, 08), new Date()),
       },
       {
         path: "https://res.cloudinary.com/dgzlym20q/raw/upload/v1656519300/1656519302803-sampleppt.ppt",
         filename: "1656519302803-sampleppt.ppt",
         filetype: "ppt",
-        visible: true,
         submitted: randomDate(new Date(1991, 22, 08), new Date()),
       },
     ];
@@ -340,12 +332,11 @@ const seedDB = async () => {
       geo();
     }
 
-    const newUser = await User.register(user, `pass${i}`);
-
     if (typeof newUser.address == "undefined") {
       newUser.address = "Αγίου Δημητρίου, 546 21 Θεσσαλονίκη, Ελλάδα";
       newUser.save();
     }
+    const newUser = await User.register(user, `pass${i}`);
     console.log(newUser);
   }
 };

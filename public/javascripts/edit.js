@@ -90,7 +90,7 @@ const map = new mapboxgl.Map({
     geo.length === 2
       ? [geo[0], geo[1]]
       : [22.957511519708305, 40.6333009771503],
-  zoom: 17,
+  zoom: 11.5,
   pitch: 45,
   bearing: -10,
   container: "map",
