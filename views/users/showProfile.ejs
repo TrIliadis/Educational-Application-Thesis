@@ -1,0 +1,291 @@
+<!-- bootstrap snippet -->
+<%- layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/static/stylesheets/edit.css" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
+<div class="container my-5">
+  <h1 class="h1 h1Title">Προφιλ </h1>
+  <div id='map' class="mb-5" style='width: 100%; height:450px;'></div>
+  <div class="row mb-4">
+    <div class="col-12 mb-4">
+      <div class="card footerBg container">
+          <div class="card-body">
+              <div class="row align-items-center">
+                  <div class="ml-5 col-6">
+                      <img class="imgProfileShow circle mb-3" src="<%= userProfile.image.url %> " alt="profile image">
+                  </div>
+                  <div class="col-6">
+                    <ul class="white list-unstyled">
+                        <li class="mb-4"><span class="userInfo me-2">Όνομα:</span> <%= user.name %> </li>
+                        <li class="mb-4"><span class="userInfo me-2">Επώνυμο:</span> <%= user.surname %> </li>
+                        <li class="mb-4"><span class="userInfo me-2">Ρόλος:</span> <%= user.role === "teacher" ? "Καθηγητής" : "Φοιτητής" %> </li>
+                        <li class="mb-4"><span class="userInfo me-2">Ίδρυμα:</span> <%= user.uni %> </li>
+                        <li class="mb-4"><span class="userInfo me-2">Email:</span> <%= user.username %> </li>
+                        <li class="mb-4"><span class="userInfo me-2">Διεύθυνση:</span> <%= user.address %> </li>
+                    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <div class="col-4">
+      <div class="footerBg container card " style="text-align: center">
+        <div class="containerTitle">Social Media</div>
+        <ul class="list-group list-group-flush">
+          <li class="footerBg list-group-item">
+            <h6 class="white my-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewbox="0 0 24 22"
+                class="svgIcon feather feather-facebook mr-2 icon-inline text-primary"
+              >
+                <path
+                  d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                ></path></svg
+              >Facebook
+            </h6>
+            <span class="text-secondary"><%= user.facebook%></span>
+          </li>
+          <li class="footerBg list-group-item">
+            <h6 class="white my-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 26 24"
+                class="svgIcon feather feather-twitter mr-2 icon-inline text-info"
+              >
+                <path
+                  d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+                ></path></svg
+              >Twitter
+            </h6>
+            <span class="text-secondary"><%= user.twitter %></span>
+          </li>
+          <li class="footerBg list-group-item">
+            <h6 class="white mt-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 26 24"
+                class="svgIcon feather feather-instagram mr-2 icon-inline text-danger"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path
+                  d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                ></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg
+              >Instagram
+            </h6>
+            <span class="text-secondary"><%= user.instagram %></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="footerBg container card">
+        <div class="mb-4 mt-2">
+          <div class="containerTitle">Βιογραφικό Σημείωμα</div>
+          <p class="white mb-5" style="text-align: justify"><%= userProfile.bio%></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if(userProfile.skills.length >0){ %> 
+    <div class="row mt-3">
+      <div class="col-sm-12">
+        <div class="card footerBg container">
+          <div class="card-body">
+            <% for(let i=0;i<userProfile.skills.length;i+=4){%>
+            <div class="containerTitle">Skills</div>
+            <% if(i===userProfile.skills.length) break %>
+            <p class="white"><%= userProfile.skills[i].skillName%></p>
+            <div class="progress mb-2">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                role="progressbar"
+                aria-valuenow="30"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: <%= userProfile.skills[i].rating %>% "
+              ></div>
+            </div>
+            <% if(i+1===userProfile.skills.length) break %>
+            <p class="white"><%= userProfile.skills[i+1].skillName%></p>
+            <div class="progress mb-2">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                aria-valuenow="75"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: <%= userProfile.skills[i+1].rating %>% "
+              ></div>
+            </div>
+            <% if(i+2===userProfile.skills.length) break %>
+            <p class="white"><%= userProfile.skills[i+2].skillName%></p>
+            <div class="progress mb-2">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                role="progressbar"
+                aria-valuenow="75"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: <%= userProfile.skills[i+2].rating %>% "
+              ></div>
+            </div>
+            <% if(i+3===userProfile.skills.length) break %>
+            <p class="white"><%= userProfile.skills[i+3].skillName%></p>
+            <div class="progress mb-2">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                role="progressbar"
+                aria-valuenow="75"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: <%= userProfile.skills[i+3].rating %>% "
+              ></div>
+            </div>
+            <% } %> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %> 
+</div>
+
+<div class="container my-5">
+  <h2 class="h1Title">Εργασιες</h2>
+  <div class="container mb-5">
+    <div class="row flex-lg-nowrap">
+      <div class="col">
+        <div class="row flex-lg-nowrap">
+          <div class="col mb-3">
+            <div class="card-body footerBg container">
+              <div class="table-responsive table-lg mt-3">
+                <table class="table table-bordered white">
+                  <thead>
+                    <tr>
+                      <th class="center white">Τύπος Αρχείου</th>
+                      <th class="center white">Όνομα</th>
+                      <th class="center white">Ημερομηνία</th>
+                      <th class="center white">Ενέργεις</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <% for(let i=0;i<userProfile.assignments.length;i++){%>
+                      <% if(!userProfile.assignments[i].visible) {continue}%> 
+                    <tr>
+                      <td class="center">
+                        <div
+                          class="bg-light d-inline-flex justify-content-center align-items-center align-top"
+                          style="width: 40px; height: 40px; border-radius: 3px"
+                        >
+                          <% if(userProfile.assignments[i].filetype === "pdf"){%>
+                          <i class="dark fileType fa-regular fa-file-pdf"></i>
+                          <% }else if(userProfile.assignments[i].filetype ===
+                          "ppt" || userProfile.assignments[i].filetype
+                          ==="pptx"){ %>
+                          <i
+                            class="dark fileType fa-regular fa-file-powerpoint"
+                          ></i>
+                          <% }else if(userProfile.assignments[i].filetype ===
+                          "doc" || userProfile.assignments[i].filetype ===
+                          "docx"){ %>
+                          <i class="dark fileType fa-regular fa-file-word"></i>
+                          <% }else if(userProfile.assignments[i].filetype ===
+                          "txt"){ %>
+                          <i class="dark fileType fa-regular fa-file-lines"></i>
+                          <% }else if(userProfile.assignments[i].filetype ===
+                          "jpeg" || userProfile.assignments[i].filetype === "png"
+                          || userProfile.assignments[i].filetype === "gif"){ %>
+                          <i class="dark fileType fa-regular fa-file-image"></i>
+                          <% }else{ %>
+                          <i class="dark fileType fa-regular fa-file"></i>
+                          <% } %>
+                        </div>
+                      </td>
+                      <% userProfile.assignments[i].filename.substring(0,
+                      userProfile.assignments[i].filename.indexOf('-')); %>
+                      <td class="center white">
+                        <div id="modalContainer">
+                        <button type="button" id="modalBtn<%= i %>" class="button">
+                          <%=
+                          userProfile.assignments[i].filename.substring(userProfile.assignments[i].filename.indexOf('-')
+                          + 1); %>
+                        </button>
+
+                        <div id="myModal<%= i %>" class="fileModal">
+                          <div class="fileModalContent">
+                            <span class="close">&times;</span>
+                            <p>
+                              <% if(userProfile.assignments[i].filetype === "pdf" || userProfile.assignments[i].filetype ===
+                          "jpeg" || userProfile.assignments[i].filetype === "png"
+                          || userProfile.assignments[i].filetype === "gif" || userProfile.assignments[i].filetype ===
+                          "txt"){ %>
+                              <embed
+                                width="100%"
+                                height="700px"
+                                frameborder='0'
+                                src="<%= userProfile.assignments[i].path %>"></embed>
+
+                              <% }else{ %>
+                                <embed
+                                width="100%"
+                                height="700px"
+                                frameborder='0' 
+                                src="https://view.officeapps.live.com/op/embed.aspx?src=<%= userProfile.assignments[i].path %>"></embed>
+                              <% } %>
+                            </p>
+                          </div>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td class="center">
+                        <span class="white"
+                          ><%=
+                          userProfile.assignments[i].submitted.toLocaleDateString('el-GR',
+                          { year: 'numeric', month: 'long', day:
+                          'numeric' }) %>
+                        </span>
+                      </td>
+                      <td class="center">
+                        <div class="btn-group">
+                          <a
+                            target="_blank"
+                            class="btn btn-outline-secondary"
+                            type="button"
+                            href="/static/fileStorage/<%= userProfile.assignments[i].filename%>"
+                            download="<%=userProfile.assignments[i].filename.substring(userProfile.assignments[i].filename.indexOf('-')
+                          + 1)%>"
+                          >
+                          <i class="fa-solid fa-download"></i>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const mapboxToken = "<%- process.env.MAPBOX_TOKEN %>" 
+  const geo = <%- JSON.stringify(user.geometry.coordinates) %>
+</script>
+<script src="/static/javascripts/showUser.js"></script>

@@ -9,12 +9,13 @@
       href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css"
       rel="stylesheet"
     />
-
+<% let currentProfile = "" %> 
     <div class="container  my-5">
       <nav class="nav nav-borders">
         <a class="navLink <%= nav === "general" ? "active" : "" %>  ms-0" href="/edit">ΓΕΝΙΚΟ ΠΡΟΦΙΛ</a>
         <% for(let profile of user.profiles){ %> 
-        <a class="navLink <%= nav ===  profile.origin.title ? "active" : "" %>" href="/edit/<%= profile.origin._id %>"><%= profile.origin.title %> </a>
+            <% if(nav.origin.title ===  profile.origin.title) currentProfile = profile %> 
+        <a class="navLink <%= nav.origin.title ===  profile.origin.title ? "active" : "" %>" href="/edit/<%= profile.origin._id %>"><%= profile.origin.title %> </a>
         <%}%>
       </nav>
   <h1 class="h1 h1Title">Επεξεργασια Προφιλ</h1>
@@ -29,12 +30,12 @@
           <img
             id="profileImg"
             class="imgProfile circle mb-3"
-            src="<%= user.image.url %> "
+            src="<%= nav.image.url %> "
           />
           <div class="small font-italic text-muted mb-4">
             Μέγιστο μέγεθος 2MB
           </div>
-          <form action="/editImage" method="POST" enctype="multipart/form-data">
+          <form action="/editProfileImage/<%= currentProfile.origin._id %>" method="POST" enctype="multipart/form-data">
             <input
               accept="image/*"
               type="file"
@@ -232,14 +233,14 @@
       <div class="footerBg container card">
         <div class="mb-4 mt-2">
           <div class="containerTitle">Βιογραφικό Σημείωμα</div>
-          <form action="/editBio" method="post">
+          <form action="/editProfileBio/<%= currentProfile.origin._id %>" method="post">
             <textarea
               id="bio"
               name="bio"
               class="fitTextarea form-control"
               rows="8"
             >
-<%= user.bio%></textarea
+<%= nav.bio%></textarea
             >
             <button id="editBtn" class="mt-3 btn btn-success" type="submit">
               Αποθήκευση
@@ -249,20 +250,20 @@
       </div>
     </div>
   </div>
-  <% if(user.skills.length >0){ %> 
+  <% if(nav.skills.length >0){ %> 
   <div class="row mt-3">
     <div class="col-sm-12">
       <div class="card footerBg container">
         <div class="card-body" >
-          <form action="/editSkills" method="post" >
+          <form action="/editProfileSkills/<%= currentProfile.origin._id %>" method="post" >
           <div class="containerTitle">Skills</div>
           <div id="inputContainer">
-          <% for(let i=0;i<user.skills.length;i++){%>
+          <% for(let i=0;i<nav.skills.length;i++){%>
           <p class="white"> 
-            <input class="mt-5 inputSkills" type="text" value="<%= user.skills[i].skillName%>" name="skills[<%=i %>]">  
-            <span id="demo<%=i %>" class="sliderRange"><%= user.skills[i].rating %></span></p>
+            <input class="mt-5 inputSkills" type="text" value="<%= nav.skills[i].skillName%>" name="skills[<%=i %>]">  
+            <span id="demo<%=i %>" class="sliderRange"><%= nav.skills[i].rating %></span></p>
           <div class="slidecontainer">
-            <input name="skills[<%=i %>]" type="range" min="1" max="100" value="<%= user.skills[i].rating %>" class="slider" id="myRange<%=i %>">
+            <input name="skills[<%=i %>]" type="range" min="1" max="100" value="<%= nav.skills[i].rating %>" class="slider" id="myRange<%=i %>">
           </div>
           <% } %> 
         </div>
@@ -302,44 +303,44 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% for(let i=0;i<user.assignments.length;i++){%>
+                    <% for(let i=0;i<nav.assignments.length;i++){%>
                     <tr>
                       <td class="center">
                         <div
                           class="bg-light d-inline-flex justify-content-center align-items-center align-top"
                           style="width: 40px; height: 40px; border-radius: 3px"
                         >
-                          <% if(user.assignments[i].filetype === "pdf"){%>
+                          <% if(nav.assignments[i].filetype === "pdf"){%>
                           <i class="dark fileType fa-regular fa-file-pdf"></i>
-                          <% }else if(user.assignments[i].filetype ===
-                          "ppt" || user.assignments[i].filetype
+                          <% }else if(nav.assignments[i].filetype ===
+                          "ppt" || nav.assignments[i].filetype
                           ==="pptx"){ %>
                           <i
                             class="dark fileType fa-regular fa-file-powerpoint"
                           ></i>
-                          <% }else if(user.assignments[i].filetype ===
-                          "doc" || user.assignments[i].filetype ===
+                          <% }else if(nav.assignments[i].filetype ===
+                          "doc" || nav.assignments[i].filetype ===
                           "docx"){ %>
                           <i class="dark fileType fa-regular fa-file-word"></i>
-                          <% }else if(user.assignments[i].filetype ===
+                          <% }else if(nav.assignments[i].filetype ===
                           "txt"){ %>
                           <i class="dark fileType fa-regular fa-file-lines"></i>
-                          <% }else if(user.assignments[i].filetype ===
-                          "jpeg" || user.assignments[i].filetype === "png"
-                          || user.assignments[i].filetype === "gif"){ %>
+                          <% }else if(nav.assignments[i].filetype ===
+                          "jpeg" || nav.assignments[i].filetype === "png"
+                          || nav.assignments[i].filetype === "gif"){ %>
                           <i class="dark fileType fa-regular fa-file-image"></i>
                           <% }else{ %>
                           <i class="dark fileType fa-regular fa-file"></i>
                           <% } %>
                         </div>
                       </td>
-                      <% user.assignments[i].filename.substring(0,
-                      user.assignments[i].filename.indexOf('-')); %>
+                      <% nav.assignments[i].filename.substring(0,
+                      nav.assignments[i].filename.indexOf('-')); %>
                       <td class="center white">
                         <div id="modalContainer">
                         <button type="button" id="modalBtn<%= i %>" class="button">
                           <%=
-                          user.assignments[i].filename.substring(user.assignments[i].filename.indexOf('-')
+                          nav.assignments[i].filename.substring(nav.assignments[i].filename.indexOf('-')
                           + 1); %>
                         </button>
 
@@ -347,22 +348,22 @@
                           <div class="fileModalContent">
                             <span class="close">&times;</span>
                             <p>
-                              <% if(user.assignments[i].filetype === "pdf" || user.assignments[i].filetype ===
-                          "jpeg" || user.assignments[i].filetype === "png"
-                          || user.assignments[i].filetype === "gif" || user.assignments[i].filetype ===
+                              <% if(nav.assignments[i].filetype === "pdf" || nav.assignments[i].filetype ===
+                          "jpeg" || nav.assignments[i].filetype === "png"
+                          || nav.assignments[i].filetype === "gif" || nav.assignments[i].filetype ===
                           "txt"){ %>
                               <embed
                                 width="100%"
                                 height="700px"
                                 frameborder='0'
-                                src="<%= user.assignments[i].path %>"></embed>
+                                src="<%= nav.assignments[i].path %>"></embed>
 
                               <% }else{ %>
                                 <embed
                                 width="100%"
                                 height="700px"
                                 frameborder='0' 
-                                src="https://view.officeapps.live.com/op/embed.aspx?src=<%= user.assignments[i].path %>"></embed>
+                                src="https://view.officeapps.live.com/op/embed.aspx?src=<%= nav.assignments[i].path %>"></embed>
                               <% } %>
                             </p>
                           </div>
@@ -373,7 +374,7 @@
                       <td class="center">
                         <span class="white"
                           ><%=
-                          user.assignments[i].submitted.toLocaleDateString('el-GR',
+                          nav.assignments[i].submitted.toLocaleDateString('el-GR',
                           { year: 'numeric', month: 'long', day:
                           'numeric' }) %>
                         </span>
@@ -388,7 +389,7 @@
                             class="form-check-input"
                             type="checkbox"
                             role="switch"
-                            <%= user.assignments[i].visible ? "checked" : ""%>
+                            <%= nav.assignments[i].visible ? "checked" : ""%>
                           />
                         </div>
                       </td>
@@ -398,13 +399,13 @@
                             target="_blank"
                             class="btn btn-outline-secondary"
                             type="button"
-                            href="<%= user.assignments[i].path%>"
-                            download="<%=user.assignments[i].filename.substring(user.assignments[i].filename.indexOf('-')
+                            href="<%= nav.assignments[i].path%>"
+                            download="<%=nav.assignments[i].filename.substring(nav.assignments[i].filename.indexOf('-')
                           + 1)%>"
                           >
                           <i class="fa-solid fa-download"></i>
                           </a>
-                        <form action="/deleteAssignment/<%= i %>" method="post">
+                        <form action="/deleteAssignment/<%= i %>/<%= currentProfile.origin._id %>" method="post">
                           <button
                             id="deleteBtn"
                             class="btn btn-outline-secondary"
@@ -435,7 +436,7 @@
     id="assignmentForm"
     method="POST"
     enctype="multipart/form-data"
-    action="/assignmentUpload"
+    action="/assignmentUpload/<%= currentProfile.origin._id %>"
   >
     <input type="file" name="file" id="file" />
     <br>
@@ -451,7 +452,8 @@
 <script>
   const mapboxToken = "<%- process.env.MAPBOX_TOKEN %>" 
   const geo = <%- JSON.stringify(user.geometry.coordinates) %>
+  const currentProfile = <%- JSON.stringify(currentProfile) %>
 </script>
 
 <script src="/static/javascripts/edit.js"></script>
-<script src="/static/javascripts/editAssignments.js"></script>
+<script src="/static/javascripts/editProfileAssignments.js"></script>

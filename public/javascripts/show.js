@@ -1,4 +1,5 @@
 mapboxgl.accessToken = mapboxToken;
+console.log(allUsersProfiles);
 
 const map = new mapboxgl.Map({
   style: "mapbox://styles/daxaka/cl4xrx2rv004c14ogai4imudy",
@@ -186,7 +187,7 @@ map.on("load", () => {
   map.on("click", "unclustered-point", (e) => {
     const coordinates = e.features[0].geometry.coordinates.slice();
     const popUp = e.features[0].properties.popUpMarkup;
-
+  
     // Ensure that if the map is zoomed out such that
     // multiple copies of the feature are visible, the
     // popup appears over the copy being pointed to.

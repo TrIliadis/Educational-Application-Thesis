@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Course = require("../models/course");
 const User = require("../models/user");
 const courses = require("./courses");
+const profiles = require("./profiles");
 const axios = require("axios");
 const randomName = require("node-random-name");
 const randomLocation = require("random-location");
@@ -10,6 +11,7 @@ const geocodingClient = mbxGeocoding({
   accessToken:
     "pk.eyJ1IjoiZGF4YWthIiwiYSI6ImNsMXhicW1odTAxYWgzZG1tODVtcjRnYmQifQ.p0DZDL3qMIzWsdHrRxgj4Q",
 });
+let courseList = [];
 
 mongoose.connect("mongodb://localhost:27017/thesis", {
   useNewUrlParser: true,
@@ -29,14 +31,28 @@ function randomDate(start, end) {
   );
 }
 
+//randomize array order
+function shuffle(array) {
+  var i = array.length,
+    j = 0,
+    temp;
+  while (i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    // swap randomly chosen element with current element
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+}
+
 //Dummy seed DB
 const seedDB = async () => {
-  //delete course and user collection data
+  //delete course and user collection data to re-seed them
   await Course.deleteMany({});
   await User.deleteMany({});
 
   for (let i = 0; i < courses.length; i++) {
-    //get random images from unsplash api
     const course = new Course({
       title: courses[i].title,
       description: courses[i].description,
@@ -46,18 +62,61 @@ const seedDB = async () => {
     });
     await course.save();
     console.log(course);
+    courseList.push(course);
   }
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 200; i++) {
     const user = new User({
       name: randomName({ first: true, random: Math.random }),
       surname: randomName({ last: true, random: Math.random }),
       username: `user${i}@user${i}`,
-      bio: "Ονομάζομαι Τριαντάφυλλος Ηλιάδης, είμαι φοιτητής στην πληροφορική σχολή του Αριστοτελείου πανεπιστημίου Θεσσαλονίκης και κατάγομαι από τη Δράμα. Στον ελεύθερο μου χρόνο ασχολούμαι με τη γυμναστική, το web development και το gaming. Ενδιαφέρομαι ιδιαίτερα για web development και είναι κάτι με το οποίο θα ήθελα να ασχοληθώ επαγγελματικά μελλοντικά. Αυτή η πτυχιακή εργασία έγινε με τις τελευταίες τεχνολογίες (js, node, express) που συχνά ζητά η αγορά εργασίας στον τομέα του web developemt και δόθηκε έμφαση στο οπτικό κομμάτι αλλά και στις δυνατότητες επεξεργασίας προφίλ του χρήστη (Journaling).",
       uni: "CSD, AUTH",
     });
+    user.facebook = `${user.name + " " + user.surname}`;
+    user.instagram = `@${user.name}`;
+    user.twitter = `@${user.surname}`;
+
     if (i % 10 == 0) user.role = "teacher";
     else user.role = "student";
+
+    const profilePicker = shuffle([0, 1, 2, 3, 4]); //randomize order of numbers
+
+    //pick first 3 numbers of profilePicker to add to the profiles from courses
+    const newProfile0 = {
+      origin: courseList[profilePicker[0]]._id,
+      image: profiles[profilePicker[0]].image,
+      bio: profiles[profilePicker[0]].bio,
+      assignments: profiles[profilePicker[0]].assignments,
+      skills: profiles[profilePicker[0]].skills,
+    };
+
+    const newProfile1 = {
+      origin: courseList[profilePicker[1]]._id,
+      image: profiles[profilePicker[1]].image,
+      bio: profiles[profilePicker[1]].bio,
+      assignments: profiles[profilePicker[1]].assignments,
+      skills: profiles[profilePicker[1]].skills,
+    };
+
+    const newProfile2 = {
+      origin: courseList[profilePicker[2]]._id,
+      image: profiles[profilePicker[2]].image,
+      bio: profiles[profilePicker[2]].bio,
+      assignments: profiles[profilePicker[2]].assignments,
+      skills: profiles[profilePicker[2]].skills,
+    };
+
+    user.profiles.push(newProfile0);
+    user.profiles.push(newProfile1);
+    user.profiles.push(newProfile2);
+
+    const course0 = await Course.findById(courseList[profilePicker[0]]);
+    const course1 = await Course.findById(courseList[profilePicker[1]]);
+    const course2 = await Course.findById(courseList[profilePicker[2]]);
+
+    
+    user.bio =
+      "Ονομάζομαι Τριαντάφυλλος Ηλιάδης, είμαι φοιτητής στην πληροφορική σχολή του Αριστοτελείου πανεπιστημίου Θεσσαλονίκης και κατάγομαι από τη Δράμα. Στον ελεύθερο μου χρόνο ασχολούμαι με τη γυμναστική, το web development και το gaming. Ενδιαφέρομαι ιδιαίτερα για web development και είναι κάτι με το οποίο θα ήθελα να ασχοληθώ επαγγελματικά μελλοντικά. Αυτή η πτυχιακή εργασία έγινε με τις τελευταίες τεχνολογίες (js, node, express) που συχνά ζητά η αγορά εργασίας στον τομέα του web developemt και δόθηκε έμφαση στο οπτικό κομμάτι αλλά και στις δυνατότητες επεξεργασίας προφίλ του χρήστη (Journaling).";
 
     const j = Math.floor(Math.random() * 200);
     if (j < 20) {
@@ -102,9 +161,6 @@ const seedDB = async () => {
       user.image.filename = "photo-1619895862022-09114b41f16f_pz0oeg.jpg";
     }
 
-    user.facebook = `${user.name + " " + user.surname}`;
-    user.instagram = `@${user.name}`;
-    user.twitter = `@${user.surname}`;
     user.skills = [
       {
         skillName: "Frontend development",
@@ -332,12 +388,16 @@ const seedDB = async () => {
       geo();
     }
 
-    if (typeof newUser.address == "undefined") {
-      newUser.address = "Αγίου Δημητρίου, 546 21 Θεσσαλονίκη, Ελλάδα";
-      newUser.save();
-    }
     const newUser = await User.register(user, `pass${i}`);
+    course0.members.push(newUser._id);
+    course1.members.push(newUser._id);
+    course2.members.push(newUser._id);
+
+    await course0.save();
+    await course1.save();
+    await course2.save();
     console.log(newUser);
+
   }
 };
 

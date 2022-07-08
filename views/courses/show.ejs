@@ -1,4 +1,5 @@
 <%- layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/static/stylesheets/coursesIndex.css" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 
@@ -23,13 +24,119 @@
     <h1 class="mx-auto imgTitle my-5"><%= course.title %></h1>
   </header>
   <main class="main">
-    <h1 class="h1Title">χρηστες ομαδας</h1>
-    <div id="map" style="width: 100%; height: 700px"></div>
+    <div class="container">
+      <h1 class="h1Title">χρηστες ομαδας</h1>
+      <div class="mb-5" id="map" style="width: 100%; height: 700px"></div>
+
+      <% for(let i=0;i<course.members.length;i+=4){%>
+       
+          <% if(i===course.members.length) break %>
+          <article class="card bg redCard">
+            <a class="cardImgLink" href="/users/<%= course._id %>/<%= course.members[i]._id %> ">
+              <img
+                class="cardImg"
+                src="<%=course.members[i].image.url %>"
+                alt="Image Title"
+              />
+            </a>
+            <div class="cardContent">
+              <h1 class="cardTitle redCard">
+                <a href="/users/<%= course._id %>/<%= course.members[i]._id %> "><%= course.members[i].name + " " + course.members[i].surname %></a>
+              </h1>
+              <div class="cardUnderline"></div>
+              <div class="cardDescription mb-5">
+                <%= course.members[i].bio %> 
+              </div>
+              <ul class="cardCrud">
+                <li class="me-2 cardCrudIcon play greenCard">
+                  <a href="/users/<%= course._id %>/<%= course.members[i]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Προφίλ του Χρήστη στην Ομάδα</a>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <% if(i+1===course.members.length) break %>
+          <article class="card bg blueCard">
+            <a class="cardImgLink" href="/users/<%= course._id %>/<%= course.members[i+1]._id %> ">
+              <img
+                class="cardImg"
+                src="<%=course.members[i+1].image.url %>"
+                alt="Image Title"
+              />
+            </a>
+            <div class="cardContent">
+              <h1 class="cardTitle blueCard">
+                <a href="/users/<%= course._id %>/<%= course.members[i+1]._id %> "><%= course.members[i+1].name + " " + course.members[i+1].surname %></a>
+              </h1>
+              <div class="cardUnderline"></div>
+              <div class="cardDescription mb-5">
+                <%= course.members[i+1].bio %> 
+              </div>
+              <ul class="cardCrud">
+                <li class="me-2 cardCrudIcon play greenCard">
+                  <a href="/users/<%= course._id %>/<%= course.members[i+1]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>   Δείτε το Προφίλ του Χρήστη στην Ομάδα</a>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <% if(i+2===course.members.length) break %>
+          <article class="card bg greenCard">
+            <a class="cardImgLink" href="/users/<%= course._id %>/<%= course.members[i+2]._id %> ">
+              <img
+                class="cardImg"
+                src="<%=course.members[i+2].image.url %>"
+                alt="Image Title"
+              />
+            </a>
+            <div class="cardContent">
+              <h1 class="cardTitle greenCard">
+                <a href="/users/<%= course._id %>/<%= course.members[i+2]._id %> "><%= course.members[i+2].name + " " + course.members[i+2].surname %></a>
+              </h1>
+              <div class="cardUnderline"></div>
+              <div class="cardDescription mb-5">
+                <%= course.members[i+2].bio %> 
+              </div>
+              <ul class="cardCrud">
+                <li class="me-2 cardCrudIcon play greenCard">
+                  <a href="/users/<%= course._id %>/<%= course.members[i+2]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε το Προφίλ του Χρήστη στην Ομάδα</a>
+                </li>
+              </ul>
+            </div>
+          </article>
+          <% if(i+3===course.members.length) break %>
+          <article class="card bg yellowCard">
+            <a class="cardImgLink" href="/users/<%= course._id %>/<%= course.members[i+3]._id %> ">
+              <img
+                class="cardImg"
+                src="<%=course.members[i+3].image.url %>"
+                alt="Image Title"
+              />
+            </a>
+            <div class="cardContent">
+              <h1 class="cardTitle yellowCard">
+                <a href="/users/<%= course._id %>/<%= course.members[i+3]._id %> "><%= course.members[i+3].name + " " + course.members[i+3].surname %></a>
+              </h1>
+              <div class="cardUnderline"></div>
+              <div class="cardDescription mb-5">
+                <%= course.members[i+3].bio %> 
+              </div>
+              <ul class="cardCrud">
+                <li class="me-2 cardCrudIcon play greenCard">
+                  <a href="/users/<%= course._id %>/<%= course.members[i+3]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>   Δείτε το Προφίλ του Χρήστη στην Ομάδα</a>
+                </li>
+              </ul>
+            
+          </article>
+        </div>
+      
+        <% } %>
+
+    </div>
   </main>
 </div>
 
 <script>
   const mapboxToken = "<%- process.env.MAPBOX_TOKEN %>"
   const allUsers = {features:<%- JSON.stringify(course.members) %> }
+  const allUsersProfiles =  {info:<%- JSON.stringify(memberList) %> }
 </script>
 <script src="/static/javascripts/show.js"></script>

@@ -595,11 +595,11 @@ app.post(
       user.assignments.push(assignment);
       await user.save();
       req.flash("success", "Το αρχείο αποθηκεύτηκε επιτυχώς!");
-      res.redirect("edit/assignments");
+      res.redirect("/edit");
     } catch (e) {
       console.log(e);
       req.flash("error", "Υπήρχε κάποιο πρόβλημα με την αποθήκευση");
-      res.redirect("edit/assignments");
+      res.redirect("/edit");
     }
   })
 );
@@ -633,7 +633,7 @@ app.post(
     );
     await user.save();
     req.flash("success", "Το αρχείο διαγράφηκε επιτυχώς!");
-    res.redirect("/edit/assignments");
+    res.redirect("/edit");
   })
 );
 
@@ -675,6 +675,149 @@ app.post(
     await user.save();
     req.flash("success", "Η εικόνα άλλαξε επιτυχώς!");
     res.redirect("/edit");
+  })
+);
+
+//edit user profile image of secondary profile
+app.post(
+  "/editProfileImage/:id",
+  upload.single("image"),
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(req.user._id);
+    //delete old image file from cloudinary
+    for (let profile of user.profiles) {
+      if (id === profile.origin._id.toString()) {
+        try {
+          profile.image = { url: req.file.path, filename: req.file.filename };
+          await user.save();
+          req.flash("success", "Η εικόνα άλλαξε επιτυχώς!");
+          res.redirect("/edit");
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    }
+  })
+);
+
+//edit user bio of secondary profile
+app.post(
+  "/editProfileBio/:id",
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(req.user._id);
+    for (let profile of user.profiles) {
+      if (id === profile.origin._id.toString()) {
+        profile.bio = req.body.bio;
+        await user.save();
+      }
+    }
+    req.flash("success", "Το βιογραφικό άλλαξε επιτυχώς!");
+    res.redirect("/edit");
+  })
+);
+
+//edit user skills of secondary profile
+app.post(
+  "/editProfileSkills/:id",
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(req.user._id);
+    const data = req.body.skills;
+
+    //remove skill if skillName is empty
+    for (let i = 0; i < data.length; i++) {
+      if (data[i][0] === "") {
+        data.splice(i, 1);
+      }
+    }
+
+    //convert array of arrays to array of objects
+    const formDataToObject = data.map(([skillName, rating]) => ({
+      skillName,
+      rating,
+    }));
+    for (let profile of user.profiles) {
+      if (id === profile.origin._id.toString()) {
+        profile.skills = formDataToObject;
+        await user.save();
+      }
+    }
+    req.flash("success", "Τα skills άλλαξαν επιτυχώς!");
+    res.redirect("/edit");
+  })
+);
+
+//toggle visibility of secondary profile assignment
+app.post(
+  "/toggleVisibility/:id/:courseId",
+  asyncWrapper(async (req, res) => {
+    const { id, courseId } = req.params;
+    const assignmentId = id.match(/\d+/)[0];
+    const visibilityValue = id.replace(/[0-9]/g, "");
+    const user = await User.findById(req.user._id);
+    for (let profile of user.profiles) {
+      if (courseId === profile.origin._id.toString()) {
+        profile.assignments[parseInt(assignmentId)].visible = visibilityValue;
+        await user.save();
+      }
+    }
+    return true;
+  })
+);
+
+//delete secondary profile assignment
+app.post(
+  "/deleteAssignment/:i/:id",
+  asyncWrapper(async (req, res) => {
+    const { i, id } = req.params;
+    const user = await User.findById(req.user._id);
+    for (let profile of user.profiles) {
+      if (id === profile.origin._id.toString()) {
+        profile.assignments = profile.assignments.filter(
+          (item) => item !== profile.assignments[parseInt(i)]
+        );
+        await user.save();
+      }
+    }
+    req.flash("success", "Το αρχείο διαγράφηκε επιτυχώς!");
+    res.redirect("/edit");
+  })
+);
+
+//upload new assignment for secondary profile
+app.post(
+  "/assignmentUpload/:id",
+  uploadFile.single("file"),
+  asyncWrapper(async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await User.findById(req.user._id);
+
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        resource_type: "raw",
+        public_id: Date.now() + "-" + req.file.originalname,
+      });
+      const assignment = {
+        path: result.url,
+        filename: result.public_id,
+        filetype: result.public_id.split(".").pop(),
+      };
+
+      for (let profile of user.profiles) {
+        if (id === profile.origin._id.toString()) {
+          profile.assignments.push(assignment);
+          await user.save();
+        }
+      }
+      req.flash("success", "Το αρχείο αποθηκεύτηκε επιτυχώς!");
+      res.redirect("/edit");
+    } catch (e) {
+      console.log(e);
+      req.flash("error", "Υπήρχε κάποιο πρόβλημα με την αποθήκευση");
+      res.redirect("/edit");
+    }
   })
 );
 
@@ -731,18 +874,77 @@ app.post(
 );
 
 //render edit profile page
-app.get("/edit", (req, res) => {
-  res.render("users/edit", { topic: "Επεξεργασία Προφίλ" });
+app.get("/edit", async (req, res) => {
+  const user = await User.findById(req.user._id).populate({
+    path: "profiles",
+    populate: {
+      path: "origin",
+    },
+  });
+  res.render("users/edit", {
+    user,
+    topic: "Επεξεργασία Προφίλ",
+    nav: "general",
+  });
 });
+
+//render edit profiles
+app.get(
+  "/edit/:id",
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(req.user._id).populate({
+      path: "profiles",
+      populate: {
+        path: "origin",
+      },
+    });
+    for (let profile of user.profiles) {
+      if (profile.origin._id.toString() === id) {
+        res.render("users/editProfile", {
+          user,
+          topic: "Επεξεργασία Προφίλ",
+          nav: profile,
+        });
+      }
+    }
+  })
+);
+
+//render user page in a course
+app.get(
+  "/users/:courseId/:userId",
+  asyncWrapper(async (req, res) => {
+    const { courseId, userId } = req.params;
+    const user = await User.findById(userId);
+    let userProfile = "";
+    for (let i = 0; i < user.profiles.length; i++) {
+      if (user.profiles[i].origin.toString() === courseId) {
+        userProfile = user.profiles[i];
+      }
+    }
+    res.render("users/showProfile", { user, userProfile });
+  })
+);
 
 //render course page
 app.get(
   "/courses/:id",
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
+    let memberList = [];
     //populate user schema to have coordinates available
     const course = await Course.findById(id).populate("members");
-    res.render("courses/show", { course, topic: course.title });
+
+    for (let i = 0; i < course.members.length; i++) {
+      for (let j = 0; j < course.members[i].profiles.length; j++) {
+        if (course._id.equals(course.members[i].profiles[j].origin)) {
+          memberList.push(course.members[i].profiles[j]);
+        }
+      }
+    }
+    console.log(memberList);
+    res.render("courses/show", { memberList, course, topic: course.title });
   })
 );
 
@@ -765,8 +967,19 @@ app.get(
     course.members.push(req.user._id);
     await course.save();
     const user = await User.findById(req.user._id);
-    user.memberOf.push(course._id);
+    const newProfile = {
+      origin: course._id,
+      assignments: [],
+      skills: [
+        {
+          skillName: "Example Skill",
+          rating: 50,
+        },
+      ],
+    };
+    user.profiles.push(newProfile);
     await user.save();
+    console.log(user);
     req.flash("success", "Εγγραφήκατε στην ομάδα επιτυχώς!");
     res.redirect("/courses");
   })
@@ -785,9 +998,9 @@ app.get(
       }
     }
     await course.save();
-    for (let i = 0; i < user.memberOf.length; i++) {
-      if (user.memberOf[i].equals(id)) {
-        user.memberOf.splice(i, 1); //remove course from user
+    for (let i = 0; i < user.profiles.length; i++) {
+      if (user.profiles[i].origin.equals(id)) {
+        user.profiles.splice(i, 1); //remove course from user
       }
     }
     await user.save();
@@ -826,17 +1039,17 @@ app.get(
   })
 );
 
-// // //404 route
-// app.all("*", (req, res, next) => {
-//   next(new ExpressError("Page Not Found", 404));
-// });
+// //404 route
+app.all("*", (req, res, next) => {
+  next(new ExpressError("Page Not Found", 404));
+});
 
-// //error middleware
-// app.use((err, req, res, next) => {
-//   const { statusCode = 500 } = err;
-//   if (!err.message) err.message = "Σφάλμα";
-//   res.status(statusCode).render("error", { err });
-// });
+//error middleware
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "Σφάλμα";
+  res.status(statusCode).render("error", { err });
+});
 
 app.listen(port, () => {
   console.log("Listening on port ", port);

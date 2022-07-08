@@ -8,7 +8,7 @@ for (let i = 0; i < counter1; i++) {
 
   switches.addEventListener("click", async (e) => {
     const id = e.target.id.match(/\d+/)[0] + e.target.checked;
-    fetch(`/toggleVisibility/${id}`, {
+    fetch(`/toggleVisibility/${id}/${currentProfile.origin._id}`, {
       method: "POST",
       mode: "no-cors",
     });

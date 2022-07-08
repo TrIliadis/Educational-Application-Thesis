@@ -44,6 +44,26 @@ const SkillSchema = new Schema({
   },
 });
 
+const ProfileSchema = new Schema({
+  origin: {
+    type: Schema.Types.ObjectId,
+    ref: "Course",
+  },
+  image: {
+    type: ImageSchema,
+    default: {
+      url: "https://res.cloudinary.com/dgzlym20q/image/upload/v1654529943/makeItGreen/avatar7_zzez7a.png",
+      filename: "avatar",
+    },
+  },
+  bio: {
+    type: String,
+    default: " "
+  },
+  assignments: [FileSchema],
+  skills: [SkillSchema],
+});
+
 const options = { toJSON: { virtuals: true } };
 
 const UserSchema = new Schema(
@@ -63,6 +83,13 @@ const UserSchema = new Schema(
       type: String,
       default: "Αγίου Δημητρίου, 546 21 Θεσσαλονίκη, Ελλάδα",
     },
+    image: {
+      type: ImageSchema,
+      default: {
+        url: "https://res.cloudinary.com/dgzlym20q/image/upload/v1654529943/makeItGreen/avatar7_zzez7a.png",
+        filename: "avatar",
+      },
+    },
     role: {
       type: String,
       enum: ["teacher", "student"],
@@ -79,13 +106,6 @@ const UserSchema = new Schema(
         type: [Number],
       },
     },
-    image: {
-      type: ImageSchema,
-      default: {
-        url: "https://res.cloudinary.com/dgzlym20q/image/upload/v1654529943/makeItGreen/avatar7_zzez7a.png",
-        filename: "avatar",
-      },
-    },
     facebook: {
       type: String,
     },
@@ -98,18 +118,9 @@ const UserSchema = new Schema(
     bio: {
       type: String,
     },
-    courses: {
-      type: Schema.Types.ObjectId,
-      ref: "Course",
-    },
     assignments: [FileSchema],
     skills: [SkillSchema],
-    memberOf: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Course",
-      },
-    ],
+    profiles: [ProfileSchema],
   },
   options
 );
