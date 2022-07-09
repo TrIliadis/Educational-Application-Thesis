@@ -184,7 +184,7 @@ To get a local copy up and running follow these simple example steps.
 - [x] Authorization
 - [x] Cookies
 - [x] Session
-- [ ] Security
+- [x] Security
 
 
 See the [open issues](https://github.com/TrIliadis/Educational-Application-Thesis/issues) for a full list of proposed features (and known issues).
