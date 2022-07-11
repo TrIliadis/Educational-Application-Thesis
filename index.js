@@ -17,9 +17,6 @@ const mongoose = require("mongoose");
 //ejs-mate import
 const engine = require("ejs-mate");
 
-//import Helmet
-const helmet = require("helmet");
-
 //import nodemailer & email template
 const nodemailer = require("nodemailer");
 
@@ -132,11 +129,6 @@ app.use(session(sessionConfig));
 //flash-connect middleware
 app.use(flash());
 
-//helmet middleware
-// app.use(
-//   helmet()
-// );
-
 //passport middlewares
 app.use(passport.initialize());
 app.use(passport.session());
@@ -170,6 +162,7 @@ app.get(
   asyncWrapper(async (req, res) => {
     const courses = await Course.find({});
     const users = await User.find({});
+    console.log(courses[0])
     res.render("courses/index", {
       courses,
       users,
@@ -624,7 +617,7 @@ app.post(
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     const user = await User.findById(req.user._id);
-    const result = await cloudinary.uploader.destroy(
+    await cloudinary.uploader.destroy(
       user.assignments[parseInt(id)].filename,
       { resource_type: "raw" }
     );
@@ -943,7 +936,6 @@ app.get(
         }
       }
     }
-    console.log(memberList);
     res.render("courses/show", { memberList, course, topic: course.title });
   })
 );

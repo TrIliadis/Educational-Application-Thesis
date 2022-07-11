@@ -1,5 +1,5 @@
 mapboxgl.accessToken = mapboxToken;
-console.log(allUsersProfiles);
+
 
 const map = new mapboxgl.Map({
   style: "mapbox://styles/daxaka/cl4xrx2rv004c14ogai4imudy",

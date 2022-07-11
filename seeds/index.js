@@ -3,7 +3,6 @@ const Course = require("../models/course");
 const User = require("../models/user");
 const courses = require("./courses");
 const profiles = require("./profiles");
-const axios = require("axios");
 const randomName = require("node-random-name");
 const randomLocation = require("random-location");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
