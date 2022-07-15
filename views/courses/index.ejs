@@ -27,7 +27,7 @@
   <div class="container">
     <% if(i===courses.length) break %>
     <article class="card bg redCard">
-      <a class="cardImgLink" href="/courses/<%= courses[i]._id %>">
+      <a class="cardImgLink" href="/course/<%= courses[i]._id %>">
         <img
           class="cardImg"
           src="<%=courses[i].images.url %>"
@@ -36,7 +36,7 @@
       </a>
       <div class="cardContent">
         <h1 class="cardTitle redCard">
-          <a href="/courses/<%= courses[i]._id %>"><%= courses[i].title %></a>
+          <a href="/course/<%= courses[i]._id %>"><%= courses[i].title %></a>
         </h1>
         <div class="card-subtitle">
           <time>
@@ -54,16 +54,16 @@
         </div>
         <ul class="cardCrud">
           <li class="me-2 cardCrudIcon play greenCard">
-            <a href="/courses/<%= courses[i]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
+            <a href="/course/<%= courses[i]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
           </li>
           <% if(loggedUser && !containsObject(loggedUser._id,courses[i].members)){ %> 
             <li class="me-2 cardCrudIcon play yellowCard">
-              <a href="/courses/join/<%= courses[i]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
+              <a href="/course/join/<%= courses[i]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
             </li>
             <% } %> 
           <% if(loggedUser && containsObject(loggedUser._id,courses[i].members)){ %> 
             <li class="me-2 cardCrudIcon play yellowCard">
-              <a href="/courses/delete/<%= courses[i]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
+              <a href="/course/delete/<%= courses[i]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
             </li>
           <% } %> 
         </ul>
@@ -71,7 +71,7 @@
     </article>
     <% if(i+1===courses.length) break %>
     <article class="card bg blueCard">
-      <a class="cardImgLink" href="/courses/<%= courses[i+1]._id %>">
+      <a class="cardImgLink" href="/course/<%= courses[i+1]._id %>">
         <img
           class="cardImg"
           src="<%=courses[i+1].images.url %>"
@@ -80,7 +80,7 @@
       </a>
       <div class="cardContent">
         <h1 class="cardTitle blueCard">
-          <a href="/courses/<%= courses[i+1]._id %>"><%= courses[i+1].title %> </a>
+          <a href="/course/<%= courses[i+1]._id %>"><%= courses[i+1].title %> </a>
         </h1>
         <div class="card-subtitle">
           <time >
@@ -98,16 +98,16 @@
         </div>
         <ul class="cardCrud">
           <li class="me-2 cardCrudIcon play greenCard">
-            <a href="/courses/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
+            <a href="/course/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
           </li>
           <% if(loggedUser && !containsObject(loggedUser._id,courses[i+1].members)){ %> 
             <li class="me-2 cardCrudIcon play yellowCard">
-              <a href="/courses/join/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
+              <a href="/course/join/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
             </li>
             <% } %> 
           <% if(loggedUser && containsObject(loggedUser._id,courses[i+1].members)){ %> 
             <li class="me-2 cardCrudIcon play yellowCard">
-              <a href="/courses/delete/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
+              <a href="/course/delete/<%= courses[i+1]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
             </li>
           <% } %> 
         </ul>
@@ -115,7 +115,7 @@
     </article>
     <% if(i+2===courses.length) break %>
     <article class="card bg greenCard">
-      <a class="cardImgLink" href="/courses/<%= courses[i+2]._id %>">
+      <a class="cardImgLink" href="/course/<%= courses[i+2]._id %>">
         <img
           class="cardImg"
           src="<%=courses[i+2].images.url %>"
@@ -124,7 +124,7 @@
       </a>
       <div class="cardContent">
         <h1 class="cardTitle greenCard">
-          <a href="/courses/<%= courses[i+2]._id %>"><%= courses[i+2].title %></a>
+          <a href="/course/<%= courses[i+2]._id %>"><%= courses[i+2].title %></a>
         </h1>
         <div class="card-subtitle">
           <time>
@@ -142,16 +142,16 @@
         </div>
         <ul class="cardCrud">
           <li class="me-2 cardCrudIcon play greenCard">
-            <a href="/courses/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
+            <a href="/course/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
           </li>
           <% if(loggedUser && !containsObject(loggedUser._id,courses[i+2].members)){ %> 
             <li class="me-2 cardCrudIcon play yellowCard">
-              <a href="/courses/join/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
+              <a href="/course/join/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
             </li>
             <% } %> 
           <% if(loggedUser && containsObject(loggedUser._id,courses[i+2].members)){ %> 
             <li class="me-2 cardCrudIcon play yellowCard">
-              <a href="/courses/delete/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
+              <a href="/course/delete/<%= courses[i+2]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
             </li>
           <% } %> 
         </ul>
@@ -159,7 +159,7 @@
     </article>
     <% if(i+3===courses.length) break %>
     <article class="card bg yellowCard">
-      <a class="cardImgLink" href="/courses/<%= courses[i+3]._id %>">
+      <a class="cardImgLink" href="/course/<%= courses[i+3]._id %>">
         <img
           class="cardImg"
           src="<%=courses[i+3].images.url %>"
@@ -168,7 +168,7 @@
       </a>
       <div class="cardContent">
         <h1 class="cardTitle yellowCard">
-          <a href="/courses/<%= courses[i+3]._id %>"><%= courses[i+3].title %></a>
+          <a href="/course/<%= courses[i+3]._id %>"><%= courses[i+3].title %></a>
         </h1>
         <div class="card-subtitle">
           <time>
@@ -186,16 +186,16 @@
         </div>
         <ul class="cardCrud">
           <li class="me-2 cardCrudIcon play greenCard">
-            <a href="/courses/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
+            <a href="/course/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-folder-open mr-2"></i>  Δείτε την Ομάδα</a>
           </li>
           <% if(loggedUser && !containsObject(loggedUser._id,courses[i+3].members)){ %> 
             <li class="me-2 cardCrudIcon play yellowCard">
-              <a href="/courses/join/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
+              <a href="/course/join/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-person-walking-arrow-right mr-2"></i>  Εγγραφή στην Ομάδα</a>
             </li>
             <% } %> 
           <% if(loggedUser && containsObject(loggedUser._id,courses[i+3].members)){ %> 
             <li class="me-2 cardCrudIcon play yellowCard">
-              <a href="/courses/delete/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
+              <a href="/course/delete/<%= courses[i+3]._id %> "><i class="fas fa-solid fa-trash-can mr-2"></i>  Διαγραφή από την Ομάδα</a>
             </li>
           <% } %> 
         </ul>

@@ -147,11 +147,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// render home page
-app.get("/", (req, res) => {
-  res.render("home");
-});
-
 //render login page
 app.get("/login", (req, res) => {
   res.render("users/loginPage", { topic: "Σύνδεση" });
@@ -159,11 +154,10 @@ app.get("/login", (req, res) => {
 
 //render all courses page
 app.get(
-  "/courses",
+  "/",
   asyncWrapper(async (req, res) => {
     const courses = await Course.find({});
     const users = await User.find({});
-    console.log(courses[0]);
     res.render("courses/index", {
       courses,
       users,
@@ -253,7 +247,7 @@ app.post(
             <div class="container main">
               <div class="container">
                 <!-- change link after deploy -->
-                <a href="https://stormy-plains-93360.herokuapp.com/courses"
+                <a href="https://stormy-plains-93360.herokuapp.com/"
                   ><img
                     src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654068549/makeItGreen/book_c2vkdg.png"
                     width="130"
@@ -444,7 +438,7 @@ app.post(
               <div class="container main">
                 <div class="container">
                   <!-- change link after deploy -->
-                  <a href="https://stormy-plains-93360.herokuapp.com/courses"
+                  <a href="https://stormy-plains-93360.herokuapp.com/"
                     ><img
                       src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654068549/makeItGreen/book_c2vkdg.png"
                       width="130"
@@ -535,7 +529,7 @@ app.post(
        `,
         });
         console.log("Message sent: %s", info.messageId);
-        res.redirect("/courses");
+        res.redirect("/");
       });
     } catch (e) {
       const translateError = await translate(e.message, "el");
@@ -859,7 +853,7 @@ app.post(
   asyncWrapper(async (req, res) => {
     const name = greekify(req.user.name);
     //if user tried to access something without authorization, return him there after login
-    const url = req.session.returnUrl || "/courses";
+    const url = req.session.returnUrl || "/";
     if (req.session.returnUrl) delete req.session.returnTo;
     req.flash("success", `Καλώς όρισες και πάλι ${name}!`);
     res.redirect(url);
@@ -922,7 +916,7 @@ app.get(
 
 //render course page
 app.get(
-  "/courses/:id",
+  "/course/:id",
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     let memberList = [];
@@ -946,13 +940,13 @@ app.get("/logout", (req, res) => {
   req.logout((e) => {
     req.flash("success", `Αντίο ${name}!`);
     if (e) return next(e);
-    res.redirect("/courses");
+    res.redirect("/");
   });
 });
 
 //add user to course
 app.get(
-  "/courses/join/:id",
+  "/course/join/:id",
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     const course = await Course.findById(id);
@@ -971,18 +965,16 @@ app.get(
     };
     user.profiles.push(newProfile);
     await user.save();
-    console.log(user);
     req.flash("success", "Εγγραφήκατε στην ομάδα επιτυχώς!");
-    res.redirect("/courses");
+    res.redirect("/");
   })
 );
 
 app.get(
-  "/courses/delete/:id",
+  "/course/delete/:id",
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     const course = await Course.findById(id);
-    console.log(course);
     const user = await User.findById(req.user._id);
     for (let i = 0; i < course.members.length; i++) {
       if (course.members[i].equals(user._id)) {
@@ -997,7 +989,7 @@ app.get(
     }
     await user.save();
     req.flash("success", "Διαγραφήκατε από την ομάδα επιτυχώς!");
-    res.redirect("/courses");
+    res.redirect("/");
   })
 );
 
@@ -1022,12 +1014,12 @@ app.get(
 
 //delete course
 app.get(
-  "/courses/:id/delete",
+  "/course/:id/delete",
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     await Course.findByIdAndDelete(id);
     req.flash("success", "Η ομάδα διαγράφηκε επιτυχώς!");
-    res.redirect("/courses");
+    res.redirect("/");
   })
 );
 
