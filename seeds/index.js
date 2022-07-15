@@ -113,7 +113,6 @@ const seedDB = async () => {
     const course1 = await Course.findById(courseList[profilePicker[1]]);
     const course2 = await Course.findById(courseList[profilePicker[2]]);
 
-    
     user.bio =
       "Ονομάζομαι Τριαντάφυλλος Ηλιάδης, είμαι φοιτητής στην πληροφορική σχολή του Αριστοτελείου πανεπιστημίου Θεσσαλονίκης και κατάγομαι από τη Δράμα. Στον ελεύθερο μου χρόνο ασχολούμαι με τη γυμναστική, το web development και το gaming. Ενδιαφέρομαι ιδιαίτερα για web development και είναι κάτι με το οποίο θα ήθελα να ασχοληθώ επαγγελματικά μελλοντικά. Αυτή η πτυχιακή εργασία έγινε με τις τελευταίες τεχνολογίες (js, node, express) που συχνά ζητά η αγορά εργασίας στον τομέα του web developemt και δόθηκε έμφαση στο οπτικό κομμάτι αλλά και στις δυνατότητες επεξεργασίας προφίλ του χρήστη (Journaling).";
 
@@ -396,7 +395,6 @@ const seedDB = async () => {
     await course1.save();
     await course2.save();
     console.log(newUser);
-
   }
 };
 

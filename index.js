@@ -65,6 +65,7 @@ const ExpressError = require("./erorrHandling/ExpressError");
 
 // import asyncWrapper
 const asyncWrapper = require("./erorrHandling/asyncWrapper");
+const MongoStore = require("connect-mongo");
 
 //connect to DB
 const dBUrl = process.env.DB_URL || "mongodb://localhost:27017/thesis";
@@ -162,7 +163,7 @@ app.get(
   asyncWrapper(async (req, res) => {
     const courses = await Course.find({});
     const users = await User.find({});
-    console.log(courses[0])
+    console.log(courses[0]);
     res.render("courses/index", {
       courses,
       users,
@@ -252,7 +253,7 @@ app.post(
             <div class="container main">
               <div class="container">
                 <!-- change link after deploy -->
-                <a href="http://localhost:3000/"
+                <a href="https://stormy-plains-93360.herokuapp.com/courses"
                   ><img
                     src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654068549/makeItGreen/book_c2vkdg.png"
                     width="130"
@@ -443,7 +444,7 @@ app.post(
               <div class="container main">
                 <div class="container">
                   <!-- change link after deploy -->
-                  <a href="http://localhost:3000/"
+                  <a href="https://stormy-plains-93360.herokuapp.com/courses"
                     ><img
                       src="https://res.cloudinary.com/dgzlym20q/image/upload/v1654068549/makeItGreen/book_c2vkdg.png"
                       width="130"
@@ -617,10 +618,9 @@ app.post(
   asyncWrapper(async (req, res) => {
     const { id } = req.params;
     const user = await User.findById(req.user._id);
-    await cloudinary.uploader.destroy(
-      user.assignments[parseInt(id)].filename,
-      { resource_type: "raw" }
-    );
+    await cloudinary.uploader.destroy(user.assignments[parseInt(id)].filename, {
+      resource_type: "raw",
+    });
     user.assignments = user.assignments.filter(
       (item) => item !== user.assignments[parseInt(id)]
     );
