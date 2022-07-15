@@ -34,7 +34,7 @@
   </a>
 
 <h3 align="center">Educational Application</h3>
-
+<a href="https://powerful-wave-72231.herokuapp.com/">Live demo</a> 
   <p align="center">
     Thesis for CSD, AUTH
     <br />
